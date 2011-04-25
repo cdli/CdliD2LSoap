@@ -1,0 +1,1238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+	xmlns:tns="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1" 
+	xmlns:v1_0="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1_0" 
+	xmlns:s="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+	targetNamespace="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+	xmlns:grades="http://www.desire2learn.com/services/gms/xsd/grades-v1_0">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1_0">
+
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/gms/xsd/grades-v1_0" schemaLocation="grades-v1_0.xsd"/>
+
+			<s:element name="RecalculateCalculatedFinalGradeRequest" type="v1_0:RecalculateCalculatedFinalGradeRequest" />
+			<s:complexType name="RecalculateCalculatedFinalGradeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="RecalculateCalculatedFinalGradeResponse" type="v1_0:RecalculateCalculatedFinalGradeResponse" />
+			<s:complexType name="RecalculateCalculatedFinalGradeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="CreateTextGradeItemRequest" type="v1_0:CreateTextGradeItemRequest" />
+			<s:complexType name="CreateTextGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="CreateTextGradeItemResponse" type="v1_0:CreateTextGradeItemResponse" />
+			<s:complexType name="CreateTextGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="TextGradeItem" type="grades:TextGradeItemInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+
+			</s:complexType>
+
+			<s:element name="CreateNumericGradeItemRequest" type="v1_0:CreateNumericGradeItemRequest" />
+
+			<s:complexType name="CreateNumericGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="MaxPoints" type="grades:MaxPointsValueType" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsBonus" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="CanExceedMaxPoints" type="s:boolean" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="CreateNumericGradeItemResponse" type="v1_0:CreateNumericGradeItemResponse" />
+			<s:complexType name="CreateNumericGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="NumericItem" type="grades:NumericGradeItemInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+
+			</s:complexType>
+			
+			<s:element name="CreatePassFailGradeItemRequest" type="v1_0:CreatePassFailGradeItemRequest" />
+			<s:complexType name="CreatePassFailGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="MaxPoints" type="grades:MaxPointsValueType" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsBonus" type="s:boolean" />
+
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreatePassFailGradeItemResponse" type="v1_0:CreatePassFailGradeItemResponse" />
+			<s:complexType name="CreatePassFailGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="PassFailGradeItem" type="grades:PassFailGradeItemInfo" />
+						</s:sequence>
+
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			
+			<s:element name="GetGradeObjectsByOrgUnitRequest" type="v1_0:GetGradeObjectsByOrgUnitRequest" />
+			<s:complexType name="GetGradeObjectsByOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="GetGradeObjectsByOrgUnitResponse" type="v1_0:GetGradeObjectsByOrgUnitResponse" />
+			<s:complexType name="GetGradeObjectsByOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GradeObjects" type="grades:ArrayOfGradeObjectInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+
+			</s:complexType>
+
+			<s:element name="GetNumericGradeItemRequest" type="v1_0:GetNumericGradeItemRequest" />
+			<s:complexType name="GetNumericGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetNumericGradeItemResponse" type="v1_0:GetNumericGradeItemResponse" />
+			<s:complexType name="GetNumericGradeItemResponse">
+
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="NumericGradeItem" type="grades:NumericGradeItemInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetPassFailGradeItemRequest" type="v1_0:GetPassFailGradeItemRequest" />
+
+			<s:complexType name="GetPassFailGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetPassFailGradeItemResponse" type="v1_0:GetPassFailGradeItemResponse" />
+			<s:complexType name="GetPassFailGradeItemResponse">
+				<s:complexContent mixed="false">
+
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="PassFailGradeItem" type="grades:PassFailGradeItemInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetTextGradeItemRequest" type="v1_0:GetTextGradeItemRequest" />
+			<s:complexType name="GetTextGradeItemRequest">
+
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetTextGradeItemResponse" type="v1_0:GetTextGradeItemResponse" />
+			<s:complexType name="GetTextGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="TextGradeItem" type="grades:TextGradeItemInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetCalculatedFinalGradeItemRequest" type="v1_0:GetCalculatedFinalGradeItemRequest" />
+			<s:complexType name="GetCalculatedFinalGradeItemRequest">
+				<s:sequence>
+
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCalculatedFinalGradeItemResponse" type="v1_0:GetCalculatedFinalGradeItemResponse" />
+			<s:complexType name="GetCalculatedFinalGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+
+							<s:element minOccurs="0" maxOccurs="1" name="CalculatedFinalGradeItem" type="grades:CalculatedFinalGradeItemInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetAdjustedFinalGradeItemRequest" type="v1_0:GetAdjustedFinalGradeItemRequest" />
+			<s:complexType name="GetAdjustedFinalGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetAdjustedFinalGradeItemResponse" type="v1_0:GetAdjustedFinalGradeItemResponse" />
+			<s:complexType name="GetAdjustedFinalGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="AdjustedFinalGradeItem" type="grades:AdjustedFinalGradeItemInfo" />
+						</s:sequence>
+
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="DeleteGradeItemRequest" type="v1_0:DeleteGradeItemRequest" />
+			<s:complexType name="DeleteGradeItemRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeItemId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteGradeItemResponse" type="v1_0:DeleteGradeItemResponse" />
+			<s:complexType name="DeleteGradeItemResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="SetTextGradeValueRequest" type="v1_0:SetTextGradeValueRequest" />
+			<s:complexType name="SetTextGradeValueRequest">
+				<s:sequence>
+
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+					<s:element minOccurs="0" maxOccurs="1" name="GradeText" type="grades:GradeTextType" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="SetGradeValueResponse" type="v1_0:SetGradeValueResponse" />
+			<s:complexType name="SetGradeValueResponse">
+				<s:complexContent mixed="false">
+
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="SetNumericGradeValueRequest" type="v1_0:SetNumericGradeValueRequest" />
+			<s:complexType name="SetNumericGradeValueRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+
+					<s:element minOccurs="1" maxOccurs="1" name="PointsNumerator" nillable="true" type="grades:NumericGradeValueType" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="SetPassFailGradeValueRequest" type="v1_0:SetPassFailGradeValueRequest" />
+			<s:complexType name="SetPassFailGradeValueRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+
+					<s:element minOccurs="1" maxOccurs="1" name="PassFailValue" type="grades:PassFailValueType" />
+				</s:sequence>
+			</s:complexType>
+			
+			<s:element name="SetAdjustedFinalGradeValueRequest" type="v1_0:SetAdjustedFinalGradeValueRequest" />
+			<s:complexType name="SetAdjustedFinalGradeValueRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="Numerator" nillable="true" type="grades:NumericGradeValueType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Denominator" nillable="true" type="grades:NumericGradeDenominatorValueType" />
+				</s:sequence>
+
+			</s:complexType>
+			<s:element name="GetGradeValueByGradeObjectUserRequest" type="v1_0:GetGradeValueByGradeObjectUserRequest" />
+			<s:complexType name="GetGradeValueByGradeObjectUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="GetGradeValueByGradeObjectUserResponse" type="v1_0:GetGradeValueByGradeObjectUserResponse" />
+			<s:complexType name="GetGradeValueByGradeObjectUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GradeValue" type="grades:GradeValueInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+
+			</s:complexType>
+			
+			<s:element name="GetGradeValuesByOrgUnitUserRequest" type="v1_0:GetGradeValuesByOrgUnitUserRequest" />
+			<s:complexType name="GetGradeValuesByOrgUnitUserRequest">
+
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGradeValuesByOrgUnitUserResponse" type="v1_0:GetGradeValuesByOrgUnitUserResponse" />
+			<s:complexType name="GetGradeValuesByOrgUnitUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GradeValues" type="grades:ArrayOfGradeValueInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetGradeValuesByGradeObjectRequest" type="v1_0:GetGradeValuesByGradeObjectRequest" />
+			<s:complexType name="GetGradeValuesByGradeObjectRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="GetGradeValuesByGradeObjectResponse" type="v1_0:GetGradeValuesByGradeObjectResponse" />
+			<s:complexType name="GetGradeValuesByGradeObjectResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GradeValues" type="grades:ArrayOfGradeValueInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+
+			</s:complexType>
+			<s:element name="GetGradeValuesByUserRequest" type="v1_0:GetGradeValuesByUserRequest" />
+			<s:complexType name="GetGradeValuesByUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGradeValuesByUserResponse" type="v1_0:GetGradeValuesByUserResponse" />
+			<s:complexType name="GetGradeValuesByUserResponse">
+
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GradeValues" type="grades:ArrayOfGradeValueInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetGradeValuesByOrgUnitRequest" type="v1_0:GetGradeValuesByOrgUnitRequest" />
+
+			<s:complexType name="GetGradeValuesByOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGradeValuesByOrgUnitResponse" type="v1_0:GetGradeValuesByOrgUnitResponse" />
+			<s:complexType name="GetGradeValuesByOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GradeValues" type="grades:ArrayOfGradeValueInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="RecalculateCalculatedFinalGradeSoapIn">
+
+		<wsdl:part name="request" element="v1_0:RecalculateCalculatedFinalGradeRequest" />
+	</wsdl:message>
+	<wsdl:message name="RecalculateCalculatedFinalGradeSoapOut">
+		<wsdl:part name="RecalculateCalculatedFinalGradeResult" element="v1_0:RecalculateCalculatedFinalGradeResponse" />
+	</wsdl:message>
+	<wsdl:message name="RecalculateCalculatedFinalGradeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="RecalculateCalculatedFinalGradeResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateTextGradeItemSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateTextGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateTextGradeItemSoapOut">
+		<wsdl:part name="CreateTextGradeItemResult" element="v1_0:CreateTextGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateTextGradeItemRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateTextGradeItemResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateNumericGradeItemSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateNumericGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateNumericGradeItemSoapOut">
+
+		<wsdl:part name="CreateNumericGradeItemResult" element="v1_0:CreateNumericGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateNumericGradeItemRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateNumericGradeItemResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreatePassFailGradeItemSoapIn">
+
+		<wsdl:part name="request" element="v1_0:CreatePassFailGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreatePassFailGradeItemSoapOut">
+		<wsdl:part name="CreatePassFailGradeItemResult" element="v1_0:CreatePassFailGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreatePassFailGradeItemRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreatePassFailGradeItemResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeObjectsByOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGradeObjectsByOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeObjectsByOrgUnitSoapOut">
+		<wsdl:part name="GetGradeObjectsByOrgUnitResult" element="v1_0:GetGradeObjectsByOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeObjectsByOrgUnitRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeObjectsByOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetNumericGradeItemSoapIn">
+		<wsdl:part name="request" element="v1_0:GetNumericGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetNumericGradeItemSoapOut">
+
+		<wsdl:part name="GetNumericGradeItemResult" element="v1_0:GetNumericGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetNumericGradeItemRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetNumericGradeItemResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetPassFailGradeItemSoapIn">
+
+		<wsdl:part name="request" element="v1_0:GetPassFailGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetPassFailGradeItemSoapOut">
+		<wsdl:part name="GetPassFailGradeItemResult" element="v1_0:GetPassFailGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetPassFailGradeItemRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetPassFailGradeItemResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetTextGradeItemSoapIn">
+		<wsdl:part name="request" element="v1_0:GetTextGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetTextGradeItemSoapOut">
+		<wsdl:part name="GetTextGradeItemResult" element="v1_0:GetTextGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetTextGradeItemRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetTextGradeItemResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCalculatedFinalGradeItemSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCalculatedFinalGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCalculatedFinalGradeItemSoapOut">
+
+		<wsdl:part name="GetCalculatedFinalGradeItemResult" element="v1_0:GetCalculatedFinalGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCalculatedFinalGradeItemRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCalculatedFinalGradeItemResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetAdjustedFinalGradeItemSoapIn">
+
+		<wsdl:part name="request" element="v1_0:GetAdjustedFinalGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetAdjustedFinalGradeItemSoapOut">
+		<wsdl:part name="GetAdjustedFinalGradeItemResult" element="v1_0:GetAdjustedFinalGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetAdjustedFinalGradeItemRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetAdjustedFinalGradeItemResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGradeItemSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteGradeItemRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGradeItemSoapOut">
+		<wsdl:part name="DeleteGradeItemResult" element="v1_0:DeleteGradeItemResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGradeItemRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGradeItemResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetTextGradeValueSoapIn">
+		<wsdl:part name="request" element="v1_0:SetTextGradeValueRequest" />
+	</wsdl:message>
+	<wsdl:message name="SetTextGradeValueSoapOut">
+
+		<wsdl:part name="SetTextGradeValueResult" element="v1_0:SetGradeValueResponse" />
+	</wsdl:message>
+	<wsdl:message name="SetTextGradeValueRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetTextGradeValueResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetNumericGradeValueSoapIn">
+
+		<wsdl:part name="request" element="v1_0:SetNumericGradeValueRequest" />
+	</wsdl:message>
+	<wsdl:message name="SetNumericGradeValueSoapOut">
+		<wsdl:part name="SetNumericGradeValueResult" element="v1_0:SetGradeValueResponse" />
+	</wsdl:message>
+	<wsdl:message name="SetNumericGradeValueRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetNumericGradeValueResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetPassFailGradeValueSoapIn">
+		<wsdl:part name="request" element="v1_0:SetPassFailGradeValueRequest" />
+	</wsdl:message>
+	<wsdl:message name="SetPassFailGradeValueSoapOut">
+		<wsdl:part name="SetPassFailGradeValueResult" element="v1_0:SetGradeValueResponse" />
+	</wsdl:message>
+	<wsdl:message name="SetPassFailGradeValueRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetPassFailGradeValueResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetAdjustedFinalGradeValueSoapIn">
+		<wsdl:part name="request" element="v1_0:SetAdjustedFinalGradeValueRequest" />
+	</wsdl:message>
+	<wsdl:message name="SetAdjustedFinalGradeValueSoapOut">
+
+		<wsdl:part name="SetAdjustedFinalGradeValueResult" element="v1_0:SetGradeValueResponse" />
+	</wsdl:message>
+	<wsdl:message name="SetAdjustedFinalGradeValueRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="SetAdjustedFinalGradeValueResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValueByGradeObjectUserSoapIn">
+
+		<wsdl:part name="request" element="v1_0:GetGradeValueByGradeObjectUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValueByGradeObjectUserSoapOut">
+		<wsdl:part name="GetGradeValueByGradeObjectUserResult" element="v1_0:GetGradeValueByGradeObjectUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValueByGradeObjectUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValueByGradeObjectUserResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitUserSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGradeValuesByOrgUnitUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitUserSoapOut">
+		<wsdl:part name="GetGradeValuesByOrgUnitUserResult" element="v1_0:GetGradeValuesByOrgUnitUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitUserRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByGradeObjectSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGradeValuesByGradeObjectRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByGradeObjectSoapOut">
+
+		<wsdl:part name="GetGradeValuesByGradeObjectResult" element="v1_0:GetGradeValuesByGradeObjectResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByGradeObjectRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByGradeObjectResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByUserSoapIn">
+
+		<wsdl:part name="request" element="v1_0:GetGradeValuesByUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByUserSoapOut">
+		<wsdl:part name="GetGradeValuesByUserResult" element="v1_0:GetGradeValuesByUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByUserResponseHeader">
+
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGradeValuesByOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitSoapOut">
+		<wsdl:part name="GetGradeValuesByOrgUnitResult" element="v1_0:GetGradeValuesByOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitRequestHeader">
+
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGradeValuesByOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:portType name="GradesManagementService-v1_0">
+		<wsdl:operation name="RecalculateCalculatedFinalGrade">
+			<wsdl:input message="tns:RecalculateCalculatedFinalGradeSoapIn" />
+			<wsdl:output message="tns:RecalculateCalculatedFinalGradeSoapOut" />
+
+		</wsdl:operation>
+		<wsdl:operation name="CreateTextGradeItem">
+			<wsdl:input message="tns:CreateTextGradeItemSoapIn" />
+			<wsdl:output message="tns:CreateTextGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="CreateNumericGradeItem">
+			<wsdl:input message="tns:CreateNumericGradeItemSoapIn" />
+			<wsdl:output message="tns:CreateNumericGradeItemSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreatePassFailGradeItem">
+			<wsdl:input message="tns:CreatePassFailGradeItemSoapIn" />
+			<wsdl:output message="tns:CreatePassFailGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeObjectsByOrgUnit">
+			<wsdl:input message="tns:GetGradeObjectsByOrgUnitSoapIn" />
+			<wsdl:output message="tns:GetGradeObjectsByOrgUnitSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetNumericGradeItem">
+
+			<wsdl:input message="tns:GetNumericGradeItemSoapIn" />
+			<wsdl:output message="tns:GetNumericGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetPassFailGradeItem">
+			<wsdl:input message="tns:GetPassFailGradeItemSoapIn" />
+			<wsdl:output message="tns:GetPassFailGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetTextGradeItem">
+			<wsdl:input message="tns:GetTextGradeItemSoapIn" />
+
+			<wsdl:output message="tns:GetTextGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCalculatedFinalGradeItem">
+			<wsdl:input message="tns:GetCalculatedFinalGradeItemSoapIn" />
+			<wsdl:output message="tns:GetCalculatedFinalGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetAdjustedFinalGradeItem">
+			<wsdl:input message="tns:GetAdjustedFinalGradeItemSoapIn" />
+			<wsdl:output message="tns:GetAdjustedFinalGradeItemSoapOut" />
+
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGradeItem">
+			<wsdl:input message="tns:DeleteGradeItemSoapIn" />
+			<wsdl:output message="tns:DeleteGradeItemSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="SetTextGradeValue">
+			<wsdl:input message="tns:SetTextGradeValueSoapIn" />
+			<wsdl:output message="tns:SetTextGradeValueSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="SetNumericGradeValue">
+			<wsdl:input message="tns:SetNumericGradeValueSoapIn" />
+			<wsdl:output message="tns:SetNumericGradeValueSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="SetPassFailGradeValue">
+			<wsdl:input message="tns:SetPassFailGradeValueSoapIn" />
+			<wsdl:output message="tns:SetPassFailGradeValueSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="SetAdjustedFinalGradeValue">
+
+			<wsdl:input message="tns:SetAdjustedFinalGradeValueSoapIn" />
+			<wsdl:output message="tns:SetAdjustedFinalGradeValueSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValueByGradeObjectUser">
+			<wsdl:input message="tns:GetGradeValueByGradeObjectUserSoapIn" />
+			<wsdl:output message="tns:GetGradeValueByGradeObjectUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByOrgUnitUser">
+			<wsdl:input message="tns:GetGradeValuesByOrgUnitUserSoapIn" />
+
+			<wsdl:output message="tns:GetGradeValuesByOrgUnitUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByGradeObject">
+			<wsdl:input message="tns:GetGradeValuesByGradeObjectSoapIn" />
+			<wsdl:output message="tns:GetGradeValuesByGradeObjectSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByUser">
+			<wsdl:input message="tns:GetGradeValuesByUserSoapIn" />
+			<wsdl:output message="tns:GetGradeValuesByUserSoapOut" />
+
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByOrgUnit">
+			<wsdl:input message="tns:GetGradeValuesByOrgUnitSoapIn" />
+			<wsdl:output message="tns:GetGradeValuesByOrgUnitSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GradesManagementService-v1_0" type="tns:GradesManagementService-v1_0">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="RecalculateCalculatedFinalGrade">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/RecalculateCalculatedFinalGrade" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:RecalculateCalculatedFinalGradeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+				<soap:header message="tns:RecalculateCalculatedFinalGradeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateTextGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/CreateTextGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateTextGradeItemRequestHeader" part="RequestHeader" use="literal" />
+
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateTextGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateNumericGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/CreateNumericGradeItem" style="document" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateNumericGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateNumericGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreatePassFailGradeItem">
+
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/CreatePassFailGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreatePassFailGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreatePassFailGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeObjectsByOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeObjectsByOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeObjectsByOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+
+				<soap:header message="tns:GetGradeObjectsByOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetNumericGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetNumericGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetNumericGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetNumericGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPassFailGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetPassFailGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+
+				<soap:header message="tns:GetPassFailGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetPassFailGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTextGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetTextGradeItem" style="document" />
+
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetTextGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetTextGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetCalculatedFinalGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetCalculatedFinalGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCalculatedFinalGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCalculatedFinalGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAdjustedFinalGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetAdjustedFinalGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetAdjustedFinalGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+				<soap:header message="tns:GetAdjustedFinalGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGradeItem">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/DeleteGradeItem" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteGradeItemRequestHeader" part="RequestHeader" use="literal" />
+
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetTextGradeValue">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetTextGradeValue" style="document" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+				<soap:header message="tns:SetTextGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:SetTextGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetNumericGradeValue">
+
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetNumericGradeValue" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:SetNumericGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:SetNumericGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		<wsdl:operation name="SetPassFailGradeValue">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetPassFailGradeValue" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:SetPassFailGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+
+				<soap:header message="tns:SetPassFailGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetAdjustedFinalGradeValue">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetAdjustedFinalGradeValue" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:SetAdjustedFinalGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:SetAdjustedFinalGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValueByGradeObjectUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValueByGradeObjectUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+
+				<soap:header message="tns:GetGradeValueByGradeObjectUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValueByGradeObjectUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByOrgUnitUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValuesByOrgUnitUser" style="document" />
+
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByOrgUnitUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByOrgUnitUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetGradeValuesByGradeObject">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValueByGradeObject" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByGradeObjectRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByGradeObjectResponseHeader" part="ResponseHeader" use="literal" />
+
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValuesByUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValuesByOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGradeValuesByOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="GradesManagementService-v1_01" type="tns:GradesManagementService-v1_0">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="RecalculateCalculatedFinalGrade">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/RecalculateCalculatedFinalGrade" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:RecalculateCalculatedFinalGradeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:RecalculateCalculatedFinalGradeResponseHeader" part="ResponseHeader" use="literal" />
+
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateTextGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/CreateTextGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateTextGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateTextGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateNumericGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/CreateNumericGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateNumericGradeItemRequestHeader" part="RequestHeader" use="literal" />
+
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateNumericGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreatePassFailGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/CreatePassFailGradeItem" style="document" />
+			<wsdl:input>
+
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreatePassFailGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreatePassFailGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeObjectsByOrgUnit">
+
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeObjectsByOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeObjectsByOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeObjectsByOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		<wsdl:operation name="GetNumericGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetNumericGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetNumericGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+
+				<soap12:header message="tns:GetNumericGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPassFailGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetPassFailGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetPassFailGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetPassFailGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTextGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetTextGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+
+				<soap12:header message="tns:GetTextGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetTextGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCalculatedFinalGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetCalculatedFinalGradeItem" style="document" />
+
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCalculatedFinalGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCalculatedFinalGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetAdjustedFinalGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetAdjustedFinalGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetAdjustedFinalGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetAdjustedFinalGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGradeItem">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/DeleteGradeItem" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteGradeItemRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteGradeItemResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetTextGradeValue">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetTextGradeValue" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetTextGradeValueRequestHeader" part="RequestHeader" use="literal" />
+
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetTextGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetNumericGradeValue">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetNumericGradeValue" style="document" />
+			<wsdl:input>
+
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetNumericGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetNumericGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetPassFailGradeValue">
+
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetPassFailGradeValue" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetPassFailGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetPassFailGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		<wsdl:operation name="SetAdjustedFinalGradeValue">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/SetAdjustedFinalGradeValue" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:SetAdjustedFinalGradeValueRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+
+				<soap12:header message="tns:SetAdjustedFinalGradeValueResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValueByGradeObjectUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValueByGradeObjectUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValueByGradeObjectUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValueByGradeObjectUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByOrgUnitUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValuesByOrgUnitUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+
+				<soap12:header message="tns:GetGradeValuesByOrgUnitUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByOrgUnitUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByGradeObject">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValueByGradeObject" style="document" />
+
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByGradeObjectRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByGradeObjectResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetGradeValuesByUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValuesByUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByUserResponseHeader" part="ResponseHeader" use="literal" />
+
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGradeValuesByOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/gms/wsdl/GradesManagementService-v1/GetGradeValuesByOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGradeValuesByOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="GradesManagementService">
+		<wsdl:port name="GradesManagementService-v1_0" binding="tns:GradesManagementService-v1_0">
+			<soap:address location="http://localhost/D2LWS/GradesManagementService.asmx" />
+		</wsdl:port>
+
+		<wsdl:port name="GradesManagementService-v1_01" binding="tns:GradesManagementService-v1_01">
+			<soap12:address location="http://localhost/D2LWS/GradesManagementService.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

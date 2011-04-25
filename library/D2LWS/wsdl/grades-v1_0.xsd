@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.desire2learn.com/services/gms/xsd/grades-v1_0"
+			xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+			xmlns:grades="http://www.desire2learn.com/services/gms/xsd/grades-v1_0"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			elementFormDefault="qualified">
+
+	<xsd:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+
+	<xsd:simpleType name="GradeTextType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="50"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="GradeObjectNameType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="128"/>
+			<xsd:whiteSpace value="collapse"/>
+			<xsd:pattern value="[^(/=,%&quot;&lt;&gt;\+\*\|)]*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="NumericGradeValueType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="-9999999999"/>
+			<xsd:maxInclusive value="9999999999"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="NumericGradeDenominatorValueType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="9999999999"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="MaxPointsValueType">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:minInclusive value="0.01"/>
+			<xsd:maxInclusive value="9999999999"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="TextGradeItemInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="NumericGradeItemInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="MaxPoints" type="grades:MaxPointsValueType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="CanExceedMaxPoints" type="xsd:boolean" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="IsBonus" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PassFailGradeItemInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="MaxPoints" type="grades:MaxPointsValueType" />
+
+			<xsd:element minOccurs="1" maxOccurs="1" name="IsBonus" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfGradeObjectInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GradeObjectInfo" nillable="true" type="grades:GradeObjectInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="GradeObjectInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectType" type="grades:GradeObjectType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="GradeObjectType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Numeric" />
+			<xsd:enumeration value="PassFail" />
+
+			<xsd:enumeration value="SelectBox" />
+			<xsd:enumeration value="Text" />
+			<xsd:enumeration value="Calculated" />
+			<xsd:enumeration value="Formula" />
+			<xsd:enumeration value="CalculatedFinalGrade" />
+			<xsd:enumeration value="AdjustedFinalGrade" />
+			<xsd:enumeration value="Category" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="CalculatedFinalGradeItemInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="CanExceedMaxGrade" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AdjustedFinalGradeItemInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="grades:GradeObjectNameType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="CanExceedMaxGrade" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="PassFailValueType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Ungraded" />
+			<xsd:enumeration value="Pass" />
+			<xsd:enumeration value="Fail" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="GradeValueInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="GradeObjectId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="PointsNumerator" nillable="true" type="grades:NumericGradeValueType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="PointsDenominator" nillable="true" type="grades:NumericGradeDenominatorValueType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="WeightedNumerator" nillable="true" type="grades:NumericGradeValueType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="WeightedDenominator" nillable="true" type="grades:NumericGradeDenominatorValueType" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="GradeText" type="grades:GradeTextType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Status" type="grades:CalculationStatus" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="IsDropped" type="xsd:boolean" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="IsReleased" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="CalculationStatus">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="OK"/>
+			<xsd:enumeration value="DivideByZero"/>
+			<xsd:enumeration value="Overflow"/>
+			<xsd:enumeration value="TransferError"/>
+			<xsd:enumeration value="NullDenominator"/>
+			<xsd:enumeration value="MissingFormula"/>
+			<xsd:enumeration value="Other"/>
+			</xsd:restriction>
+	 </xsd:simpleType>
+
+	<xsd:complexType name="ArrayOfGradeValueInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GradeValueInfo" nillable="true" type="grades:GradeValueInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

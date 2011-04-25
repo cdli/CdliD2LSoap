@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.desire2learn.com/services/common/xsd/common-v1_1"
+			xmlns:tns="http://www.desire2learn.com/services/common/xsd/common-v1_1">
+	<xsd:simpleType name ="TaskType">
+		<xsd:restriction base="xsd:string">
+			<!-- Org Units -->
+			<xsd:enumeration value="UpdateOrgUnitHierarchy" />
+			<xsd:enumeration value="ViewOrgUnitHierarchy" />
+			<xsd:enumeration value="CreateOrgUnit" />
+			<xsd:enumeration value="CreateOrgUnitType" />
+			<xsd:enumeration value="CreateGroup" />
+			<xsd:enumeration value="CreateSection" />
+			<xsd:enumeration value="DeleteOrgUnit" />
+			<xsd:enumeration value="DeleteOrgUnitType" />
+			<xsd:enumeration value="ViewOrgUnitProperties" />
+			<xsd:enumeration value="ViewOrgUnitType" />
+			<xsd:enumeration value="UpdateOrgUnit" />
+			<xsd:enumeration value="UpdateOrgUnitType" />
+			<xsd:enumeration value="EditGroupTypes" />
+			<xsd:enumeration value="GetGroupTypes" />
+			<xsd:enumeration value="GetGroups" />
+			<xsd:enumeration value="GetSections" />
+
+			<!-- Users -->
+			<xsd:enumeration value="ChangePassword" />
+			<xsd:enumeration value="CreateUser" />
+			<xsd:enumeration value="DeleteUser" />
+			<xsd:enumeration value="GetUserByOrgDefinedId" />
+			<xsd:enumeration value="GetUserByUserName" />
+			<xsd:enumeration value="DeleteUserByOrgDefinedId" />
+			<xsd:enumeration value="DeleteUserByUserName" />
+			<xsd:enumeration value="GetRole" />
+			<xsd:enumeration value="GetUser" />
+			<xsd:enumeration value="OnlyUpdateUser" />
+			<xsd:enumeration value="UpdateUser" />
+			<xsd:enumeration value="EnrollUser" />
+			<xsd:enumeration value="UnenrollUser" />
+			<xsd:enumeration value="ViewEnrollments" />
+			<xsd:enumeration value="SeePersonalProfile" />
+			<xsd:enumeration value="ViewOtherProfiles" />
+			<xsd:enumeration value="GetCourseOfferingEnrollments" />
+			<xsd:enumeration value="GetGroupEnrollments" />
+			<xsd:enumeration value="GetSectionEnrollments" />
+
+			<!-- User Privacy -->
+			<xsd:enumeration value="EditDemographics" />
+			<xsd:enumeration value="EditAddresses" />
+			<xsd:enumeration value="EditContactInfo" />
+			<xsd:enumeration value="EditOrgDefinedId" />
+			<xsd:enumeration value="SeeUserName" />
+			<xsd:enumeration value="SeeFirstName" />
+			<xsd:enumeration value="SeeLastName" />
+			<xsd:enumeration value="SeeOrgDefinedId" />
+			<xsd:enumeration value="EditFirstName" />
+			<xsd:enumeration value="EditLastName" />
+			<xsd:enumeration value="EditUserName" />
+
+			<!-- Grades -->
+			<xsd:enumeration value="CreateGradeItem" />
+			<xsd:enumeration value="DeleteGradeItem" />
+			<xsd:enumeration value="ViewGradeItemProperties" />
+			<xsd:enumeration value="ViewGradeValues" />
+			<xsd:enumeration value="ViewFinalGradeValues" />
+			<xsd:enumeration value="SeeAllGrades" />
+			<xsd:enumeration value="EditGrades" />
+			<xsd:enumeration value="EditFinalGrades" />
+			<xsd:enumeration value="EditGradeValues" />
+			<xsd:enumeration value="EditFinalGradeValues" />
+			<xsd:enumeration value="RecalculateGrades" />
+			<xsd:enumeration value="GetGradeSymbolsByOrgUnitGradeObject" />
+			<xsd:enumeration value="GetGradeValuesByGradeObject" />
+
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TaskInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Type" type="tns:TaskType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Permitted" type="xsd:boolean" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfTaskInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="TaskInfo" type="tns:TaskInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" 
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+  xmlns:tns="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1" 
+  xmlns:v1_0="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1_0" 
+  xmlns:v1_1="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1_1" 
+  xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0" 
+  xmlns:descriptor="http://www.desire2learn.com/services/common/xsd/descriptor-v1_0" 
+  xmlns:s="http://www.w3.org/2001/XMLSchema" 
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+  targetNamespace="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1" 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<!--
+	****************************************************************************
+	Type Definitions
+	****************************************************************************
+	-->
+	<wsdl:types>
+		<!--
+		====================================================================
+		DescriptorService-v1_0 Namespace
+		-->
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1_0">
+        <s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+        <s:import namespace="http://www.desire2learn.com/services/common/xsd/descriptor-v1_0" schemaLocation="descriptor-v1_0.xsd"/>
+		<!--
+		====================================================================
+		GetServiceDescriptor
+		-->
+		<s:element name="GetServiceDescriptorRequest" type="v1_0:GetServiceDescriptorRequest" />
+        <s:complexType name="GetServiceDescriptorRequest" />
+        <s:element name="GetServiceDescriptorResponse" type="v1_0:GetServiceDescriptorResponse" />
+        <s:complexType name="GetServiceDescriptorResponse">
+          <s:complexContent mixed="false">
+            <s:extension base="common:ResponseBase">
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="ServiceDescriptor" type="descriptor:ServiceDescriptorInfo" />
+              </s:sequence>
+            </s:extension>
+          </s:complexContent>
+        </s:complexType>
+      </s:schema>
+		<!--
+		====================================================================
+		DescriptorService-v1_1 Namespace
+		-->
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1_1">
+        <s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+	    <s:import namespace="http://www.desire2learn.com/services/common/xsd/descriptor-v1_0" schemaLocation="descriptor-v1_0.xsd"/>
+		<!--
+		====================================================================
+		GetOrganizationId
+		-->
+        <s:element name="GetOrganizationIdRequest" type="v1_1:GetOrganizationIdRequest" />
+	    <s:complexType name="GetOrganizationIdRequest" />
+	    <s:element name="GetOrganizationIdResponse" type="v1_1:GetOrganizationIdResponse" />
+		<s:complexType name="GetOrganizationIdResponse">
+          <s:complexContent mixed="false">
+		    <s:extension base="common:ResponseBase">
+			  <s:sequence>
+                <s:element minOccurs="1" maxOccurs="1" name="OrganizationId" type="common:Identifier" />
+		      </s:sequence>
+		    </s:extension>
+	      </s:complexContent>
+	    </s:complexType>
+       </s:schema>
+    </wsdl:types>
+	<!--
+	****************************************************************************
+	Message Definitions
+	****************************************************************************
+	-->
+	<wsdl:message name="GetServiceDescriptorSoapIn">
+		<wsdl:part name="request" element="v1_0:GetServiceDescriptorRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetServiceDescriptorSoapOut">
+		<wsdl:part name="GetServiceDescriptorResult" element="v1_0:GetServiceDescriptorResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetServiceDescriptorRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetServiceDescriptorResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationIdSoapIn">
+		<wsdl:part name="request" element="v1_1:GetOrganizationIdRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationIdSoapOut">
+		<wsdl:part name="GetOrganizationIdResult" element="v1_1:GetOrganizationIdResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationIdRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationIdResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!--
+	****************************************************************************
+	Port Definitions
+	****************************************************************************
+	-->
+	<wsdl:portType name="DescriptorService-v1_0">
+		<wsdl:operation name="GetServiceDescriptor">
+			<wsdl:input message="tns:GetServiceDescriptorSoapIn" />
+			<wsdl:output message="tns:GetServiceDescriptorSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="DescriptorService-v1_1">
+		<wsdl:operation name="GetOrganizationId">
+			<wsdl:input message="tns:GetOrganizationIdSoapIn" />
+			<wsdl:output message="tns:GetOrganizationIdSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<!--
+	****************************************************************************
+	Binding Definitions
+	****************************************************************************
+	-->
+	<!--
+	============================================================================
+	SOAP 1.1
+	-->
+	<wsdl:binding name="DescriptorService-v1_0" type="tns:DescriptorService-v1_0">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetServiceDescriptor">
+			<soap:operation soapAction="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1/GetServiceDescriptor" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetServiceDescriptorRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetServiceDescriptorResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="DescriptorService-v1_1" type="tns:DescriptorService-v1_1">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetOrganizationId">
+			<soap:operation soapAction="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1/GetOrganizationId" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetOrganizationIdRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetOrganizationIdResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!--
+	============================================================================
+	SOAP 1.2
+	-->
+	<wsdl:binding name="DescriptorService-v1_01" type="tns:DescriptorService-v1_0">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetServiceDescriptor">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1/GetServiceDescriptor" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetServiceDescriptorRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetServiceDescriptorResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="DescriptorService-v1_02" type="tns:DescriptorService-v1_1">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetOrganizationId">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/common/wsdl/DescriptorService-v1/GetOrganizationId" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetOrganizationIdRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetOrganizationIdResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!--
+	****************************************************************************
+	Service Definitions
+	****************************************************************************
+	-->
+	<wsdl:service name="DescriptorService">
+		<wsdl:port name="DescriptorService-v1_0" binding="tns:DescriptorService-v1_0">
+		  <soap:address location="http://localhost/D2LWS/DescriptorService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="DescriptorService-v1_01" binding="tns:DescriptorService-v1_01">
+		  <soap12:address location="http://localhost/D2LWS/DescriptorService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="DescriptorService-v1_1" binding="tns:DescriptorService-v1_1">
+			<soap:address location="http://localhost/D2LWS/DescriptorService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="DescriptorService-v1_02" binding="tns:DescriptorService-v1_02">
+			<soap12:address location="http://localhost/D2LWS/DescriptorService-v1.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

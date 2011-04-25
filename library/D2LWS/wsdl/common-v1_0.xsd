@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" xmlns:tns="http://www.desire2learn.com/services/common/xsd/common-v1_0">
+	<xsd:complexType name="Identifier">
+		<xsd:sequence>
+			<xsd:element name="Id" type="tns:String50Type"/>
+			<xsd:element name ="Source" type="tns:String50Type"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="String20Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="20"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String50Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="50"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String128Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="128"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String128NoMinimumType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="0"/>
+			<xsd:maxLength value="128"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String196Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="196"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String256Type">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="256"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="ResponseBase" abstract="true">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="1" name="BusinessErrors" type="tns:ArrayOfBusinessErrorInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfBusinessErrorInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="BusinessErrorInfo" nillable="true" type="tns:BusinessErrorInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfSystemErrorInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="SystemErrorInfo" nillable="true" type="tns:SystemErrorInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BusinessErrorInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="tns:BaseErrorInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="ErrorType" type="tns:BusinessErrorTypeInfo" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="BaseErrorInfo" abstract="true">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="Severity" type="tns:ErrorSeverity" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Message" type="xsd:string" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Description" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="ErrorSeverity">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Warning" />
+			<xsd:enumeration value="Error" />
+			<xsd:enumeration value="Fatal" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="SystemErrorInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="tns:BaseErrorInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="ErrorType" type="tns:SystemErrorTypeInfo" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:simpleType name="SystemErrorTypeInfo">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SecurityError" />
+			<xsd:enumeration value="ValidationError" />
+			<xsd:enumeration value="ServerError" />
+			<xsd:enumeration value="DatabaseError" />
+			<xsd:enumeration value="InternalError" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BusinessErrorTypeInfo">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="InvalidNameError" />
+			<xsd:enumeration value="InvalidDateFormatError" />
+			<xsd:enumeration value="InvalidDataRangeError" />
+			<xsd:enumeration value="NotSupportedOperation" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="RequestHeader" type="tns:RequestHeaderInfo" />
+	<xsd:complexType name="RequestHeaderInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="tns:SoapHeaderBase" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SoapHeaderBase" abstract="true">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="Version" type="xsd:string" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="CorellationId" type="xsd:string" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="AuthenticationToken" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:anyAttribute />
+	</xsd:complexType>
+	<xsd:complexType name="ResponseHeaderInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="tns:SoapHeaderBase">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="1" name="Status" type="tns:StatusInfo" />
+					<xsd:element minOccurs="0" maxOccurs="1" name="OperationName" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="StatusInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="Code" type="tns:StatusCode" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="SystemErrors" type="tns:ArrayOfSystemErrorInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="StatusCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Success" />
+			<xsd:enumeration value="SystemFailure" />
+			<xsd:enumeration value="BusinessRuleFailure" />
+			<xsd:enumeration value="Unsupported" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="ResponseHeader" type="tns:ResponseHeaderInfo" />
+</xsd:schema>

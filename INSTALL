@@ -1,0 +1,13 @@
+SETTING UP DESIRE2LEARN
+=======================
+
+- Set the D2L Developer Key to your key  (server.developerkey)
+
+- Set the URL to your development and production servers  (server.hostname)
+
+- Set username and password of user to run web service calls under  (server.username, server.password)
+  
+- Set install code for your servers
+           
+- If you wish to use SSO, set a security token in D2L DOME:  d2l.Tools.Login.LocalPrivateKey
+  then add it to the configuration file (server.ssoToken)

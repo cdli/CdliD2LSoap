@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"  targetNamespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1"
+			xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+			xmlns:orgunits="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0"
+			xmlns:orgunits11="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" elementFormDefault="qualified">
+	<xsd:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+				schemaLocation="common-v1_0.xsd" />
+	<xsd:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0"
+				schemaLocation="orgunits-v1_0.xsd"/>
+	<!--Types extended in 1.1 compared to 1.0-->
+	<xsd:complexType name="CourseOfferingInfo1_1">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:CourseOfferingInfo">
+				<xsd:sequence>
+					<!--
+					<xsd:element minOccurs="1" maxOccurs="1" name="CanRegister" type="xsd:boolean" />
+					<xsd:element minOccurs="1" maxOccurs="1" name="AllowSections" type="xsd:boolean" />
+					-->
+					<!-- TODO: Add has course groups, has course sections -->
+					<!-- TODO: Add semester name, department name, start date, end date -->
+					<xsd:element name="HasGroups" type="xsd:boolean" />
+					<xsd:element name="HasSections" type="xsd:boolean" />
+					<xsd:element name="SemesterName" type="xsd:string" />
+					<xsd:element name="DepartmentName" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="GroupInfo1_1">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:GroupInfo">
+				<xsd:sequence>
+					<!--
+					<xsd:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+					<xsd:element minOccurs="0" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+					-->
+					<xsd:element minOccurs="0" maxOccurs="1" name="GroupCategory" type="xsd:string" />
+					<xsd:element minOccurs="1" maxOccurs="1" name="CanSelfEnroll" type="xsd:boolean" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfOrgUnitInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="OrgUnitInfo" nillable="true" type="orgunits:OrgUnitInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Types that are unchanged from 1.0 to 1.1 but that depend on extended types-->
+	<xsd:complexType name="ArrayOfCourseOfferingInfo1_1">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="CourseOfferingInfo" nillable="true" type="orgunits11:CourseOfferingInfo1_1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfGroupInfo1_1">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GroupInfo" nillable="true" type="orgunits11:GroupInfo1_1" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

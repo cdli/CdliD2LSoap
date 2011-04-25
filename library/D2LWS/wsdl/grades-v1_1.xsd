@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.desire2learn.com/services/gms/xsd/grades-v1_1"
+			xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+			xmlns:grades="http://www.desire2learn.com/services/gms/xsd/grades-v1_0"
+			xmlns:grades11="http://www.desire2learn.com/services/gms/xsd/grades-v1_1"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" elementFormDefault="qualified">
+	<xsd:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd" />
+	<xsd:import namespace="http://www.desire2learn.com/services/gms/xsd/grades-v1_0" schemaLocation="grades-v1_0.xsd" />
+	<!--New types added in version 1.1 compared to 1.0-->
+	<xsd:simpleType name="GradeSymbolType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="50" />
+			<xsd:whiteSpace value="collapse" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ArrayOfGradeSymbolType">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GradeSymbol" type="grades11:GradeSymbolType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfMaxPointsValueType">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="Value" type="grades:MaxPointsValueType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GradeStatsInfo">
+		<xsd:sequence>
+			<xsd:element name="OrgUnitId" type="common:Identifier" />
+			<xsd:element name="GradeObjectId" type="common:Identifier" />
+			<xsd:element name="Minimum" type="grades:MaxPointsValueType" />
+			<xsd:element name="Maximum" type="grades:MaxPointsValueType" />
+			<xsd:element name="Average" type="grades:MaxPointsValueType" />
+			<xsd:element name="Mode" type="grades11:ArrayOfMaxPointsValueType" />
+			<xsd:element name="Median" type="grades:MaxPointsValueType" />
+			<xsd:element name="StandardDeviation" type="grades:MaxPointsValueType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfGradeTextType">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GradeText" type="grades:GradeTextType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SelectBoxGradeItemInfo">
+		<xsd:sequence>
+			<xsd:element name="GradeObjectId" type="common:Identifier" />
+			<xsd:element name="OrgUnitId" type="common:Identifier" />
+			<xsd:element name="GradeSchemeId" type="common:Identifier" />
+			<xsd:element name="Name" type="grades:GradeObjectNameType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GradeSchemeRangeInfo">
+		<xsd:sequence>
+			<xsd:element name="AssignedValue" type="xsd:decimal" />
+			<xsd:element name="ColourId" type="common:Identifier" />
+			<xsd:element name="StartValue" type="xsd:decimal" />
+			<xsd:element name="Symbol" type="xsd:string" />
+		</xsd:sequence>	   
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfGradeSchemeRangeInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GradeSchemeRangeInfo"
+				type="grades11:GradeSchemeRangeInfo" />
+		</xsd:sequence>	   
+	</xsd:complexType>
+	<xsd:complexType name="GradeSchemeInfo">
+		<xsd:sequence>
+			<xsd:element name="GradeSchemeId" type="common:Identifier" />
+			<xsd:element name="Name" type="xsd:string" />
+			<xsd:element name="ShortName" type="xsd:string" />
+			<xsd:element minOccurs="0" maxOccurs="1" nillable="false"
+						 name="GradeRanges"
+						 type="grades11:ArrayOfGradeSchemeRangeInfo">
+			</xsd:element>
+			<xsd:element name="OrgUnitId" type="common:Identifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfGradeSchemeInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GradeSchemeInfo"
+						 type="grades11:GradeSchemeInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

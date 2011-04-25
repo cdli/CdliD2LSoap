@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0"
+			xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+			xmlns:orgunits="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			elementFormDefault="qualified">
+
+	<xsd:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+
+	<!-- Validation types -->
+	<xsd:simpleType name="OrgUnitCodeType">
+		<xsd:restriction base="common:String50Type"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="OrgUnitNameType">
+		<xsd:restriction base="common:String128Type"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="OrgUnitPathType">
+		<xsd:restriction base="common:String256Type"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="GroupTypeNameType">
+		<xsd:restriction base="common:String128Type"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="EnrollQuantity">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="999"/>
+			<xsd:whiteSpace value="collapse"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Web service Types -->
+	<xsd:simpleType name="SystemSemanticType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Organization" />
+			<xsd:enumeration value="CourseTemplate" />
+			<xsd:enumeration value="CourseOffering" />
+			<xsd:enumeration value="Group" />
+			<xsd:enumeration value="Semester" />
+			<xsd:enumeration value="Section" />
+			<xsd:enumeration value="Custom" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="CustomSemanticType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Department" />
+			<xsd:enumeration value="Semester" />
+			<xsd:enumeration value="Other" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OrgUnitSemanticRole">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="NotSupported" />
+			<xsd:enumeration value="Organization" />
+			<xsd:enumeration value="CourseTemplate" />
+			<xsd:enumeration value="CourseOffering" />
+			<xsd:enumeration value="Group" />
+			<xsd:enumeration value="Section" />
+			<xsd:enumeration value="Semester" />
+			<xsd:enumeration value="Department" />
+			<xsd:enumeration value="Custom" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="GroupEnrollmentStyle">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Manual" />
+			<xsd:enumeration value="MaxNumberOfUsers" />
+			<xsd:enumeration value="NumberOfGroups" />
+			<xsd:enumeration value="SelfEnrollmentMaxNumberOfUsers" />
+			<xsd:enumeration value="SelfEnrollmentNumberOfGroups" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="ArrayOfOrgUnitIdentifier">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="OrgUnitIdentifier" nillable="true" type="orgunits:OrgUnitIdentifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrgUnitIdentifier">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitRole" type="orgunits:OrgUnitSemanticRole" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="OrgUnitTypeInfo" abstract="true">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitTypeId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Name" type="common:String50Type" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Description" type="common:String128NoMinimumType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfSystemOrgUnitTypeInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="SystemOrgUnitTypeInfo" nillable="true" type="orgunits:SystemOrgUnitTypeInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SystemOrgUnitTypeInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:OrgUnitTypeInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="SemanticValue" type="orgunits:SystemSemanticType" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfCustomOrgUnitTypeInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="CustomOrgUnitTypeInfo" nillable="true" type="orgunits:CustomOrgUnitTypeInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomOrgUnitTypeInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:OrgUnitTypeInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="CustomSemantic" type="orgunits:CustomSemanticType" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfGroupTypeInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GroupTypeInfo" nillable="true" type="orgunits:GroupTypeInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GroupTypeInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:GroupTypeNameType" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="OwnerIdentifier" type="orgunits:OrgUnitIdentifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="EnrollmentQuantity" type="orgunits:EnrollQuantity" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="IsAutoEnroll" type="xsd:boolean" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="RandomizeEnrollments" type="xsd:boolean" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="EnrollmentStyle" type="orgunits:GroupEnrollmentStyle" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfIdentifier">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="Id" type="common:Identifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="OrgUnitInfo" abstract="true">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GroupableInfo" abstract="true">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:OrgUnitInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="1" name="Path" type="orgunits:OrgUnitPathType" />
+					<xsd:element minOccurs="1" maxOccurs="1" name="IsActive" type="xsd:boolean" />
+					<xsd:element minOccurs="1" maxOccurs="1" name="StartDate" type="xsd:dateTime" nillable="true" />
+					<xsd:element minOccurs="1" maxOccurs="1" name="EndDate" type="xsd:dateTime" nillable="true" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="OrganizationInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:OrgUnitInfo" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CustomOrgUnitInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:GroupableInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="OrgUnitTypeId" type="common:Identifier" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DepartmentInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:GroupableInfo" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SemesterInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:GroupableInfo" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourseTemplateInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:GroupableInfo" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourseOfferingInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:GroupableInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="CanRegister" type="xsd:boolean" />
+					<xsd:element minOccurs="1" maxOccurs="1" name="AllowSections" type="xsd:boolean" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+  <xsd:complexType name="RichTextInfo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="1" name="Text" type="xsd:string" />
+      <xsd:element minOccurs="1" maxOccurs="1" name="IsHtml" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+	<xsd:complexType name="GroupInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:OrgUnitInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+					<xsd:element minOccurs="0" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SectionInfo">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="orgunits:OrgUnitInfo">
+				<xsd:sequence>
+					<xsd:element minOccurs="0" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ArrayOfCustomOrgUnitInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="CustomOrgUnitInfo" nillable="true" type="orgunits:CustomOrgUnitInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfSemesterInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="SemesterInfo" nillable="true" type="orgunits:SemesterInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfDepartmentInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="DepartmentInfo" nillable="true" type="orgunits:DepartmentInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfCourseTemplateInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="CourseTemplateInfo" nillable="true" type="orgunits:CourseTemplateInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfCourseOfferingInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="CourseOfferingInfo" nillable="true" type="orgunits:CourseOfferingInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfGroupInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="GroupInfo" nillable="true" type="orgunits:GroupInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfSectionInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="SectionInfo" nillable="true" type="orgunits:SectionInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+</xsd:schema>

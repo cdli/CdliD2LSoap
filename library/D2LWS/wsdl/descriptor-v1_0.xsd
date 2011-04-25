@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema id="XMLSchema" elementFormDefault="qualified"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.desire2learn.com/services/common/xsd/descriptor-v1_0"
+            xmlns:tns="http://www.desire2learn.com/services/common/xsd/descriptor-v1_0"
+            version="1.0">
+  
+  <xsd:complexType name="ServiceDescriptorInfo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="1" name="ProductName" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="CurrentVersion" type="tns:VersionInfo" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="LowestSupportedVersion" type="tns:VersionInfo" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="Services" type="tns:ArrayOfServiceInfo" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="VersionInfo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="1" name="SchemaNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="1" name="ReleaseDate" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ArrayOfServiceInfo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="ServiceInfo" nillable="true" type="tns:ServiceInfo" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceInfo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+</xsd:schema>

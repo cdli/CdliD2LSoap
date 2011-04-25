@@ -1,0 +1,1174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	targetNamespace="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:tns="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1"
+	xmlns:v1_0="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_0"
+	xmlns:v1_1="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_1"
+	xmlns:v1_2="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_2"
+	xmlns:v1_3="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_3"
+	xmlns:s="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+	xmlns:orgunits10="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0"
+	xmlns:orgunits11="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1"
+	xmlns:users="http://www.desire2learn.com/services/ums/xsd/users-v1_0"
+	xmlns:users11="http://www.desire2learn.com/services/ums/xsd/users-v1_1">
+	<wsdl:types>
+		<!--
+		====================================================================
+		version 1.0 elements
+		-->
+		<s:schema elementFormDefault="qualified"
+								targetNamespace="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_0">
+
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/ums/xsd/users-v1_0" schemaLocation="users-v1_0.xsd"/>
+
+			<!--
+			====================================================================
+			CreateUser
+			-->
+			<s:element name="CreateUserRequest" type="v1_0:CreateUserRequest" />
+			<s:complexType name="CreateUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserName" type="users:UserNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Password" type="users:PasswordType" />
+					<s:element minOccurs="1" maxOccurs="1" name="FirstName" type="common:String20Type" />
+					<s:element minOccurs="1" maxOccurs="1" name="LastName" type="common:String20Type" />
+					<s:element minOccurs="1" maxOccurs="1" name="RoleId" type="common:Identifier" />
+					<s:element minOccurs="0" maxOccurs="1" name="OrgDefinedId" type="common:String50Type" />
+					<s:element minOccurs="0" maxOccurs="1" name="Addresses" type="users:ArrayOfAddressInfo" />
+					<s:element minOccurs="0" maxOccurs="1" name="FormsOfContact" type="users:ArrayOfFormOfContactInfo" />
+					<s:element minOccurs="0" maxOccurs="1" name="Demographics" type="users:DemographicsInfo" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateUserResponse" type="v1_0:CreateUserResponse" />
+			<s:complexType name="CreateUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="User" type="users:UserInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			DeleteUser
+			-->
+			<s:element name="DeleteUserRequest" type="v1_0:DeleteUserRequest" />
+			<s:complexType name="DeleteUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" wsdl:required ="true" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="DeleteUserResponse" type="v1_0:DeleteUserResponse" />
+			<s:complexType name="DeleteUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			GetUser
+			-->
+			<s:element name="GetUserRequest" type="v1_0:GetUserRequest" />
+			<s:complexType name="GetUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" wsdl:required="true" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetUserResponse" type="v1_0:GetUserResponse" />
+			<s:complexType name="GetUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="User" type="users:UserInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			UpdateUser
+			-->
+			<s:element name="UpdateUserRequest" type="v1_0:UpdateUserRequest" />
+			<s:complexType name="UpdateUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="User" type="users:UserInfo" wsdl:required ="true" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="UpdateUserResponse" type="v1_0:UpdateUserResponse" />
+			<s:complexType name="UpdateUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			DeleteUserByUserNam
+			-->
+			<s:element name="DeleteUserByUserNameRequest" type="v1_0:DeleteUserByUserNameRequest" />
+			<s:complexType name="DeleteUserByUserNameRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserName" type="users:UserNameType" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="DeleteUserByOrgDefinedIdRequest" type="v1_0:DeleteUserByOrgDefinedIdRequest" />
+			<s:complexType name="DeleteUserByOrgDefinedIdRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgDefinedId" type="common:String50Type" wsdl:required ="true" />
+				</s:sequence>
+			</s:complexType>
+			<!--
+			====================================================================
+			GetUserByUserName
+			-->
+			<s:element name="GetUserByUserNameRequest" type="v1_0:GetUserByUserNameRequest" />
+			<s:complexType name="GetUserByUserNameRequest">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetUserByOrgDefinedIdRequest" type="v1_0:GetUserByOrgDefinedIdRequest" />
+			<s:complexType name="GetUserByOrgDefinedIdRequest">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="OrgDefinedId" type="s:string" />
+				</s:sequence>
+			</s:complexType>
+			<!--
+			====================================================================
+			GetRoles
+			-->
+			<s:element name="GetRolesRequest" type="v1_0:GetRolesRequest" />
+			<s:complexType name="GetRolesRequest" />
+			<s:element name="GetRolesResponse" type="v1_0:GetRolesResponse" />
+			<s:complexType name="GetRolesResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Roles" type="users:ArrayOfRoleInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			GetRole
+			-->
+			<s:element name="GetRoleRequest" type="v1_0:GetRoleRequest" />
+			<s:complexType name="GetRoleRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="RoleId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetRoleResponse" type="v1_0:GetRoleResponse" />
+			<s:complexType name="GetRoleResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Role" type="users:RoleInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			ChangePassword
+			-->
+			<s:element name="ChangePasswordRequest" type="v1_0:ChangePasswordRequest" />
+			<s:complexType name="ChangePasswordRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+					<s:element minOccurs="0" maxOccurs="1" name="Password" type="users:PasswordType" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="ChangePasswordResponse" type="v1_0:ChangePasswordResponse" />
+			<s:complexType name="ChangePasswordResponse">
+
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			EnrollUser
+			-->
+			<s:element name="EnrollUserRequest" type="v1_0:EnrollUserRequest" />
+			<s:complexType name="EnrollUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+
+					<s:element minOccurs="1" maxOccurs="1" name="RoleId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="EnrollUserResponse" type="v1_0:EnrollUserResponse" />
+			<s:complexType name="EnrollUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			UnenrollUser
+			-->
+			<s:element name="UnenrollUserRequest" type="v1_0:UnenrollUserRequest" />
+			<s:complexType name="UnenrollUserRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="UnenrollUserResponse" type="v1_0:UnenrollUserResponse" />
+			<s:complexType name="UnenrollUserResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			GetOrgUnitEnrollment
+			-->
+			<s:element name="GetOrgUnitEnrollmentRequest" type="v1_0:GetOrgUnitEnrollmentRequest" />
+			<s:complexType name="GetOrgUnitEnrollmentRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetOrgUnitEnrollmentResponse" type="v1_0:GetOrgUnitEnrollmentResponse" />
+			<s:complexType name="GetOrgUnitEnrollmentResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitEnrollment" type="users:OrgUnitEnrollmentInfo" />
+						</s:sequence>
+
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<!--
+			====================================================================
+			GetEnrollmentsByOrgUnit
+			-->
+			<s:element name="GetEnrollmentsByOrgUnitRequest" type="v1_0:GetEnrollmentsByOrgUnitRequest" />
+			<s:complexType name="GetEnrollmentsByOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetEnrollmentsByOrgUnitResponse" type="v1_0:GetEnrollmentsByOrgUnitResponse" />
+			<s:complexType name="GetEnrollmentsByOrgUnitResponse">
+
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitEnrollments" type="users:ArrayOfOrgUnitEnrollmentInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+		<!--
+		====================================================================
+		version 1.1 elements
+		-->
+		<s:schema elementFormDefault="qualified"
+				targetNamespace="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_1">
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/ums/xsd/users-v1_0" schemaLocation="users-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/ums/xsd/users-v1_1" schemaLocation="users-v1_1.xsd"/>
+			<!--
+			====================================================================
+			GetUsersByOrgUnitRole
+			-->
+			<s:element name="GetUsersByOrgUnitRoleRequest" type="v1_1:GetUsersByOrgUnitRoleRequest" />
+			<s:complexType name="GetUsersByOrgUnitRoleRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="RoleId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetUsersByOrgUnitRoleResponse" type="v1_1:GetUsersByOrgUnitRoleResponse" />
+			<s:complexType name="GetUsersByOrgUnitRoleResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Users" type="users11:ArrayOfUserBasicInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+		<!--
+		====================================================================
+		Version 1.2
+		-->
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_2">
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd" />
+			<s:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0" schemaLocation="orgunits-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1" schemaLocation="orgunits-v1_1.xsd"/>
+			<!--
+			====================================================================
+			GetActiveCourseOfferings
+			-->
+			<s:element name="GetActiveCourseOfferingsRequest" type="v1_2:GetActiveCourseOfferingsRequest" />
+			<s:complexType name="GetActiveCourseOfferingsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" nillable="false" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetActiveCourseOfferingsResponse" type="v1_2:GetActiveCourseOfferingsResponse" />
+			<s:complexType name="GetActiveCourseOfferingsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="CourseOfferings" nillable="false" type="orgunits11:ArrayOfCourseOfferingInfo1_1" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+		<!--
+		====================================================================
+		Version 1.3
+		-->
+		<s:schema elementFormDefault="qualified" targetNamespace="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1_3">
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd" />
+			<s:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0" schemaLocation="orgunits-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1" schemaLocation="orgunits-v1_1.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/ums/xsd/users-v1_0" schemaLocation="users-v1_0.xsd" />
+			<!--
+			====================================================================
+			GetActiveCourseOfferingsEx
+			-->
+			<s:element name="GetActiveCourseOfferingsExRequest" type="v1_3:GetActiveCourseOfferingsExRequest" />
+			<s:complexType name="GetActiveCourseOfferingsExRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="UserId" nillable="false" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetActiveCourseOfferingsExResponse" type="v1_3:GetActiveCourseOfferingsExResponse" />
+			<s:complexType name="GetActiveCourseOfferingsExResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="CourseOfferings" nillable="false" type="orgunits11:ArrayOfCourseOfferingInfo1_1" />
+							<s:element minOccurs="0" maxOccurs="1" name="Roles" nillable="false" type="users:ArrayOfRoleInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+	</wsdl:types>
+	<!-- CreateUser -->
+	<wsdl:message name="CreateUserSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateUserSoapOut">
+		<wsdl:part name="CreateUserResult" element="v1_0:CreateUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- DeleteUser -->
+	<wsdl:message name="DeleteUserSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserSoapOut">
+		<wsdl:part name="DeleteUserResult" element="v1_0:DeleteUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+	
+	<!-- GetUser -->
+	<wsdl:message name="GetUserSoapIn">
+		<wsdl:part name="request" element="v1_0:GetUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetUserSoapOut">
+		<wsdl:part name="GetUserResult" element="v1_0:GetUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- UpdateUser -->
+	<wsdl:message name="UpdateUserSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateUserSoapOut">
+		<wsdl:part name="UpdateUserResult" element="v1_0:UpdateUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- DeleteUserByUserName -->
+	<wsdl:message name="DeleteUserByUserNameSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteUserByUserNameRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserByUserNameSoapOut">
+		<wsdl:part name="DeleteUserByUserNameResult" element="v1_0:DeleteUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserByUserNameRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserByUserNameResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- DeleteUserByOrgDefinedId -->
+	<wsdl:message name="DeleteUserByOrgDefinedIdSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteUserByOrgDefinedIdRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserByOrgDefinedIdSoapOut">
+		<wsdl:part name="DeleteUserByOrgDefinedIdResult" element="v1_0:DeleteUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserByOrgDefinedIdRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteUserByOrgDefinedIdResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetUserByUserName -->
+	<wsdl:message name="GetUserByUserNameSoapIn">
+		<wsdl:part name="request" element="v1_0:GetUserByUserNameRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetUserByUserNameSoapOut">
+		<wsdl:part name="GetUserByUserNameResult" element="v1_0:GetUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetUserByUserNameRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetUserByUserNameResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetUserByOrgDefinedId -->
+	<wsdl:message name="GetUserByOrgDefinedIdSoapIn">
+		<wsdl:part name="request" element="v1_0:GetUserByOrgDefinedIdRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetUserByOrgDefinedIdSoapOut">
+		<wsdl:part name="GetUserByOrgDefinedIdResult" element="v1_0:GetUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetUserByOrgDefinedIdRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetUserByOrgDefinedIdResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetRoles -->
+	<wsdl:message name="GetRolesSoapIn">
+		<wsdl:part name="request" element="v1_0:GetRolesRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetRolesSoapOut">
+		<wsdl:part name="GetRolesResult" element="v1_0:GetRolesResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetRolesRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetRolesResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetRole -->
+	<wsdl:message name="GetRoleSoapIn">
+		<wsdl:part name="request" element="v1_0:GetRoleRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetRoleSoapOut">
+		<wsdl:part name="GetRoleResult" element="v1_0:GetRoleResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetRoleRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetRoleResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- ChangePassword -->
+	<wsdl:message name="ChangePasswordSoapIn">
+		<wsdl:part name="request" element="v1_0:ChangePasswordRequest" />
+	</wsdl:message>
+	<wsdl:message name="ChangePasswordSoapOut">
+		<wsdl:part name="ChangePasswordResult" element="v1_0:ChangePasswordResponse" />
+	</wsdl:message>
+	<wsdl:message name="ChangePasswordRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="ChangePasswordResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- EnrollUser -->
+	<wsdl:message name="EnrollUserSoapIn">
+		<wsdl:part name="request" element="v1_0:EnrollUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="EnrollUserSoapOut">
+		<wsdl:part name="EnrollUserResult" element="v1_0:EnrollUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="EnrollUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="EnrollUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- UnenrollUser -->
+	<wsdl:message name="UnenrollUserSoapIn">
+		<wsdl:part name="request" element="v1_0:UnenrollUserRequest" />
+	</wsdl:message>
+	<wsdl:message name="UnenrollUserSoapOut">
+		<wsdl:part name="UnenrollUserResult" element="v1_0:UnenrollUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="UnenrollUserRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UnenrollUserResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetOrgUnitEnrollment -->
+	<wsdl:message name="GetOrgUnitEnrollmentSoapIn">
+		<wsdl:part name="request" element="v1_0:GetOrgUnitEnrollmentRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetOrgUnitEnrollmentSoapOut">
+		<wsdl:part name="GetOrgUnitEnrollmentResult" element="v1_0:GetOrgUnitEnrollmentResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetOrgUnitEnrollmentRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetOrgUnitEnrollmentResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetEnrollmentsByOrgUnit -->
+	<wsdl:message name="GetEnrollmentsByOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:GetEnrollmentsByOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetEnrollmentsByOrgUnitSoapOut">
+		<wsdl:part name="GetEnrollmentsByOrgUnitResult" element="v1_0:GetEnrollmentsByOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetEnrollmentsByOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetEnrollmentsByOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetUsersByOrgUnitRole -->
+	<wsdl:message name="GetUsersByOrgUnitRoleSoapIn">
+		<wsdl:part name="request" element="v1_1:GetUsersByOrgUnitRoleRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetUsersByOrgUnitRoleSoapOut">
+		<wsdl:part name="GetUsersByOrgUnitRoleResult" element="v1_1:GetUsersByOrgUnitRoleResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetUsersByOrgUnitRoleRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetUsersByOrgUnitRoleResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetActiveCourseOfferings -->
+	<wsdl:message name="GetActiveCourseOfferingsSoapIn">
+		<wsdl:part name="request" element="v1_2:GetActiveCourseOfferingsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetActiveCourseOfferingsSoapOut">
+		<wsdl:part name="GetActiveCourseOfferingsResult" element="v1_2:GetActiveCourseOfferingsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetActiveCourseOfferingsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetActiveCourseOfferingsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<!-- GetActiveCourseOfferingsEx -->
+	<wsdl:message name="GetActiveCourseOfferingsExSoapIn">
+		<wsdl:part name="request" element="v1_3:GetActiveCourseOfferingsExRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetActiveCourseOfferingsExSoapOut">
+		<wsdl:part name="GetActiveCourseOfferingsExResult" element="v1_3:GetActiveCourseOfferingsExResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetActiveCourseOfferingsExRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetActiveCourseOfferingsExResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:portType name="UserManagementService-v1_0">
+		<wsdl:operation name="CreateUser">
+			<wsdl:input message="tns:CreateUserSoapIn" />
+			<wsdl:output message="tns:CreateUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUser">
+			<wsdl:input message="tns:DeleteUserSoapIn" />
+			<wsdl:output message="tns:DeleteUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetUser">
+			<wsdl:input message="tns:GetUserSoapIn" />
+			<wsdl:output message="tns:GetUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateUser">
+			<wsdl:input message="tns:UpdateUserSoapIn" />
+			<wsdl:output message="tns:UpdateUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUserByUserName">
+			<wsdl:input message="tns:DeleteUserByUserNameSoapIn" />
+			<wsdl:output message="tns:DeleteUserByUserNameSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUserByOrgDefinedId">
+			<wsdl:input message="tns:DeleteUserByOrgDefinedIdSoapIn" />
+			<wsdl:output message="tns:DeleteUserByOrgDefinedIdSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetUserByUserName">
+			<wsdl:input message="tns:GetUserByUserNameSoapIn" />
+			<wsdl:output message="tns:GetUserByUserNameSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetUserByOrgDefinedId">
+			<wsdl:input message="tns:GetUserByOrgDefinedIdSoapIn" />
+			<wsdl:output message="tns:GetUserByOrgDefinedIdSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetRoles">
+			<wsdl:input message="tns:GetRolesSoapIn" />
+			<wsdl:output message="tns:GetRolesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetRole">
+			<wsdl:input message="tns:GetRoleSoapIn" />
+			<wsdl:output message="tns:GetRoleSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="ChangePassword">
+			<wsdl:input message="tns:ChangePasswordSoapIn" />
+			<wsdl:output message="tns:ChangePasswordSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="EnrollUser">
+			<wsdl:input message="tns:EnrollUserSoapIn" />
+			<wsdl:output message="tns:EnrollUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UnenrollUser">
+			<wsdl:input message="tns:UnenrollUserSoapIn" />
+			<wsdl:output message="tns:UnenrollUserSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetOrgUnitEnrollment">
+			<wsdl:input message="tns:GetOrgUnitEnrollmentSoapIn" />
+			<wsdl:output message="tns:GetOrgUnitEnrollmentSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetEnrollmentsByOrgUnit">
+			<wsdl:input message="tns:GetEnrollmentsByOrgUnitSoapIn" />
+			<wsdl:output message="tns:GetEnrollmentsByOrgUnitSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:portType name="UserManagementService-v1_1">
+		<wsdl:operation name="GetUsersByOrgUnitRole">
+			<wsdl:input message="tns:GetUsersByOrgUnitRoleSoapIn" />
+			<wsdl:output message="tns:GetUsersByOrgUnitRoleSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="UserManagementService-v1_2">
+		<wsdl:operation name="GetActiveCourseOfferings">
+			<wsdl:input message="tns:GetActiveCourseOfferingsSoapIn" />
+			<wsdl:output message="tns:GetActiveCourseOfferingsSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="UserManagementService-v1_3">
+		<wsdl:operation name="GetActiveCourseOfferingsEx">
+			<wsdl:input message="tns:GetActiveCourseOfferingsExSoapIn" />
+			<wsdl:output message="tns:GetActiveCourseOfferingsExSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="UserManagementService-v1_0" type="tns:UserManagementService-v1_0">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="CreateUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/CreateUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/DeleteUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/UpdateUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUserByUserName">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/DeleteUserByUserName" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteUserByUserNameRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteUserByUserNameResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUserByOrgDefinedId">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/DeleteUserByOrgDefinedId" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteUserByOrgDefinedIdRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteUserByOrgDefinedIdResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUserByUserName">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUserByUserName" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUserByUserNameRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUserByUserNameResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUserByOrgDefinedId">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUserByOrgDefinedId" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUserByOrgDefinedIdRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUserByOrgDefinedIdResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRoles">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetRoles" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetRolesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetRolesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRole">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetRole" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetRoleRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetRoleResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ChangePassword">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/ChangePassword" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:ChangePasswordRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:ChangePasswordResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="EnrollUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/EnrollUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:EnrollUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:EnrollUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UnenrollUser">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/UnenrollUser" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UnenrollUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UnenrollUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOrgUnitEnrollment">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetOrgUnitEnrollment" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetOrgUnitEnrollmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetOrgUnitEnrollmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetEnrollmentsByOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetEnrollmentsByOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetEnrollmentsByOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetEnrollmentsByOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="UserManagementService-v1_1" type="tns:UserManagementService-v1_1">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetUsersByOrgUnitRole">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUsersByOrgUnitRole" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUsersByOrgUnitRoleRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetUsersByOrgUnitRoleResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="UserManagementService-v1_01" type="tns:UserManagementService-v1_0">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="CreateUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/CreateUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/DeleteUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/UpdateUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUserByUserName">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/DeleteUserByUserName" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteUserByUserNameRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteUserByUserNameResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUserByOrgDefinedId">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/DeleteUserByOrgDefinedId" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteUserByOrgDefinedIdRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteUserByOrgDefinedIdResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUserByUserName">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUserByUserName" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUserByUserNameRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUserByUserNameResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUserByOrgDefinedId">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUserByOrgDefinedId" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUserByOrgDefinedIdRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUserByOrgDefinedIdResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRoles">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetRoles" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetRolesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetRolesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetRole">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetRole" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetRoleRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetRoleResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ChangePassword">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/ChangePassword" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:ChangePasswordRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:ChangePasswordResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="EnrollUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/EnrollUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:EnrollUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:EnrollUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UnenrollUser">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/UnenrollUser" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UnenrollUserRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UnenrollUserResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOrgUnitEnrollment">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetOrgUnitEnrollment" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetOrgUnitEnrollmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetOrgUnitEnrollmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetEnrollmentsByOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetEnrollmentsByOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetEnrollmentsByOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetEnrollmentsByOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="UserManagementService-v1_11" type="tns:UserManagementService-v1_1">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetUsersByOrgUnitRole">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/wsdl/UserManagementService-v1/GetUsersByOrgUnitRole" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUsersByOrgUnitRoleRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetUsersByOrgUnitRoleResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="UserManagementService-v1_2" type="tns:UserManagementService-v1_2">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetActiveCourseOfferings">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/UserManagementService-v1/GetActiveCourseOfferings" style="document" />
+			<wsdl:input>
+				<soap:header message="tns:GetActiveCourseOfferingsRequestHeader" part="RequestHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:GetActiveCourseOfferingsResponseHeader" part="ResponseHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="UserManagementService-v1_21" type="tns:UserManagementService-v1_2">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetActiveCourseOfferings">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/UserManagementService-v1/GetActiveCourseOfferings" style="document" />
+			<wsdl:input>
+				<soap12:header message="tns:GetActiveCourseOfferingsRequestHeader" part="RequestHeader" use="literal" />
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:header message="tns:GetActiveCourseOfferingsResponseHeader" part="ResponseHeader" use="literal" />
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+
+	<wsdl:binding name="UserManagementService-v1_3" type="tns:UserManagementService-v1_3">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetActiveCourseOfferingsEx">
+			<soap:operation soapAction="http://www.desire2learn.com/services/ums/UserManagementService-v1/GetActiveCourseOfferingsEx" style="document" />
+			<wsdl:input>
+				<soap:header message="tns:GetActiveCourseOfferingsExRequestHeader" part="RequestHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:GetActiveCourseOfferingsExResponseHeader" part="ResponseHeader" use="literal" />
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="UserManagementService-v1_31" type="tns:UserManagementService-v1_3">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetActiveCourseOfferingsEx">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/ums/UserManagementService-v1/GetActiveCourseOfferingsEx" style="document" />
+			<wsdl:input>
+				<soap12:header message="tns:GetActiveCourseOfferingsExRequestHeader" part="RequestHeader" use="literal" />
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:header message="tns:GetActiveCourseOfferingsExResponseHeader" part="ResponseHeader" use="literal" />
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="UserManagementService">
+		<wsdl:port name="UserManagementService-v1_0" binding="tns:UserManagementService-v1_0">
+			<soap:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_01" binding="tns:UserManagementService-v1_01">
+			<soap12:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_1" binding="tns:UserManagementService-v1_1">
+			<soap:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_11" binding="tns:UserManagementService-v1_11">
+			<soap12:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_2" binding="tns:UserManagementService-v1_2">
+			<soap:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_21" binding="tns:UserManagementService-v1_21">
+			<soap12:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_3" binding="tns:UserManagementService-v1_3">
+			<soap:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="UserManagementService-v1_31" binding="tns:UserManagementService-v1_31">
+			<soap12:address location="http://localhost/D2LWS/UserManagementService-v1.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

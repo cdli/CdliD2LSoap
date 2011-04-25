@@ -1,0 +1,3501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:tns="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1"
+	xmlns:v1_0="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1_0"
+	xmlns:s="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	targetNamespace="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+	xmlns:orgunits="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0"
+	xmlns:orgunitsv1_1="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1"
+	xmlns:oumsv1_1="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1_1">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified"
+							targetNamespace="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1_0">
+
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_0" schemaLocation="orgunits-v1_0.xsd"/>
+
+			<!-- Web service message Types -->
+			<s:element name="GetOrganizationRequest" type="v1_0:GetOrganizationRequest" />
+			<s:complexType name="GetOrganizationRequest" />
+			<s:element name="GetOrganizationResponse" type="v1_0:GetOrganizationResponse" />
+			<s:complexType name="GetOrganizationResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Org" type="orgunits:OrganizationInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+
+			<s:element name="GetStandardOrgUnitTypesRequest" type="v1_0:GetSystemOrgUnitTypesRequest" />
+			<s:complexType name="GetSystemOrgUnitTypesRequest" />
+			<s:element name="GetStandardOrgUnitTypesResponse" type="v1_0:GetSystemOrgUnitTypesResponse" />
+			<s:complexType name="GetSystemOrgUnitTypesResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitTypes" type="orgunits:ArrayOfSystemOrgUnitTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetCustomOrgUnitTypesRequest" type="v1_0:GetCustomOrgUnitTypesRequest" />
+			<s:complexType name="GetCustomOrgUnitTypesRequest" />
+			<s:element name="GetCustomOrgUnitTypesResponse" type="v1_0:GetCustomOrgUnitTypesResponse" />
+			<s:complexType name="GetCustomOrgUnitTypesResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitTypes" type="orgunits:ArrayOfCustomOrgUnitTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+
+			<s:element name="CreateCustomOrgUnitTypeRequest" type="v1_0:CreateCustomOrgUnitTypeRequest" />
+			<s:complexType name="CreateCustomOrgUnitTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="common:String50Type" />
+					<s:element minOccurs="0" maxOccurs="1" name="Description" type="common:String128NoMinimumType" />
+					<s:element minOccurs="1" maxOccurs="1" name="CustomSemantic" type="orgunits:CustomSemanticType" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateCustomOrgUnitTypeResponse" type="v1_0:CreateCustomOrgUnitTypeResponse" />
+			<s:complexType name="CreateCustomOrgUnitTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitTypeInfo" type="orgunits:CustomOrgUnitTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetCustomOrgUnitTypeRequest" type="v1_0:GetCustomOrgUnitTypeRequest" />
+			<s:complexType name="GetCustomOrgUnitTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitTypeId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCustomOrgUnitTypeResponse" type="v1_0:GetCustomOrgUnitTypeResponse" />
+			<s:complexType name="GetCustomOrgUnitTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitType" type="orgunits:CustomOrgUnitTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="UpdateCustomOrgUnitTypeRequest" type="v1_0:UpdateCustomOrgUnitTypeRequest" />
+			<s:complexType name="UpdateCustomOrgUnitTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitType" type="orgunits:CustomOrgUnitTypeInfo" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="UpdateCustomOrgUnitTypeResponse" type="v1_0:UpdateCustomOrgUnitTypeResponse" />
+			<s:complexType name="UpdateCustomOrgUnitTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="DeleteCustomOrgUnitTypeRequest" type="v1_0:DeleteCustomOrgUnitTypeRequest" />
+			<s:complexType name="DeleteCustomOrgUnitTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitTypeId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="DeleteCustomOrgUnitTypeResponse" type="v1_0:DeleteCustomOrgUnitTypeResponse" />
+			<s:complexType name="DeleteCustomOrgUnitTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+
+			<s:element name="CreateCustomOrgUnitRequest" type="v1_0:CreateCustomOrgUnitRequest" />
+			<s:complexType name="CreateCustomOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Path" type="orgunits:OrgUnitPathType" />
+					<s:element minOccurs="1" maxOccurs="1" name="CustomOrgUnitTypeId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+					<s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateCustomOrgUnitResponse" type="v1_0:CreateCustomOrgUnitResponse" />
+			<s:complexType name="CreateCustomOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnit" type="orgunits:CustomOrgUnitInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetCustomOrgUnitRequest" type="v1_0:GetCustomOrgUnitRequest" />
+			<s:complexType name="GetCustomOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCustomOrgUnitResponse" type="v1_0:GetCustomOrgUnitResponse" />
+			<s:complexType name="GetCustomOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnit" type="orgunits:CustomOrgUnitInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetCustomOrgUnitByCodeRequest" type="v1_0:GetCustomOrgUnitByCodeRequest" />
+			<s:complexType name="GetCustomOrgUnitByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="UpdateCustomOrgUnitRequest" type="v1_0:UpdateCustomOrgUnitRequest" />
+			<s:complexType name="UpdateCustomOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnit" type="orgunits:CustomOrgUnitInfo" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="UpdateOrgUnitResponse" type="v1_0:UpdateOrgUnitResponse" />
+			<s:complexType name="UpdateOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="DeleteCustomOrgUnitRequest" type="v1_0:DeleteCustomOrgUnitRequest" />
+			<s:complexType name="DeleteCustomOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="DeleteOrgUnitResponse" type="v1_0:DeleteOrgUnitResponse" />
+			<s:complexType name="DeleteOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+
+			<s:element name="GetDepartmentOrgUnitTypeRequest" type="v1_0:GetDepartmentOrgUnitTypeRequest" />
+			<s:complexType name="GetDepartmentOrgUnitTypeRequest" />
+			<s:element name="GetDepartmentOrgUnitTypeResponse" type="v1_0:GetDepartmentOrgUnitTypeResponse" />
+			<s:complexType name="GetDepartmentOrgUnitTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitType" type="orgunits:OrgUnitTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="CreateDepartmentRequest" type="v1_0:CreateDepartmentRequest" />
+			<s:complexType name="CreateDepartmentRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Path" type="orgunits:OrgUnitPathType" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+					<s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateDepartmentResponse" type="v1_0:CreateDepartmentResponse" />
+			<s:complexType name="CreateDepartmentResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Department" type="orgunits:DepartmentInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetDepartmentRequest" type="v1_0:GetDepartmentRequest" />
+			<s:complexType name="GetDepartmentRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetDepartmentResponse" type="v1_0:GetDepartmentResponse" />
+			<s:complexType name="GetDepartmentResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Department" type="orgunits:DepartmentInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetDepartmentByCodeRequest" type="v1_0:GetDepartmentByCodeRequest" />
+			<s:complexType name="GetDepartmentByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="UpdateDepartmentRequest" type="v1_0:UpdateDepartmentRequest" />
+			<s:complexType name="UpdateDepartmentRequest">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="Department" type="orgunits:DepartmentInfo" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteDepartmentRequest" type="v1_0:DeleteDepartmentRequest" />
+			<s:complexType name="DeleteDepartmentRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="GetSemesterOrgUnitTypeRequest" type="v1_0:GetSemesterOrgUnitTypeRequest" />
+			<s:complexType name="GetSemesterOrgUnitTypeRequest" />
+			<s:element name="GetSemesterOrgUnitTypeResponse" type="v1_0:GetSemesterOrgUnitTypeResponse" />
+			<s:complexType name="GetSemesterOrgUnitTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitType" type="orgunits:OrgUnitTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="CreateSemesterRequest" type="v1_0:CreateSemesterRequest" />
+			<s:complexType name="CreateSemesterRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Path" type="orgunits:OrgUnitPathType" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+					<s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateSemesterResponse" type="v1_0:CreateSemesterResponse" />
+			<s:complexType name="CreateSemesterResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Semester" type="orgunits:SemesterInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetSemesterRequest" type="v1_0:GetSemesterRequest" />
+			<s:complexType name="GetSemesterRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetSemesterResponse" type="v1_0:GetSemesterResponse" />
+			<s:complexType name="GetSemesterResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Semester" type="orgunits:SemesterInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetSemesterByCodeRequest" type="v1_0:GetSemesterByCodeRequest" />
+			<s:complexType name="GetSemesterByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="UpdateSemesterRequest" type="v1_0:UpdateSemesterRequest" />
+			<s:complexType name="UpdateSemesterRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Semester" type="orgunits:SemesterInfo" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteSemesterRequest" type="v1_0:DeleteSemesterRequest" />
+			<s:complexType name="DeleteSemesterRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="CreateCourseTemplateRequest" type="v1_0:CreateCourseTemplateRequest" />
+			<s:complexType name="CreateCourseTemplateRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Path" type="orgunits:OrgUnitPathType" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" nillable="true" />
+					<s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" nillable="true" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateCourseTemplateResponse" type="v1_0:CreateCourseTemplateResponse" />
+			<s:complexType name="CreateCourseTemplateResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="CourseTemplate" type="orgunits:CourseTemplateInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetCourseTemplateRequest" type="v1_0:GetCourseTemplateRequest" />
+			<s:complexType name="GetCourseTemplateRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCourseTemplateResponse" type="v1_0:GetCourseTemplateResponse" />
+			<s:complexType name="GetCourseTemplateResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="CourseTemplate" type="orgunits:CourseTemplateInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetCourseTemplateByCodeRequest" type="v1_0:GetCourseTemplateByCodeRequest" />
+			<s:complexType name="GetCourseTemplateByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="UpdateCourseTemplateRequest" type="v1_0:UpdateCourseTemplateRequest" />
+			<s:complexType name="UpdateCourseTemplateRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="CourseTemplate" type="orgunits:CourseTemplateInfo" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteCourseTemplateRequest" type="v1_0:DeleteCourseTemplateRequest" />
+			<s:complexType name="DeleteCourseTemplateRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="CreateCourseOfferingRequest" type="v1_0:CreateCourseOfferingRequest" />
+			<s:complexType name="CreateCourseOfferingRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Path" type="orgunits:OrgUnitPathType" />
+					<s:element minOccurs="1" maxOccurs="1" name="TemplateId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsActive" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" nillable="true" />
+					<s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" nillable="true" />
+					<s:element minOccurs="1" maxOccurs="1" name="CanRegister" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="AllowSections" type="s:boolean" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateCourseOfferingResponse" type="v1_0:CreateCourseOfferingResponse" />
+			<s:complexType name="CreateCourseOfferingResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="CourseOffering" type="orgunits:CourseOfferingInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetCourseOfferingRequest" type="v1_0:GetCourseOfferingRequest" />
+			<s:complexType name="GetCourseOfferingRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCourseOfferingResponse" type="v1_0:GetCourseOfferingResponse" />
+			<s:complexType name="GetCourseOfferingResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="CourseOffering" type="orgunits:CourseOfferingInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetCourseOfferingByCodeRequest" type="v1_0:GetCourseOfferingByCodeRequest" />
+			<s:complexType name="GetCourseOfferingByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="UpdateCourseOfferingRequest" type="v1_0:UpdateCourseOfferingRequest" />
+			<s:complexType name="UpdateCourseOfferingRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="CourseOffering" type="orgunits:CourseOfferingInfo" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteCourseOfferingRequest" type="v1_0:DeleteCourseOfferingRequest" />
+			<s:complexType name="DeleteCourseOfferingRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="GetGroupTypesRequest" type="v1_0:GetGroupTypesRequest" />
+			<s:complexType name="GetGroupTypesRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OwnerOrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGroupTypesResponse" type="v1_0:GetGroupTypesResponse" />
+			<s:complexType name="GetGroupTypesResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GroupTypes" type="orgunits:ArrayOfGroupTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetGroupTypeRequest" type="v1_0:GetGroupTypeRequest" />
+			<s:complexType name="GetGroupTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="OwnerOrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGroupTypeResponse" type="v1_0:GetGroupTypeResponse" />
+			<s:complexType name="GetGroupTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GroupType" type="orgunits:GroupTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="CreateGroupTypeRequest" type="v1_0:CreateGroupTypeRequest" />
+			<s:complexType name="CreateGroupTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:GroupTypeNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="OwnerOrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+					<s:element minOccurs="1" maxOccurs="1" name="EnrollmentQuantity" type="orgunits:EnrollQuantity" />
+					<s:element minOccurs="1" maxOccurs="1" name="IsAutoEnroll" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="RandomizeEnrollments" type="s:boolean" />
+					<s:element minOccurs="1" maxOccurs="1" name="EnrollmentStyle" type="orgunits:GroupEnrollmentStyle" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateGroupTypeResponse" type="v1_0:CreateGroupTypeResponse" />
+			<s:complexType name="CreateGroupTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="GroupType" type="orgunits:GroupTypeInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="UpdateGroupTypeRequest" type="v1_0:UpdateGroupTypeRequest" />
+			<s:complexType name="UpdateGroupTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="GroupType" type="orgunits:GroupTypeInfo" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="UpdateGroupTypeResponse" type="v1_0:UpdateGroupTypeResponse" />
+			<s:complexType name="UpdateGroupTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="DeleteGroupTypeRequest" type="v1_0:DeleteGroupTypeRequest" />
+			<s:complexType name="DeleteGroupTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="OwnerOrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="DeleteGroupTypeResponse" type="v1_0:DeleteGroupTypeResponse" />
+			<s:complexType name="DeleteGroupTypeResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+
+			<s:element name="CreateGroupRequest" type="v1_0:CreateGroupRequest" />
+			<s:complexType name="CreateGroupRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+					<s:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="OwnerOrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateGroupResponse" type="v1_0:CreateGroupResponse" />
+			<s:complexType name="CreateGroupResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Group" type="orgunits:GroupInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetGroupRequest" type="v1_0:GetGroupRequest" />
+			<s:complexType name="GetGroupRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGroupResponse" type="v1_0:GetGroupResponse" />
+			<s:complexType name="GetGroupResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Group" type="orgunits:GroupInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetGroupByCodeRequest" type="v1_0:GetGroupByCodeRequest" />
+			<s:complexType name="GetGroupByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="UpdateGroupRequest" type="v1_0:UpdateGroupRequest" />
+			<s:complexType name="UpdateGroupRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Group" type="orgunits:GroupInfo" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteGroupRequest" type="v1_0:DeleteGroupRequest" />
+			<s:complexType name="DeleteGroupRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="CreateSectionRequest" type="v1_0:CreateSectionRequest" />
+			<s:complexType name="CreateSectionRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Name" type="orgunits:OrgUnitNameType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+					<s:element minOccurs="1" maxOccurs="1" name="Description" type="orgunits:RichTextInfo" />
+					<s:element minOccurs="1" maxOccurs="1" name="CourseOfferingId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="CreateSectionResponse" type="v1_0:CreateSectionResponse" />
+			<s:complexType name="CreateSectionResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Section" type="orgunits:SectionInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetSectionRequest" type="v1_0:GetSectionRequest" />
+			<s:complexType name="GetSectionRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetSectionResponse" type="v1_0:GetSectionResponse" />
+			<s:complexType name="GetSectionResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="Section" type="orgunits:SectionInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetSectionByCodeRequest" type="v1_0:GetSectionByCodeRequest" />
+			<s:complexType name="GetSectionByCodeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Code" type="orgunits:OrgUnitCodeType" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="UpdateSectionRequest" type="v1_0:UpdateSectionRequest" />
+			<s:complexType name="UpdateSectionRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="Section" type="orgunits:SectionInfo" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="DeleteSectionRequest" type="v1_0:DeleteSectionRequest" />
+			<s:complexType name="DeleteSectionRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="AddChildOrgUnitRequest" type="v1_0:AddChildOrgUnitRequest" />
+			<s:complexType name="AddChildOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="ChildOrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="AddChildOrgUnitResponse" type="v1_0:AddChildOrgUnitResponse" />
+			<s:complexType name="AddChildOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="RemoveChildOrgUnitRequest" type="v1_0:RemoveChildOrgUnitRequest" />
+			<s:complexType name="RemoveChildOrgUnitRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="ChildOrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="RemoveChildOrgUnitResponse" type="v1_0:RemoveChildOrgUnitResponse" />
+			<s:complexType name="RemoveChildOrgUnitResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase" />
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildOrgUnitTypeIdsRequest" type="v1_0:GetChildOrgUnitTypeIdsRequest" />
+			<s:complexType name="GetChildOrgUnitTypeIdsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetChildOrgUnitTypeIdsResponse" type="v1_0:GetChildOrgUnitTypeIdsResponse" />
+			<s:complexType name="GetChildOrgUnitTypeIdsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnitTypeIds" type="orgunits:ArrayOfIdentifier" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildOrgUnitIdsRequest" type="v1_0:GetChildOrgUnitIdsRequest" />
+			<s:complexType name="GetChildOrgUnitIdsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetOrgUnitIdsResponse" type="v1_0:GetOrgUnitIdsResponse" />
+			<s:complexType name="GetOrgUnitIdsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="OrgUnitIds" type="orgunits:ArrayOfOrgUnitIdentifier" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetParentOrgUnitIdsRequest" type="v1_0:GetParentOrgUnitIdsRequest" />
+			<s:complexType name="GetParentOrgUnitIdsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+
+			<s:element name="GetChildGroupsRequest" type="v1_0:GetChildGroupsRequest" />
+			<s:complexType name="GetChildGroupsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetGroupsResponse" type="v1_0:GetGroupsResponse" />
+			<s:complexType name="GetGroupsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfGroupInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetChildGroupsByTypeRequest" type="v1_0:GetChildGroupsByTypeRequest" />
+			<s:complexType name="GetChildGroupsByTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="GroupTypeId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<s:element name="GetChildSectionsRequest" type="v1_0:GetChildSectionsRequest" />
+			<s:complexType name="GetChildSectionsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetSectionsResponse" type="v1_0:GetSectionsResponse" />
+			<s:complexType name="GetSectionsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfSectionInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildCourseOfferingsRequest" type="v1_0:GetChildCourseOfferingsRequest" />
+			<s:complexType name="GetChildCourseOfferingsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCourseOfferingsResponse" type="v1_0:GetCourseOfferingsResponse" />
+			<s:complexType name="GetCourseOfferingsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfCourseOfferingInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildCourseTemplatesRequest" type="v1_0:GetChildCourseTemplatesRequest" />
+			<s:complexType name="GetChildCourseTemplatesRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCourseTemplatesResponse" type="v1_0:GetCourseTemplatesResponse" />
+			<s:complexType name="GetCourseTemplatesResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfCourseTemplateInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildDepartmentsRequest" type="v1_0:GetChildDepartmentsRequest" />
+			<s:complexType name="GetChildDepartmentsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetDepartmentsResponse" type="v1_0:GetDepartmentsResponse" />
+			<s:complexType name="GetDepartmentsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfDepartmentInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildSemestersRequest" type="v1_0:GetChildSemestersRequest" />
+			<s:complexType name="GetChildSemestersRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetSemestersResponse" type="v1_0:GetSemestersResponse" />
+			<s:complexType name="GetSemestersResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfSemesterInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+
+			<s:element name="GetChildCustomOrgUnitsRequest" type="v1_0:GetChildCustomOrgUnitsRequest" />
+			<s:complexType name="GetChildCustomOrgUnitsRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetCustomOrgUnitsResponse" type="v1_0:GetCustomOrgUnitsResponse" />
+			<s:complexType name="GetCustomOrgUnitsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunits:ArrayOfCustomOrgUnitInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+			<s:element name="GetChildCustomOrgUnitsByTypeRequest" type="v1_0:GetChildCustomOrgUnitsByTypeRequest" />
+			<s:complexType name="GetChildCustomOrgUnitsByTypeRequest">
+				<s:sequence>
+					<s:element minOccurs="1" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+					<s:element minOccurs="1" maxOccurs="1" name="CustomOrgUnitTypeId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+
+			<!--<s:element name = "RequestHeader">
+				<s:complexType>
+					<s:complexContent>
+						<s:extension base="common:RequestHeaderInfo"/>
+					</s:complexContent>
+				</s:complexType>
+			</s:element>
+			<s:element name = "ResponseHeader">
+				<s:complexType>
+					<s:sequence>
+						<s:element ref = "common:ResponseHeader"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>-->
+
+		</s:schema>
+		<s:schema elementFormDefault="qualified"
+							targetNamespace="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1_1">
+
+			<s:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd"/>
+			<s:import namespace="http://www.desire2learn.com/services/oums/xsd/orgunits-v1_1" schemaLocation="orgunits-v1_1.xsd"/>
+
+			<s:element name="GetChildOrgUnitsRequest" type="oumsv1_1:GetChildOrgUnitsRequest" />
+			<s:complexType name="GetChildOrgUnitsRequest">
+				<s:sequence>
+					<s:element minOccurs="0" maxOccurs="1" name="OrgUnitId" type="common:Identifier" />
+				</s:sequence>
+			</s:complexType>
+			<s:element name="GetChildOrgUnitsResponse" type="oumsv1_1:GetChildOrgUnitsResponse" />
+			<s:complexType name="GetChildOrgUnitsResponse">
+				<s:complexContent mixed="false">
+					<s:extension base="common:ResponseBase">
+						<s:sequence>
+							<s:element minOccurs="0" maxOccurs="1" name="ChildOrgUnits" type="orgunitsv1_1:ArrayOfOrgUnitInfo" />
+						</s:sequence>
+					</s:extension>
+				</s:complexContent>
+			</s:complexType>
+		</s:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="GetOrganizationSoapIn">
+		<wsdl:part name="request" element="v1_0:GetOrganizationRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationSoapOut">
+		<wsdl:part name="GetOrganizationResult" element="v1_0:GetOrganizationResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader"/>
+	</wsdl:message>
+	<wsdl:message name="GetOrganizationResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader"/>
+	</wsdl:message>
+
+
+	<wsdl:message name="GetSystemOrgUnitTypesSoapIn">
+		<wsdl:part name="request" element="v1_0:GetStandardOrgUnitTypesRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetSystemOrgUnitTypesSoapOut">
+		<wsdl:part name="GetSystemOrgUnitTypesResult" element="v1_0:GetStandardOrgUnitTypesResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetSystemOrgUnitTypesRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetSystemOrgUnitTypesResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCustomOrgUnitTypesSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCustomOrgUnitTypesRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitTypesSoapOut">
+		<wsdl:part name="GetCustomOrgUnitTypesResult" element="v1_0:GetCustomOrgUnitTypesResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitTypesRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitTypesResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="CreateCustomOrgUnitTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateCustomOrgUnitTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateCustomOrgUnitTypeSoapOut">
+		<wsdl:part name="CreateCustomOrgUnitTypeResult" element="v1_0:CreateCustomOrgUnitTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateCustomOrgUnitTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateCustomOrgUnitTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCustomOrgUnitTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCustomOrgUnitTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitTypeSoapOut">
+		<wsdl:part name="GetCustomOrgUnitTypeResult" element="v1_0:GetCustomOrgUnitTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateCustomOrgUnitTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateCustomOrgUnitTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCustomOrgUnitTypeSoapOut">
+		<wsdl:part name="UpdateCustomOrgUnitTypeResult" element="v1_0:UpdateCustomOrgUnitTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCustomOrgUnitTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCustomOrgUnitTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteCustomOrgUnitTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteCustomOrgUnitTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCustomOrgUnitTypeSoapOut">
+		<wsdl:part name="DeleteCustomOrgUnitTypeResult" element="v1_0:DeleteCustomOrgUnitTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCustomOrgUnitTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCustomOrgUnitTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="CreateCustomOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateCustomOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateCustomOrgUnitSoapOut">
+		<wsdl:part name="CreateCustomOrgUnitResult" element="v1_0:CreateCustomOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateCustomOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateCustomOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCustomOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCustomOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitSoapOut">
+		<wsdl:part name="GetCustomOrgUnitResult" element="v1_0:GetCustomOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCustomOrgUnitByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCustomOrgUnitByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitByCodeSoapOut">
+		<wsdl:part name="GetCustomOrgUnitByCodeResult" element="v1_0:GetCustomOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCustomOrgUnitByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateCustomOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateCustomOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCustomOrgUnitSoapOut">
+		<wsdl:part name="UpdateCustomOrgUnitResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCustomOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCustomOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteCustomOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteCustomOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCustomOrgUnitSoapOut">
+		<wsdl:part name="DeleteCustomOrgUnitResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCustomOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCustomOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="GetDepartmentOrgUnitTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetDepartmentOrgUnitTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentOrgUnitTypeSoapOut">
+		<wsdl:part name="GetDepartmentOrgUnitTypeResult" element="v1_0:GetDepartmentOrgUnitTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentOrgUnitTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentOrgUnitTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="CreateDepartmentSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateDepartmentRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateDepartmentSoapOut">
+		<wsdl:part name="CreateDepartmentResult" element="v1_0:CreateDepartmentResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateDepartmentRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateDepartmentResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetDepartmentSoapIn">
+		<wsdl:part name="request" element="v1_0:GetDepartmentRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentSoapOut">
+		<wsdl:part name="GetDepartmentResult" element="v1_0:GetDepartmentResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetDepartmentByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetDepartmentByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentByCodeSoapOut">
+		<wsdl:part name="GetDepartmentByCodeResult" element="v1_0:GetDepartmentResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetDepartmentByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateDepartmentSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateDepartmentRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateDepartmentSoapOut">
+		<wsdl:part name="UpdateDepartmentResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateDepartmentRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateDepartmentResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteDepartmentSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteDepartmentRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteDepartmentSoapOut">
+		<wsdl:part name="DeleteDepartmentResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteDepartmentRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteDepartmentResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="GetSemesterOrgUnitTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetSemesterOrgUnitTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterOrgUnitTypeSoapOut">
+		<wsdl:part name="GetSemesterOrgUnitTypeResult" element="v1_0:GetSemesterOrgUnitTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterOrgUnitTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterOrgUnitTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="CreateSemesterSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateSemesterRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateSemesterSoapOut">
+		<wsdl:part name="CreateSemesterResult" element="v1_0:CreateSemesterResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateSemesterRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateSemesterResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetSemesterSoapIn">
+		<wsdl:part name="request" element="v1_0:GetSemesterRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterSoapOut">
+		<wsdl:part name="GetSemesterResult" element="v1_0:GetSemesterResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetSemesterByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetSemesterByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterByCodeSoapOut">
+		<wsdl:part name="GetSemesterByCodeResult" element="v1_0:GetSemesterResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetSemesterByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateSemesterSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateSemesterRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateSemesterSoapOut">
+		<wsdl:part name="UpdateSemesterResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateSemesterRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateSemesterResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteSemesterSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteSemesterRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSemesterSoapOut">
+		<wsdl:part name="DeleteSemesterResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSemesterRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSemesterResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="CreateCourseTemplateSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateCourseTemplateRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateCourseTemplateSoapOut">
+		<wsdl:part name="CreateCourseTemplateResult" element="v1_0:CreateCourseTemplateResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateCourseTemplateRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateCourseTemplateResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCourseTemplateSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCourseTemplateRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseTemplateSoapOut">
+		<wsdl:part name="GetCourseTemplateResult" element="v1_0:GetCourseTemplateResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseTemplateRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseTemplateResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCourseTemplateByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCourseTemplateByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseTemplateByCodeSoapOut">
+		<wsdl:part name="GetCourseTemplateByCodeResult" element="v1_0:GetCourseTemplateResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseTemplateByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseTemplateByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateCourseTemplateSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateCourseTemplateRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCourseTemplateSoapOut">
+		<wsdl:part name="UpdateCourseTemplateResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCourseTemplateRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCourseTemplateResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteCourseTemplateSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteCourseTemplateRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCourseTemplateSoapOut">
+		<wsdl:part name="DeleteCourseTemplateResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCourseTemplateRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCourseTemplateResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="CreateCourseOfferingSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateCourseOfferingRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateCourseOfferingSoapOut">
+		<wsdl:part name="CreateCourseOfferingResult" element="v1_0:CreateCourseOfferingResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateCourseOfferingRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateCourseOfferingResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCourseOfferingSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCourseOfferingRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseOfferingSoapOut">
+		<wsdl:part name="GetCourseOfferingResult" element="v1_0:GetCourseOfferingResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseOfferingRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseOfferingResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetCourseOfferingByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetCourseOfferingByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseOfferingByCodeSoapOut">
+		<wsdl:part name="GetCourseOfferingByCodeResult" element="v1_0:GetCourseOfferingResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseOfferingByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetCourseOfferingByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateCourseOfferingSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateCourseOfferingRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCourseOfferingSoapOut">
+		<wsdl:part name="UpdateCourseOfferingResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCourseOfferingRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateCourseOfferingResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteCourseOfferingSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteCourseOfferingRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCourseOfferingSoapOut">
+		<wsdl:part name="DeleteCourseOfferingResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCourseOfferingRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteCourseOfferingResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="GetGroupTypesSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGroupTypesRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupTypesSoapOut">
+		<wsdl:part name="GetGroupTypesResult" element="v1_0:GetGroupTypesResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupTypesRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupTypesResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetGroupTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGroupTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupTypeSoapOut">
+		<wsdl:part name="GetGroupTypeResult" element="v1_0:GetGroupTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="CreateGroupTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateGroupTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateGroupTypeSoapOut">
+		<wsdl:part name="CreateGroupTypeResult" element="v1_0:CreateGroupTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateGroupTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateGroupTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateGroupTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateGroupTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateGroupTypeSoapOut">
+		<wsdl:part name="UpdateGroupTypeResult" element="v1_0:UpdateGroupTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateGroupTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateGroupTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteGroupTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteGroupTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGroupTypeSoapOut">
+		<wsdl:part name="DeleteGroupTypeResult" element="v1_0:DeleteGroupTypeResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGroupTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGroupTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="CreateGroupSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateGroupRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateGroupSoapOut">
+		<wsdl:part name="CreateGroupResult" element="v1_0:CreateGroupResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateGroupRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateGroupResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetGroupSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGroupRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupSoapOut">
+		<wsdl:part name="GetGroupResult" element="v1_0:GetGroupResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetGroupByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetGroupByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupByCodeSoapOut">
+		<wsdl:part name="GetGroupByCodeResult" element="v1_0:GetGroupResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetGroupByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateGroupSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateGroupRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateGroupSoapOut">
+		<wsdl:part name="UpdateGroupResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateGroupRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateGroupResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteGroupSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteGroupRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGroupSoapOut">
+		<wsdl:part name="DeleteGroupResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGroupRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteGroupResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="CreateSectionSoapIn">
+		<wsdl:part name="request" element="v1_0:CreateSectionRequest" />
+	</wsdl:message>
+	<wsdl:message name="CreateSectionSoapOut">
+		<wsdl:part name="CreateSectionResult" element="v1_0:CreateSectionResponse" />
+	</wsdl:message>
+	<wsdl:message name="CreateSectionRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="CreateSectionResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetSectionSoapIn">
+		<wsdl:part name="request" element="v1_0:GetSectionRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetSectionSoapOut">
+		<wsdl:part name="GetSectionResult" element="v1_0:GetSectionResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetSectionRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetSectionResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetSectionByCodeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetSectionByCodeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetSectionByCodeSoapOut">
+		<wsdl:part name="GetSectionByCodeResult" element="v1_0:GetSectionResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetSectionByCodeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetSectionByCodeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="UpdateSectionSoapIn">
+		<wsdl:part name="request" element="v1_0:UpdateSectionRequest" />
+	</wsdl:message>
+	<wsdl:message name="UpdateSectionSoapOut">
+		<wsdl:part name="UpdateSectionResult" element="v1_0:UpdateOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="UpdateSectionRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="UpdateSectionResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="DeleteSectionSoapIn">
+		<wsdl:part name="request" element="v1_0:DeleteSectionRequest" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSectionSoapOut">
+		<wsdl:part name="DeleteSectionResult" element="v1_0:DeleteOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSectionRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSectionResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="AddChildOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:AddChildOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="AddChildOrgUnitSoapOut">
+		<wsdl:part name="AddChildOrgUnitResult" element="v1_0:AddChildOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="AddChildOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="AddChildOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="RemoveChildOrgUnitSoapIn">
+		<wsdl:part name="request" element="v1_0:RemoveChildOrgUnitRequest" />
+	</wsdl:message>
+	<wsdl:message name="RemoveChildOrgUnitSoapOut">
+		<wsdl:part name="RemoveChildOrgUnitResult" element="v1_0:RemoveChildOrgUnitResponse" />
+	</wsdl:message>
+	<wsdl:message name="RemoveChildOrgUnitRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="RemoveChildOrgUnitResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildOrgUnitTypeIdsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildOrgUnitTypeIdsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitTypeIdsSoapOut">
+		<wsdl:part name="GetChildOrgUnitTypeIdsResult" element="v1_0:GetChildOrgUnitTypeIdsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitTypeIdsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitTypeIdsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildOrgUnitIdsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildOrgUnitIdsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitIdsSoapOut">
+		<wsdl:part name="GetChildOrgUnitIdsResult" element="v1_0:GetOrgUnitIdsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitIdsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitIdsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetParentOrgUnitIdsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetParentOrgUnitIdsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetParentOrgUnitIdsSoapOut">
+		<wsdl:part name="GetParentOrgUnitIdsResult" element="v1_0:GetOrgUnitIdsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetParentOrgUnitIdsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetParentOrgUnitIdsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+
+	<wsdl:message name="GetChildGroupsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildGroupsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildGroupsSoapOut">
+		<wsdl:part name="GetChildGroupsResult" element="v1_0:GetGroupsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildGroupsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildGroupsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildGroupsByTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildGroupsByTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildGroupsByTypeSoapOut">
+		<wsdl:part name="GetChildGroupsByTypeResult" element="v1_0:GetGroupsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildGroupsByTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildGroupsByTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildSectionsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildSectionsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildSectionsSoapOut">
+		<wsdl:part name="GetChildSectionsResult" element="v1_0:GetSectionsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildSectionsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildSectionsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildCourseOfferingsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildCourseOfferingsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCourseOfferingsSoapOut">
+		<wsdl:part name="GetChildCourseOfferingsResult" element="v1_0:GetCourseOfferingsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCourseOfferingsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCourseOfferingsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildCourseTemplatesSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildCourseTemplatesRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCourseTemplatesSoapOut">
+		<wsdl:part name="GetChildCourseTemplatesResult" element="v1_0:GetCourseTemplatesResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCourseTemplatesRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCourseTemplatesResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildDepartmentsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildDepartmentsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildDepartmentsSoapOut">
+		<wsdl:part name="GetChildDepartmentsResult" element="v1_0:GetDepartmentsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildDepartmentsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildDepartmentsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildSemestersSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildSemestersRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildSemestersSoapOut">
+		<wsdl:part name="GetChildSemestersResult" element="v1_0:GetSemestersResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildSemestersRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildSemestersResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildCustomOrgUnitsSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildCustomOrgUnitsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCustomOrgUnitsSoapOut">
+		<wsdl:part name="GetChildCustomOrgUnitsResult" element="v1_0:GetCustomOrgUnitsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCustomOrgUnitsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCustomOrgUnitsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildCustomOrgUnitsByTypeSoapIn">
+		<wsdl:part name="request" element="v1_0:GetChildCustomOrgUnitsByTypeRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCustomOrgUnitsByTypeSoapOut">
+		<wsdl:part name="GetChildCustomOrgUnitsByTypeResult" element="v1_0:GetCustomOrgUnitsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCustomOrgUnitsByTypeRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildCustomOrgUnitsByTypeResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:message name="GetChildOrgUnitsSoapIn">
+		<wsdl:part name="request" element="oumsv1_1:GetChildOrgUnitsRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitsSoapOut">
+		<wsdl:part name="GetChildOrgUnitsResult" element="oumsv1_1:GetChildOrgUnitsResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitsRequestHeader">
+		<wsdl:part name="RequestHeader" element="common:RequestHeader" />
+	</wsdl:message>
+	<wsdl:message name="GetChildOrgUnitsResponseHeader">
+		<wsdl:part name="ResponseHeader" element="common:ResponseHeader" />
+	</wsdl:message>
+
+	<wsdl:portType name="OrgUnitManagementService-v1_0">
+		<wsdl:operation name="GetOrganization">
+			<wsdl:input message="tns:GetOrganizationSoapIn" />
+			<wsdl:output message="tns:GetOrganizationSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSystemOrgUnitTypes">
+			<wsdl:input message="tns:GetSystemOrgUnitTypesSoapIn" />
+			<wsdl:output message="tns:GetSystemOrgUnitTypesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitTypes">
+			<wsdl:input message="tns:GetCustomOrgUnitTypesSoapIn" />
+			<wsdl:output message="tns:GetCustomOrgUnitTypesSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCustomOrgUnitType">
+			<wsdl:input message="tns:CreateCustomOrgUnitTypeSoapIn" />
+			<wsdl:output message="tns:CreateCustomOrgUnitTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitType">
+			<wsdl:input message="tns:GetCustomOrgUnitTypeSoapIn" />
+			<wsdl:output message="tns:GetCustomOrgUnitTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomOrgUnitType">
+			<wsdl:input message="tns:UpdateCustomOrgUnitTypeSoapIn" />
+			<wsdl:output message="tns:UpdateCustomOrgUnitTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomOrgUnitType">
+			<wsdl:input message="tns:DeleteCustomOrgUnitTypeSoapIn" />
+			<wsdl:output message="tns:DeleteCustomOrgUnitTypeSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCustomOrgUnit">
+			<wsdl:input message="tns:CreateCustomOrgUnitSoapIn" />
+			<wsdl:output message="tns:CreateCustomOrgUnitSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnit">
+			<wsdl:input message="tns:GetCustomOrgUnitSoapIn" />
+			<wsdl:output message="tns:GetCustomOrgUnitSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitByCode">
+			<wsdl:input message="tns:GetCustomOrgUnitByCodeSoapIn" />
+			<wsdl:output message="tns:GetCustomOrgUnitByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomOrgUnit">
+			<wsdl:input message="tns:UpdateCustomOrgUnitSoapIn" />
+			<wsdl:output message="tns:UpdateCustomOrgUnitSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomOrgUnit">
+			<wsdl:input message="tns:DeleteCustomOrgUnitSoapIn" />
+			<wsdl:output message="tns:DeleteCustomOrgUnitSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="GetDepartmentOrgUnitType">
+			<wsdl:input message="tns:GetDepartmentOrgUnitTypeSoapIn" />
+			<wsdl:output message="tns:GetDepartmentOrgUnitTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="CreateDepartment">
+			<wsdl:input message="tns:CreateDepartmentSoapIn" />
+			<wsdl:output message="tns:CreateDepartmentSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDepartment">
+			<wsdl:input message="tns:GetDepartmentSoapIn" />
+			<wsdl:output message="tns:GetDepartmentSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetDepartmentByCode">
+			<wsdl:input message="tns:GetDepartmentByCodeSoapIn" />
+			<wsdl:output message="tns:GetDepartmentByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateDepartment">
+			<wsdl:input message="tns:UpdateDepartmentSoapIn" />
+			<wsdl:output message="tns:UpdateDepartmentSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteDepartment">
+			<wsdl:input message="tns:DeleteDepartmentSoapIn" />
+			<wsdl:output message="tns:DeleteDepartmentSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSemesterOrgUnitType">
+			<wsdl:input message="tns:GetSemesterOrgUnitTypeSoapIn" />
+			<wsdl:output message="tns:GetSemesterOrgUnitTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="CreateSemester">
+			<wsdl:input message="tns:CreateSemesterSoapIn" />
+			<wsdl:output message="tns:CreateSemesterSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSemester">
+			<wsdl:input message="tns:GetSemesterSoapIn" />
+			<wsdl:output message="tns:GetSemesterSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSemesterByCode">
+			<wsdl:input message="tns:GetSemesterByCodeSoapIn" />
+			<wsdl:output message="tns:GetSemesterByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateSemester">
+			<wsdl:input message="tns:UpdateSemesterSoapIn" />
+			<wsdl:output message="tns:UpdateSemesterSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSemester">
+			<wsdl:input message="tns:DeleteSemesterSoapIn" />
+			<wsdl:output message="tns:DeleteSemesterSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCourseTemplate">
+			<wsdl:input message="tns:CreateCourseTemplateSoapIn" />
+			<wsdl:output message="tns:CreateCourseTemplateSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseTemplate">
+			<wsdl:input message="tns:GetCourseTemplateSoapIn" />
+			<wsdl:output message="tns:GetCourseTemplateSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseTemplateByCode">
+			<wsdl:input message="tns:GetCourseTemplateByCodeSoapIn" />
+			<wsdl:output message="tns:GetCourseTemplateByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCourseTemplate">
+			<wsdl:input message="tns:UpdateCourseTemplateSoapIn" />
+			<wsdl:output message="tns:UpdateCourseTemplateSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCourseTemplate">
+			<wsdl:input message="tns:DeleteCourseTemplateSoapIn" />
+			<wsdl:output message="tns:DeleteCourseTemplateSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCourseOffering">
+			<wsdl:input message="tns:CreateCourseOfferingSoapIn" />
+			<wsdl:output message="tns:CreateCourseOfferingSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseOffering">
+			<wsdl:input message="tns:GetCourseOfferingSoapIn" />
+			<wsdl:output message="tns:GetCourseOfferingSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseOfferingByCode">
+			<wsdl:input message="tns:GetCourseOfferingByCodeSoapIn" />
+			<wsdl:output message="tns:GetCourseOfferingByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCourseOffering">
+			<wsdl:input message="tns:UpdateCourseOfferingSoapIn" />
+			<wsdl:output message="tns:UpdateCourseOfferingSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCourseOffering">
+			<wsdl:input message="tns:DeleteCourseOfferingSoapIn" />
+			<wsdl:output message="tns:DeleteCourseOfferingSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="GetGroupTypes">
+			<wsdl:input message="tns:GetGroupTypesSoapIn" />
+			<wsdl:output message="tns:GetGroupTypesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGroupType">
+			<wsdl:input message="tns:GetGroupTypeSoapIn" />
+			<wsdl:output message="tns:GetGroupTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="CreateGroupType">
+			<wsdl:input message="tns:CreateGroupTypeSoapIn" />
+			<wsdl:output message="tns:CreateGroupTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateGroupType">
+			<wsdl:input message="tns:UpdateGroupTypeSoapIn" />
+			<wsdl:output message="tns:UpdateGroupTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGroupType">
+			<wsdl:input message="tns:DeleteGroupTypeSoapIn" />
+			<wsdl:output message="tns:DeleteGroupTypeSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateGroup">
+			<wsdl:input message="tns:CreateGroupSoapIn" />
+			<wsdl:output message="tns:CreateGroupSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGroup">
+			<wsdl:input message="tns:GetGroupSoapIn" />
+			<wsdl:output message="tns:GetGroupSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetGroupByCode">
+			<wsdl:input message="tns:GetGroupByCodeSoapIn" />
+			<wsdl:output message="tns:GetGroupByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateGroup">
+			<wsdl:input message="tns:UpdateGroupSoapIn" />
+			<wsdl:output message="tns:UpdateGroupSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGroup">
+			<wsdl:input message="tns:DeleteGroupSoapIn" />
+			<wsdl:output message="tns:DeleteGroupSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateSection">
+			<wsdl:input message="tns:CreateSectionSoapIn" />
+			<wsdl:output message="tns:CreateSectionSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSection">
+			<wsdl:input message="tns:GetSectionSoapIn" />
+			<wsdl:output message="tns:GetSectionSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSectionByCode">
+			<wsdl:input message="tns:GetSectionByCodeSoapIn" />
+			<wsdl:output message="tns:GetSectionByCodeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="UpdateSection">
+			<wsdl:input message="tns:UpdateSectionSoapIn" />
+			<wsdl:output message="tns:UpdateSectionSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSection">
+			<wsdl:input message="tns:DeleteSectionSoapIn" />
+			<wsdl:output message="tns:DeleteSectionSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="AddChildOrgUnit">
+			<wsdl:input message="tns:AddChildOrgUnitSoapIn" />
+			<wsdl:output message="tns:AddChildOrgUnitSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="RemoveChildOrgUnit">
+			<wsdl:input message="tns:RemoveChildOrgUnitSoapIn" />
+			<wsdl:output message="tns:RemoveChildOrgUnitSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildOrgUnitTypeIds">
+			<wsdl:input message="tns:GetChildOrgUnitTypeIdsSoapIn" />
+			<wsdl:output message="tns:GetChildOrgUnitTypeIdsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildOrgUnitIds">
+			<wsdl:input message="tns:GetChildOrgUnitIdsSoapIn" />
+			<wsdl:output message="tns:GetChildOrgUnitIdsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetParentOrgUnitIds">
+			<wsdl:input message="tns:GetParentOrgUnitIdsSoapIn" />
+			<wsdl:output message="tns:GetParentOrgUnitIdsSoapOut" />
+		</wsdl:operation>
+
+		<wsdl:operation name="GetChildGroups">
+			<wsdl:input message="tns:GetChildGroupsSoapIn" />
+			<wsdl:output message="tns:GetChildGroupsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildGroupsByType">
+			<wsdl:input message="tns:GetChildGroupsByTypeSoapIn" />
+			<wsdl:output message="tns:GetChildGroupsByTypeSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildSections">
+			<wsdl:input message="tns:GetChildSectionsSoapIn" />
+			<wsdl:output message="tns:GetChildSectionsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCourseOfferings">
+			<wsdl:input message="tns:GetChildCourseOfferingsSoapIn" />
+			<wsdl:output message="tns:GetChildCourseOfferingsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCourseTemplates">
+			<wsdl:input message="tns:GetChildCourseTemplatesSoapIn" />
+			<wsdl:output message="tns:GetChildCourseTemplatesSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildDepartments">
+			<wsdl:input message="tns:GetChildDepartmentsSoapIn" />
+			<wsdl:output message="tns:GetChildDepartmentsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildSemesters">
+			<wsdl:input message="tns:GetChildSemestersSoapIn" />
+			<wsdl:output message="tns:GetChildSemestersSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCustomOrgUnits">
+			<wsdl:input message="tns:GetChildCustomOrgUnitsSoapIn" />
+			<wsdl:output message="tns:GetChildCustomOrgUnitsSoapOut" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCustomOrgUnitsByType">
+			<wsdl:input message="tns:GetChildCustomOrgUnitsByTypeSoapIn" />
+			<wsdl:output message="tns:GetChildCustomOrgUnitsByTypeSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="OrgUnitManagementService-v1_1">
+		<wsdl:operation name="GetChildOrgUnits">
+			<wsdl:input message="tns:GetChildOrgUnitsSoapIn" />
+			<wsdl:output message="tns:GetChildOrgUnitsSoapOut" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="OrgUnitManagementService-v1_0" type="tns:OrgUnitManagementService-v1_0">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetOrganization">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetOrganization" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetOrganizationRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetOrganizationResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSystemOrgUnitTypes">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSystemOrgUnitTypes" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSystemOrgUnitTypesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSystemOrgUnitTypesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitTypes">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnitTypes" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitTypesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitTypesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCustomOrgUnitType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomOrgUnitType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomOrgUnitType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCustomOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnitByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCustomOrgUnitByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetDepartmentOrgUnitType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetDepartmentOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetDepartmentOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetDepartmentOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateDepartment">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateDepartment" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDepartment">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetDepartment" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDepartmentByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetDepartmentByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetDepartmentByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetDepartmentByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateDepartment">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateDepartment" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteDepartment">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteDepartment" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSemesterOrgUnitType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSemesterOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSemesterOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSemesterOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateSemester">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateSemester" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSemester">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSemester" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSemesterByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSemesterByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSemesterByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSemesterByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateSemester">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateSemester" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSemester">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteSemester" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCourseTemplate">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseTemplate">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseTemplateByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseTemplateByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseTemplateByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseTemplateByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCourseTemplate">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCourseTemplate">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCourseOffering">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCourseOffering" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseOffering">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseOffering" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseOfferingByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseOfferingByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseOfferingByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetCourseOfferingByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCourseOffering">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCourseOffering" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCourseOffering">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCourseOffering" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetGroupTypes">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroupTypes" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupTypesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupTypesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGroupType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroupType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateGroupType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateGroupType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateGroupType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateGroupType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGroupType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteGroupType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateGroup">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateGroup" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGroup">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroup" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGroupByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroupByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetGroupByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateGroup">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateGroup" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGroup">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteGroup" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateSection">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateSection" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:CreateSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSection">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSection" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSectionByCode">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSectionByCode" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSectionByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetSectionByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateSection">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateSection" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:UpdateSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSection">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteSection" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:DeleteSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="AddChildOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/AddChildOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:AddChildOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:AddChildOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemoveChildOrgUnit">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/RemoveChildOrgUnit" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:RemoveChildOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:RemoveChildOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildOrgUnitTypeIds">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildOrgUnitTypeIds" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildOrgUnitTypeIdsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildOrgUnitTypeIdsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildOrgUnitIds">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildOrgUnitIds" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildOrgUnitIdsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildOrgUnitIdsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetParentOrgUnitIds">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetParentOrgUnitIds" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetParentOrgUnitIdsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetParentOrgUnitIdsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetChildGroups">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildGroups" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildGroupsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildGroupsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildGroupsByType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildGroupsByType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildGroupsByTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildGroupsByTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildSections">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildSections" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildSectionsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildSectionsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCourseOfferings">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCourseOfferings" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCourseOfferingsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCourseOfferingsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCourseTemplates">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCourseTemplates" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCourseTemplatesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCourseTemplatesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildDepartments">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildDepartments" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildDepartmentsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildDepartmentsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildSemesters">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildSemesters" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildSemestersRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildSemestersResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCustomOrgUnits">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCustomOrgUnits" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCustomOrgUnitsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCustomOrgUnitsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCustomOrgUnitsByType">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCustomOrgUnitsByType" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCustomOrgUnitsByTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildCustomOrgUnitsByTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="OrgUnitManagementService-v1_1" type="tns:OrgUnitManagementService-v1_1">
+		<wsdl:documentation>
+			<wsi:Claim conformsTo="http://ws-i.org/profiles/basic/1.1" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" />
+		</wsdl:documentation>
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetChildOrgUnits">
+			<soap:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildOrgUnits" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildOrgUnitsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:GetChildOrgUnitsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="OrgUnitManagementService-v1_01" type="tns:OrgUnitManagementService-v1_0">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetOrganization">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetOrganization" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetOrganizationRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetOrganizationResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSystemOrgUnitTypes">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSystemOrgUnitTypes" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSystemOrgUnitTypesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSystemOrgUnitTypesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitTypes">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnitTypes" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitTypesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitTypesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCustomOrgUnitType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomOrgUnitType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomOrgUnitType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCustomOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCustomOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCustomOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCustomOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCustomOrgUnitByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCustomOrgUnitByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCustomOrgUnitByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCustomOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCustomOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCustomOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCustomOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCustomOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetDepartmentOrgUnitType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetDepartmentOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetDepartmentOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetDepartmentOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateDepartment">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateDepartment" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDepartment">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetDepartment" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDepartmentByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetDepartmentByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetDepartmentByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetDepartmentByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateDepartment">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateDepartment" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteDepartment">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteDepartment" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteDepartmentRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteDepartmentResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSemesterOrgUnitType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSemesterOrgUnitType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSemesterOrgUnitTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSemesterOrgUnitTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateSemester">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateSemester" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSemester">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSemester" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSemesterByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSemesterByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSemesterByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSemesterByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateSemester">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateSemester" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSemester">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteSemester" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteSemesterRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteSemesterResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCourseTemplate">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseTemplate">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseTemplateByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseTemplateByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseTemplateByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseTemplateByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCourseTemplate">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCourseTemplate">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCourseTemplate" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCourseTemplateRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCourseTemplateResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateCourseOffering">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateCourseOffering" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseOffering">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseOffering" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCourseOfferingByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetCourseOfferingByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseOfferingByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetCourseOfferingByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateCourseOffering">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateCourseOffering" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteCourseOffering">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteCourseOffering" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCourseOfferingRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteCourseOfferingResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetGroupTypes">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroupTypes" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupTypesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupTypesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGroupType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroupType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateGroupType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateGroupType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateGroupType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateGroupType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGroupType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteGroupType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteGroupTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteGroupTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateGroup">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateGroup" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGroup">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroup" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetGroupByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetGroupByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetGroupByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateGroup">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateGroup" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteGroup">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteGroup" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteGroupRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteGroupResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateSection">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/CreateSection" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:CreateSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSection">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSection" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSectionByCode">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetSectionByCode" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSectionByCodeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetSectionByCodeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpdateSection">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/UpdateSection" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:UpdateSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSection">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/DeleteSection" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteSectionRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:DeleteSectionResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="AddChildOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/AddChildOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:AddChildOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:AddChildOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemoveChildOrgUnit">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/RemoveChildOrgUnit" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:RemoveChildOrgUnitRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:RemoveChildOrgUnitResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildOrgUnitTypeIds">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildOrgUnitTypeIds" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildOrgUnitTypeIdsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildOrgUnitTypeIdsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildOrgUnitIds">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildOrgUnitIds" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildOrgUnitIdsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildOrgUnitIdsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetParentOrgUnitIds">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetParentOrgUnitIds" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetParentOrgUnitIdsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetParentOrgUnitIdsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetChildGroups">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildGroups" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildGroupsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildGroupsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildGroupsByType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildGroupsByType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildGroupsByTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildGroupsByTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildSections">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildSections" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildSectionsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildSectionsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCourseOfferings">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCourseOfferings" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCourseOfferingsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCourseOfferingsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCourseTemplates">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCourseTemplates" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCourseTemplatesRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCourseTemplatesResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildDepartments">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildDepartments" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildDepartmentsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildDepartmentsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildSemesters">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildSemesters" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildSemestersRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildSemestersResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCustomOrgUnits">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCustomOrgUnits" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCustomOrgUnitsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCustomOrgUnitsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildCustomOrgUnitsByType">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildCustomOrgUnitsByType" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCustomOrgUnitsByTypeRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildCustomOrgUnitsByTypeResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="OrgUnitManagementService-v1_11" type="tns:OrgUnitManagementService-v1_1">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetChildOrgUnits">
+			<soap12:operation soapAction="http://www.desire2learn.com/services/oums/wsdl/OrgUnitManagementService-v1/GetChildOrgUnits" style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildOrgUnitsRequestHeader" part="RequestHeader" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+				<soap12:header message="tns:GetChildOrgUnitsResponseHeader" part="ResponseHeader" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrgUnitManagementService">
+		<wsdl:port name="OrgUnitManagementService-v1_0" binding="tns:OrgUnitManagementService-v1_0">
+			<soap:address location="http://localhost/D2LWS/OrgUnitManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="OrgUnitManagementService-v1_01" binding="tns:OrgUnitManagementService-v1_01">
+			<soap12:address location="http://localhost/D2LWS/OrgUnitManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="OrgUnitManagementService-v1_11" binding="tns:OrgUnitManagementService-v1_11">
+			<soap12:address location="http://localhost/D2LWS/OrgUnitManagementService-v1.asmx" />
+		</wsdl:port>
+		<wsdl:port name="OrgUnitManagementService-v1_1" binding="tns:OrgUnitManagementService-v1_1">
+			<soap:address location="http://localhost/D2LWS/OrgUnitManagementService-v1.asmx" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

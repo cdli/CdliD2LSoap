@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.desire2learn.com/services/ums/xsd/users-v1_1"
+			xmlns:common="http://www.desire2learn.com/services/common/xsd/common-v1_0"
+			xmlns:users="http://www.desire2learn.com/services/ums/xsd/users-v1_0"
+			xmlns:users11="http://www.desire2learn.com/services/ums/xsd/users-v1_1"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" elementFormDefault="qualified">
+	<xsd:import namespace="http://www.desire2learn.com/services/common/xsd/common-v1_0" schemaLocation="common-v1_0.xsd" />
+	<xsd:import namespace="http://www.desire2learn.com/services/ums/xsd/users-v1_0" schemaLocation="users-v1_0.xsd" />
+	<!--Four new types added in users 1.1 compared to users 1.0-->
+	<xsd:complexType name="UserBasicInfo">
+		<!--
+		This type exists for "convenience functions". It's common for end-user
+		applications to want a simple list of users instead of a list of IDs
+		(which would require subsequent calls to retrieve the data) or the complete
+		information on a user (which may be large to transfer).
+		-->
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" wsdl:required="true" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="FirstName" type="users:UserInfoPrivacy20Type" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="LastName" type="users:UserInfoPrivacy20Type" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="Username" type="users:UserInfoPrivacyUsernameType" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="OrgDefinedId" type="users:UserInfoPrivacy50Type" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ArrayOfUserBasicInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="UserBasicInfo" type="users11:UserBasicInfo" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UserProfileFieldType">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="Name" nillable="false" type="xsd:string" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="DisplayName" nillable="false" type="xsd:string" />
+			<xsd:element minOccurs="0" maxOccurs="1" name="FieldIdentifier" type="xsd:string" />
+			<!--
+			The use of "xsd:any" and "xsd:anyType" was avoided to
+			maintain portability.  There are documented cases of
+			incompatibility with some code generators - they simply
+			don't have a language-specfic interpretation of the
+			element or type.  The downside of this is that adding
+			new types will "break" this interface and require a new
+			version of the client application.
+			XSD does not allow the same name in a choice element.
+			-->
+			<xsd:choice>
+				<xsd:element minOccurs="1" maxOccurs="1" name="DateValue" nillable="false" type="xsd:date" />
+				<xsd:element minOccurs="1" maxOccurs="1" name="StringValue" nillable="false" type="xsd:string" />
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UserProfileType">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded" name="Fields" nillable="false" type="users11:UserProfileFieldType" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="UserId" type="common:Identifier" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UserPictureInfo">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="FileType" nillable="false" type="xsd:string" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="FileSize" nillable="false" type="xsd:int" />
+		</xsd:sequence>	   
+	</xsd:complexType>
+</xsd:schema>
