@@ -30,7 +30,7 @@ class D2LWS_User_Model
      * Get D2L User ID
      * @return int - D2L User ID
      */
-    public function getUserID() { return @$this->_data->UserId->Id; }
+    public function getUserID() { return @$this->_data->UserId->Id ?: NULL; }
     
     /**
      * Set D2L User ID
@@ -43,7 +43,7 @@ class D2LWS_User_Model
      * Get Username
      * @return string - Username
      */
-    public function getUserName() { return @$this->_data->UserName->_; }
+    public function getUserName() { return @$this->_data->UserName->_ ?: NULL; }
     
     /**
      * Set Username
@@ -56,7 +56,7 @@ class D2LWS_User_Model
      * Get Org Defined ID
      * @return string - Org Defined ID
      */
-    public function getOrgDefinedID() { return @$this->_data->OrgDefinedId->_; }
+    public function getOrgDefinedID() { return @$this->_data->OrgDefinedId->_ ?: NULL; }
     
     /**
      * Set Org Defined ID
@@ -69,7 +69,7 @@ class D2LWS_User_Model
      * Get Role ID
      * @return string - Role ID
      */
-    public function getRoleID() { return @$this->_data->RoleId->_; }
+    public function getRoleID() { return @$this->_data->RoleId->_ ?: NULL; }
     
     /**
      * Set Role ID
@@ -82,7 +82,7 @@ class D2LWS_User_Model
      * Get Password
      * @return string - Password
      */
-    public function getPassword() { return @$this->_data->Password->_; }
+    public function getPassword() { return @$this->_data->Password->_ ?: NULL; }
     
     /**
      * Set Password
@@ -95,7 +95,7 @@ class D2LWS_User_Model
      * Get First Name
      * @return string - First Name
      */
-    public function getFirstName() { return @$this->_data->FirstName->_; }
+    public function getFirstName() { return @$this->_data->FirstName->_ ?: NULL; }
     
     /**
      * Set First Name
@@ -108,7 +108,7 @@ class D2LWS_User_Model
      * Get Last Name
      * @return string - Last Name
      */
-    public function getLastName() { return @$this->_data->LastName->_; }
+    public function getLastName() { return @$this->_data->LastName->_ ?: NULL; }
     
     /**
      * Set Last Name
@@ -147,7 +147,10 @@ class D2LWS_User_Model
      * @param $gender string - Gender
      * @return $this
      */
-    public function setGender($gender) { @$this->_data->Demographics->Gender->_ = $gender; return $this; }
+    public function setGender($gender) 
+    {
+        @$this->_data->Demographics->Gender->_ = $gender; return $this; 
+    }
     
     /**
      * Get Birth Date
