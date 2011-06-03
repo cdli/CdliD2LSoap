@@ -117,16 +117,4 @@ class D2LWS_AuthenticateTest extends GenericTestCase
         $this->assertFalse($o->getAuthToken());
     }
 
-
-    /**
-     * Test that calling Authenticate() and Authenticate2() on SOAP client
-     * does not trigger
-     * @
-     */
-    public function testAuthenticateCallsOnSoapObjectExcludeAuthenticationToken()
-    {
-        $o = $this->_getInstanceManager();
-        var_dump($o);
-    }
-
 }
