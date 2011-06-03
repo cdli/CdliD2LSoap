@@ -122,7 +122,9 @@ class D2LWS_Instance
         //AAL 20110202 -- 'clone' gets around an issue with the SOAP client
         // setWsdl() and setLocation() only work the first time
         // Subsequent calls don't seem to change the endpoint URL
-        return clone $this->_soapObj;
+        return $this->_soapObj instanceof D2LWS_Soap_Client
+            ? clone $this->_soapObj
+            : $this->_soapObj;
     }
 
     /**
