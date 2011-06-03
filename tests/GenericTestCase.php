@@ -1,6 +1,16 @@
 <?php
+/**
+ * Desire2Learn Web Serivces for Zend Framework
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
+ * @author Thomas Hawkins <thawkins@mun.ca>
+ */
+
 require_once 'Zend/Application.php';
 
+/**
+ * PHPUnit generic test case
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
+ */
 abstract class GenericTestCase extends PHPUnit_Framework_TestCase
 {
     public $application;
