@@ -3,15 +3,14 @@
  * Desire2Learn Web Serivces for Zend Framework
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
- *
- * 
- *
  */
 
 /**
  * PHPUnit test for D2LWS_Instance
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
- * @group CoreTests
+ * 
+ * @group D2LWS
+ * @group D2LWS_Core
  */
 class D2LWS_Role_InstanceTest extends GenericTestCase
 {

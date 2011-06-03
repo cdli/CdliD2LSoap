@@ -11,7 +11,9 @@
 /**
  * PHPUnit test for D2LWS_Authenticate
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
- * @group CoreTests
+ * 
+ * @group D2LWS
+ * @group D2LWS_Core
  */
 class D2LWS_AuthenticateTest extends GenericTestCase
 {

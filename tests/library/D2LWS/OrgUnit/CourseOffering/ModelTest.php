@@ -3,15 +3,16 @@
  * Desire2Learn Web Serivces for Zend Framework
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
- *
- * 
- *
  */
 
 /**
  * PHPUnit test for D2LWS_OrgUnit_CourseOffering_Model
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
- * @group ModelTests
+ * 
+ * @group D2LWS
+ * @group D2LWS_Model
+ * @group D2LWS_OrgUnit
+ * @group D2LWS_OrgUnit_CourseOffering
  */
 class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
 {

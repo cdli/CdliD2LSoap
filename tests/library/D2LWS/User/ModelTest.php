@@ -3,9 +3,6 @@
  * Desire2Learn Web Serivces for Zend Framework
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
- *
- * 
- *
  */
 
 /**
@@ -16,7 +13,10 @@ require_once "UserTestCase.php";
 /**
  * PHPUnit test for D2LWS_User_Model
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
- * @group ModelTests
+ * 
+ * @group D2LWS
+ * @group D2LWS_Model
+ * @group D2LWS_User
  */
 class D2LWS_User_ModelTest extends UserTestCase
 {
