@@ -5,7 +5,7 @@
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
  *
- * $Id: AuthenticationFailed.php 11 2011-01-27 13:43:57Z adamlundrigan $
+ * 
  *
  */
 

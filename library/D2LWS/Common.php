@@ -4,9 +4,6 @@
  * Desire2Learn Web Serivces for Zend Framework
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
- *
- * $Id: Common.php 5 2011-01-25 16:49:24Z adamlundrigan $
- *
  */
 
 /**

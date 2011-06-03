@@ -4,7 +4,7 @@
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
  *
- * $Id$
+ * 
  *
  */
 

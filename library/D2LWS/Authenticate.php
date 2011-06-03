@@ -4,9 +4,6 @@
  * Desire2Learn Web Serivces for Zend Framework
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * @author Thomas Hawkins <thawkins@mun.ca>
- *
- * $Id: Authenticate.php 18 2011-02-07 15:53:03Z adamlundrigan $
- *
  */
 
 /**
