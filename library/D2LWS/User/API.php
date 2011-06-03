@@ -60,7 +60,7 @@ class D2LWS_User_API extends D2LWS_Common
             ->setWsdl($i->getConfig('webservice.user.wsdl'))
             ->setLocation($i->getConfig('webservice.user.endpoint'))
             ->GetUserByOrgDefinedId(array('OrgDefinedId'=>$id));
-
+        
         if ( $result instanceof stdClass && isset($result->User) && $result->User instanceof stdClass )
         {
             $User = new D2LWS_User_Model($result->User);
@@ -69,6 +69,26 @@ class D2LWS_User_API extends D2LWS_Common
         else
         {
             throw new D2LWS_User_Exception_NotFound('OrgDefinedId=' . $id);
+        }
+    }
+    
+    public function findByUserName($uname)
+    {
+        $i = $this->getInstance();        
+
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.user.wsdl'))
+            ->setLocation($i->getConfig('webservice.user.endpoint'))
+            ->GetUserByUserName(array('UserName'=>$uname));
+
+        if ( $result instanceof stdClass && isset($result->User) && $result->User instanceof stdClass )
+        {
+            $User = new D2LWS_User_Model($result->User);
+            return $User;
+        }
+        else
+        {
+            throw new D2LWS_User_Exception_NotFound('UserName=' . $uname);
         }
     }
     
@@ -235,6 +255,8 @@ class D2LWS_User_API extends D2LWS_Common
         else
         {
             $arr = $this->_makeRequestArray($u);
+            unset($arr['Password']);
+            
             $result = $i->getSoapClient()
                 ->setWsdl($i->getConfig('webservice.user.wsdl'))
                 ->setLocation($i->getConfig('webservice.user.endpoint'))
