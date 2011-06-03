@@ -72,7 +72,7 @@ class D2LWS_Soap_Client extends Zend_Soap_Client implements D2LWS_Soap_Client_In
             }
             elseif ( isset($header->ResponseHeader->Status->Code) )
             {
-                $exbody = array_shift($xml->xpath('/soap:Envelope/soap:Body'));
+                $exbody = @array_shift($xml->xpath('/soap:Envelope/soap:Body'));
                 $opname = $header->ResponseHeader->OperationName;
                 $respname = preg_replace("/Request$/", "Response", $opname);
                 
