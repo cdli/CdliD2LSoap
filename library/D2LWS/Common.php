@@ -9,7 +9,7 @@
 /**
  * Common base class
  */
-class D2LWS_Common
+abstract class D2LWS_Common
 {
 
     /**
