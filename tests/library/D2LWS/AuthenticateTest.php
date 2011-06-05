@@ -24,8 +24,8 @@ class D2LWS_AuthenticateTest extends GenericTestCase
     public function testCanGetInstanceManagerWithAuthenticateInstance()
     {
         $o = $this->_getInstanceManagerWithMockSoapClient();
-        $this->assertType("D2LWS_Instance", $o);
-        $this->assertType("D2LWS_Authenticate", $o->getAuthManager());
+        $this->assertInstanceOf("D2LWS_Instance", $o);
+        $this->assertInstanceOf("D2LWS_Authenticate", $o->getAuthManager());
     }
 
     /**

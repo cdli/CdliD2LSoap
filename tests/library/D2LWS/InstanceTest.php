@@ -21,9 +21,9 @@ class D2LWS_Role_InstanceTest extends GenericTestCase
     public function testCanGetInstanceManagerWithMockSoapClient()
     {
         $o = $this->_getInstanceManagerWithMockSoapClient();
-        $this->assertType("D2LWS_Instance", $o);
-        $this->assertType("MockSoapClient", $o->getSoapClient());
-        $this->assertType("D2LWS_Soap_Client_Interface", $o->getSoapClient());
+        $this->assertInstanceOf("D2LWS_Instance", $o);
+        $this->assertInstanceOf("MockSoapClient", $o->getSoapClient());
+        $this->assertInstanceOf("D2LWS_Soap_Client_Interface", $o->getSoapClient());
     }
 
     /**
@@ -45,7 +45,7 @@ class D2LWS_Role_InstanceTest extends GenericTestCase
     {
         $o = $this->_getInstanceManager();
         //TODO: Remove @ once error with undefined constant SOAP_1_2 is located and fixed
-        $this->assertType("D2LWS_Soap_Client_Interface", @$o->getSoapClient());
+        $this->assertInstanceOf("D2LWS_Soap_Client_Interface", @$o->getSoapClient());
     }
 
     /**
@@ -56,7 +56,7 @@ class D2LWS_Role_InstanceTest extends GenericTestCase
     {
         $o = $this->_getInstanceManager();
         //TODO: Remove @ once error with undefined constant SOAP_1_2 is located and fixed
-        $this->assertType("D2LWS_Authenticate", @$o->getAuthManager());
+        $this->assertInstanceOf("D2LWS_Authenticate", @$o->getAuthManager());
     }
 
     /**
@@ -113,8 +113,8 @@ class D2LWS_Role_InstanceTest extends GenericTestCase
         $o = $this->_getInstanceManagerWithMockSoapClient();
         $auth = new D2LWS_Authenticate($o);
         $o->setAuthManager($auth);
-        $this->assertType("D2LWS_Instance", $o);
-        $this->assertType("D2LWS_Authenticate", $o->getAuthManager());
+        $this->assertInstanceOf("D2LWS_Instance", $o);
+        $this->assertInstanceOf("D2LWS_Authenticate", $o->getAuthManager());
         $this->assertSame($auth, $o->getAuthManager());
     }
 }
