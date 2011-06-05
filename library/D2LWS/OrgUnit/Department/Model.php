@@ -10,9 +10,10 @@
 /**
  * Department Model
  */
-class D2LWS_OrgUnit_Department_Model
+class D2LWS_OrgUnit_Department_Model extends D2LWS_OrgUnit_Model
 {
-    const OUTYPE = "Department";
+    protected $OUTYPE = "Department";
+    protected $OUDESC = "Department";
     
     protected $_data = NULL;
     
@@ -116,12 +117,4 @@ class D2LWS_OrgUnit_Department_Model
      */
     public function setEndDate($eDate) { $this->_data->EndDate = $eDate; return $this; }  
     
-    /**
-     * Return raw data object
-     * @return stdClass - Raw data object
-     */
-    public function getRawData() { return $this->_data; }
-    
-    public function getOrgUnitTypeID() { return self::OUTYPE; }
-    public function getOrgUnitTypeDesc() { return "Department"; }
 }

@@ -10,9 +10,10 @@
 /**
  * Organization Model
  */
-class D2LWS_OrgUnit_Organization_Model
+class D2LWS_OrgUnit_Organization_Model extends D2LWS_OrgUnit_Model
 {
-    const OUTYPE = "Organization";
+    protected $OUTYPE = "Organization";
+    protected $OUDESC = "Organization";
     
     protected $_data = NULL;
     
@@ -63,13 +64,5 @@ class D2LWS_OrgUnit_Organization_Model
      * @return $this
      */
     public function setCode($code) { $this->_data->Code = $code; return $this; }
-    
-    /**
-     * Return raw data object
-     * @return stdClass - Raw data object
-     */
-    public function getRawData() { return $this->_data; }
-    
-    public function getOrgUnitTypeID() { return self::OUTYPE; }
-    public function getOrgUnitTypeDesc() { return "Organization"; }
+
 }

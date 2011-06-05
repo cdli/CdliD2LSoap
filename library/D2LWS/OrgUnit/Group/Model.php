@@ -10,9 +10,10 @@
 /**
  * Group Model
  */
-class D2LWS_OrgUnit_Group_Model
+class D2LWS_OrgUnit_Group_Model extends D2LWS_OrgUnit_Model
 {
-    const OUTYPE = "Group";
+    protected $OUTYPE = "Group";
+    protected $OUDESC = "Group";
     
     protected $_data = NULL;
     
@@ -115,13 +116,5 @@ class D2LWS_OrgUnit_Group_Model
      * @return $this
      */
     public function setEndDate($eDate) { $this->_data->EndDate = $eDate; return $this; }  
-    
-    /**
-     * Return raw data object
-     * @return stdClass - Raw data object
-     */
-    public function getRawData() { return $this->_data; }
-    
-    public function getOrgUnitTypeID() { return self::OUTYPE; }
-    public function getOrgUnitTypeDesc() { return "Group"; }
+
 }

@@ -10,9 +10,10 @@
 /**
  * Semester OU Model
  */
-class D2LWS_OrgUnit_Semester_Model
+class D2LWS_OrgUnit_Semester_Model extends D2LWS_OrgUnit_Model
 {
-    const OUTYPE = "Semester";
+    protected $OUTYPE = "Semester";
+    protected $OUDESC = "Semester";
     
     protected $_data = NULL;
     
@@ -115,13 +116,5 @@ class D2LWS_OrgUnit_Semester_Model
      * @return $this
      */
     public function setEndDate($eDate) { $this->_data->EndDate = $eDate; return $this; }  
-    
-    /**
-     * Return raw data object
-     * @return stdClass - Raw data object
-     */
-    public function getRawData() { return $this->_data; }
-    
-    public function getOrgUnitTypeID() { return self::OUTYPE; }
-    public function getOrgUnitTypeDesc() { return "Semester"; }
+
 }

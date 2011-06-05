@@ -10,9 +10,10 @@
 /**
  * Course Offering OU Model
  */
-class D2LWS_OrgUnit_CourseOffering_Model
+class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
 {
-    const OUTYPE = "CourseOffering";
+    protected $OUTYPE= "CourseOffering";
+    protected $OUDESC = "Course Offering";
     
     protected $_data = NULL;
     
@@ -141,13 +142,5 @@ class D2LWS_OrgUnit_CourseOffering_Model
      * @return $this
      */
     public function setAllowSections($tf) { $this->_data->AllowSections = $tf; return $this; }   
-    
-    /**
-     * Return raw data object
-     * @return stdClass - Raw data object
-     */
-    public function getRawData() { return $this->_data; }
-    
-    public function getOrgUnitTypeID() { return self::OUTYPE; }
-    public function getOrgUnitTypeDesc() { return "Course Offering"; }
+
 }
