@@ -89,7 +89,7 @@ class D2LWS_OrgUnit_CourseTemplate_Model extends D2LWS_OrgUnit_Model
      * @param $tf boolean - True=active, false=inactive
      * @return $this
      */
-    public function setIsActive($tf) { $this->_data->IsActive = $tf; return $this; }   
+    public function setIsActive($tf) { $this->_data->IsActive = ($tf==true); return $this; }   
     
     /**
      * Retrieve the organization start date
