@@ -6,15 +6,15 @@
  */
 
 /**
- * PHPUnit test for D2LWS_OrgUnit_CourseOffering_Model
+ * PHPUnit test for D2LWS_OrgUnit_Semester_Model
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * 
  * @group D2LWS
  * @group D2LWS_Model
  * @group D2LWS_OrgUnit
- * @group D2LWS_OrgUnit_CourseOffering
+ * @group D2LWS_OrgUnit_Semester
  */
-class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
+class D2LWS_OrgUnit_Semester_ModelTest extends GenericTestCase
 {
 
     /**
@@ -23,7 +23,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithValidConstructorArgument()
     {
         $mock = $this->_createMockDataObject();
-        $oRole = new D2LWS_OrgUnit_CourseOffering_Model($mock);
+        $oRole = new D2LWS_OrgUnit_Semester_Model($mock);
         $this->assertEquals($mock, $oRole->getRawData());
     }
 
@@ -33,7 +33,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
-        $oRole = new D2LWS_OrgUnit_CourseOffering_Model();
+        $oRole = new D2LWS_OrgUnit_Semester_Model();
         $this->assertNull($oRole->getRawData());
     }
 
@@ -43,7 +43,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithNullConstructorArgument()
     {
-        $oRole = new D2LWS_OrgUnit_CourseOffering_Model(NULL);
+        $oRole = new D2LWS_OrgUnit_Semester_Model(NULL);
         $this->assertNull($oRole->getRawData());
     }
 
@@ -54,7 +54,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithInvalidConstructorArgument()
     {
-        $oRole = new D2LWS_OrgUnit_CourseOffering_Model('shouldNotAcceptString');
+        $oRole = new D2LWS_OrgUnit_Semester_Model('shouldNotAcceptString');
     }
 
     /**
@@ -63,8 +63,8 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
     public function testModelReturnsCorrectTypeInformation()
     {
         $oModel = $this->_createMockModel();
-        $this->assertEquals('CourseOffering', $oModel->getOrgUnitTypeID());
-        $this->assertEquals('Course Offering', $oModel->getOrgUnitTypeDesc());
+        $this->assertEquals('Semester', $oModel->getOrgUnitTypeID());
+        $this->assertEquals('Semester', $oModel->getOrgUnitTypeDesc());
     }
 
     /**
@@ -231,84 +231,6 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'EndDate');
     }
-
-    /**
-     * Test that setCanRegister and canRegister work as expected
-     */
-    public function testSetAndGetCanRegister()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        $arg = !$baseObj->canRegister();
-
-        // Set the "Can Register" flag
-        $testObj->setCanRegister($arg);
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that "Can Register" flag was updated
-        $this->assertEquals($arg, $testObj->canRegister());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'CanRegister');
-    }
-
-    /**
-     * Test that setIsActive and isActive work as expected
-     * @todo Update model to enforce boolean argument
-     */
-    public function testSetCanRegisterShouldNotAcceptNonBooleanArgument()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the "Can Register" flag
-        $testObj->setCanRegister('something');
-
-        // Assert that "Can Register" flag was updated
-        $this->assertNotEquals('something', $testObj->canRegister());
-    }
-
-    /**
-     * Test that setAllowSections and AllowSections work as expected
-     */
-    public function testSetAndGetAllowSections()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        $arg = !$baseObj->allowsSections();
-
-        // Set the "Allows Sections" flag
-        $testObj->setAllowSections($arg);
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that "Allows Sections" flag was updated
-        $this->assertEquals($arg, $testObj->allowsSections());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'AllowSections');
-    }
-
-    /**
-     * Test that setIsActive and isActive work as expected
-     * @todo Update model to enforce boolean argument
-     */
-    public function testSetAllowSectionsShouldNotAcceptNonBooleanArgument()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the "Allows Sections" flag
-        $testObj->setAllowSections('something');
-
-        // Assert that "Allows Sections" flag was updated
-        $this->assertNotEquals('something', $testObj->allowsSections());
-    }
     
     /**
      * Defines the methods we should test
@@ -342,15 +264,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         'EndDate'=>array(
             'get'=>'getEndDate',
             'set'=>'setEndDate'
-        ),
-        'CanRegister'=>array(
-            'get'=>'canRegister',
-            'set'=>'setCanRegister'
-        ),
-        'AllowSections'=>array(
-            'get'=>'allowsSections',
-            'set'=>'setAllowSections'
-        ),
+        )
     );
 
     /**
@@ -370,8 +284,6 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         $obj->IsActive = false;
         $obj->StartDate = '';
         $obj->EndDate = '';
-        $obj->CanRegister = false;
-        $obj->AllowSections = false;
 
         return $obj;
     }
@@ -381,6 +293,6 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_CourseOffering_Model($this->_createMockDataObject());
+         return new D2LWS_OrgUnit_Semester_Model($this->_createMockDataObject());
     }
 }
