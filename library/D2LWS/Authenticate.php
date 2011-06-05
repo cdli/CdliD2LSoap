@@ -31,30 +31,6 @@ class D2LWS_Authenticate extends D2LWS_Common
      */        
     protected $_tokenExpires = 0;
 
-
-    /**
-     * Create new Desire2Learn Web Service (D2LWS) instance
-     * @param $instance D2LWS_Instance - Server instance to connect to
-     */
-    public function __construct(D2LWS_Instance $instance = NULL)
-    {
-        if ( !is_null($instance) )
-        {
-            $this->setInstance($instance);
-        }
-    }
-    
-    /** 
-     * Set server instance
-     * @param $instance D2LWS_Instance - Instance to save
-     * @return $this
-     */
-    public function setInstance(D2LWS_Instance $instance)
-    {
-        parent::setInstance($instance);
-        return $this;
-    }
-    
     /**
      * Get an authentication token
      * @return string - Valid authentication token
