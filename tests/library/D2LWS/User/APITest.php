@@ -123,4 +123,103 @@ class D2LWS_User_APITest extends UserTestCase
         $userObj = $apiUser->findByOrgDefinedID(9999);
     }
 
+    /**
+     * Load an existing user by username
+     */
+    public function testFindByUserNameWhichExists()
+    {
+        $mockObj = $this->_createMockDataObject();
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return a single User object when
+        // the specified User ID exists in D2L
+        $mock->getSoapClient()->addCallback("UserManagement", "GetUserByUserName",
+            function($args) use (&$mockObj) {
+                $mockObj->UserName->_ = $args['UserName'];
+
+                $result = new stdClass();
+                $result->User = $mockObj;
+                return $result;
+            }
+        );
+
+        $apiUser = new D2LWS_User_API($mock);
+        $userObj = $apiUser->findByUserName('TestUser');
+
+        $this->assertEquals('TestUser', $userObj->getUserName());
+    }
+
+    /**
+     * Load a non-existent user by username
+     * @expectedException D2LWS_User_Exception_NotFound
+     */
+    public function testFindByUserNameWhichDoesNotExist()
+    {
+        $mockObj = $this->_createMockDataObject();
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return empty response when D2L
+        // could not find a user to match the ID specified
+        $mock->getSoapClient()->addCallback("UserManagement", "GetUserByUserName",
+            function($args) use (&$mockObj) {
+                $result = new stdClass();
+                return $result;
+            }
+        );
+
+        $apiUser = new D2LWS_User_API($mock);
+        $userObj = $apiUser->findByUserName('TestUser');
+    }
+
+    /**
+     * Test Single Sign-on
+     */
+    public function testPerformSingleSignon()
+    {
+        $mockObj = $this->_createMockDataObject();
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return a single User object when
+        // the specified User ID exists in D2L
+        $mock->getSoapClient()->addCallback("D2L.Guid", "GenerateExpiringGuid",
+            function($args) use (&$mockObj) {
+                $result = new stdClass();
+                $result->GenerateExpiringGuidResult = 'GUID';
+                return $result;
+            }
+        );
+
+        $o = $this->_createMockModel();
+        
+        $apiUser = new D2LWS_User_API($mock);
+        $guid = $apiUser->performSSO($o);
+
+        $this->assertEquals('GUID', $guid);
+    }
+  
+    /**
+     * Test Single Sign-on w/ Failure
+     */
+    public function testPerformSingleSignonFailure()
+    {
+        $mockObj = $this->_createMockDataObject();
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return a single User object when
+        // the specified User ID exists in D2L
+        $mock->getSoapClient()->addCallback("D2L.Guid", "GenerateExpiringGuid",
+            function($args) use (&$mockObj) {
+                $result = new stdClass();
+                return $result;
+            }
+        );
+
+        $o = $this->_createMockModel();
+        
+        $apiUser = new D2LWS_User_API($mock);
+        $guid = $apiUser->performSSO($o);
+
+        $this->assertEquals(false, $guid);
+    }
+    
 }
