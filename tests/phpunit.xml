@@ -2,11 +2,16 @@
     <testsuite name="D2LWS Test Suite">
         <directory>./</directory>
     </testsuite>
+    <groups>
+        <exclude>
+            <group>D2LWS_API_Live</group>
+        </exclude>
+    </groups>
     <filter>
         <whitelist>
             <directory suffix=".php">../library/</directory>
         </whitelist>
-    </filter>
+    </filter>    
     <logging>
         <log type="coverage-html" target="./log/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="50" highLowerBound="80" />
         <log type="testdox-html" target="./log/testdox.html" />
