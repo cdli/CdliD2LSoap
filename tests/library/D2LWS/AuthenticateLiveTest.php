@@ -28,6 +28,18 @@
  */
 class D2LWS_AuthenticateLiveTest extends GenericTestCase
 {
+    
+    /**
+     * Pre-Test Setup
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        if ( @$this->testOptions['live']['run_live_tests'] != true )
+        {
+            $this->markTestSkipped('Live-Server Tests are Disabled');
+        }
+    }
 
     /**
      * Test our ability to receive an authentication token from the server
