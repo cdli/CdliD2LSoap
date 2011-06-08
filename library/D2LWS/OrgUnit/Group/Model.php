@@ -15,15 +15,31 @@ class D2LWS_OrgUnit_Group_Model extends D2LWS_OrgUnit_Model
     protected $OUTYPE = "Group";
     protected $OUDESC = "Group";
     
-    protected $_data = NULL;
-    
     /**
-     * Default Constructor
-     * @param $soapResponse stdClass - Response from SOAP call
+     * Initialize Default Data Structure
      */
-    public function __construct(stdClass $soapResponse = NULL)
+    public function init() 
     {
-        $this->_data = $soapResponse;
+        parent::init();
+        
+        $this->_data->OrgUnitId = new stdClass();
+        $this->_data->OrgUnitId->Id = NULL;
+        $this->_data->OrgUnitId->Source = 'Desire2Learn';        
+        
+        $this->_data->Name = "";
+        $this->_data->Code = "";
+        
+        $this->_data->GroupTypeId = new stdClass();
+        $this->_data->GroupTypeId->Id = NULL;
+        $this->_data->GroupTypeId->Source = 'Desire2Learn';
+
+        $this->_data->OwnerOrgUnitId = new stdClass();
+        $this->_data->OwnerOrgUnitId->Id = NULL;
+        $this->_data->OwnerOrgUnitId->Source = 'Desire2Learn';
+        
+        $this->_data->Description = new stdClass();
+        $this->_data->Description->Text = "";
+        $this->_data->Description->IsHtml = 1;
     }
 
     /**
@@ -66,55 +82,69 @@ class D2LWS_OrgUnit_Group_Model extends D2LWS_OrgUnit_Model
     public function setCode($code) { $this->_data->Code = $code; return $this; }
 
     /**
-     * Retrieve the organization path
-     * @return string - Path
+     * Retrieve the group type description
+     * @return string - Description
      */
-    public function getPath() { return $this->_data->Path; }
+    public function getDescription() { return $this->_data->Description->Text; }
     
     /**
-     * Set the organization path
-     * @param $path string - Path
+     * Set the group type description
+     * @param $description string - Description
      * @return $this
      */
-    public function setPath($path) { $this->_data->Path = $path; return $this; }   
-
+    public function setDescription($description) { $this->_data->Description->Text = $description; return $this; }
+  
     /**
-     * Determine if this department is active
-     * @return boolean - True if active, false otherwise
+     * Is Description field in HTML?
+     * @return bool
      */
-    public function isActive() { return $this->_data->IsActive; }
+    public function isDescriptionHTML() { return $this->_data->Description->IsHtml; }
     
     /**
-     * Set the 'active' flag
-     * @param $tf boolean - True=active, false=inactive
+     * Set the IsHtml flag for Description field
+     * @param $tf bool - true=HTML, false=plain
      * @return $this
      */
-    public function setIsActive($tf) { $this->_data->IsActive = ($tf==true); return $this; }   
+    public function setIsDescriptionHTML($tf) { $this->_data->Description->IsHtml = ($tf==true); return $this; }
     
     /**
-     * Retrieve the organization start date
-     * @return timestamp - Start Date
+     * Retrieve ID of Group Type which contains this group
+     * @return int
      */
-    public function getStartDate() { return $this->_data->StartDate; }
+    public function getGroupTypeID()
+    {
+        return $this->_data->GroupTypeId->Id;
+    }
     
     /**
-     * Set the organization start date
-     * @param $sDate timestamp - Start Date (YYYY-mm-ddTHH:MM:SS)
-     * @return $this
+     * Set the ID of Group Type which contains this group
+     * @param int $ouid
+     * @return $this 
      */
-    public function setStartDate($sDate) { $this->_data->StartDate = $sDate; return $this; }  
+    public function setGroupTypeID($ouid)
+    {
+        $this->_data->GroupTypeId->Id = is_null($ouid) ? NULL : intval($ouid);
+        return $this;   
+    }  
     
     /**
-     * Retrieve the organization end date
-     * @return timestamp - End Date
+     * Get the ID of OrgUnit which owns this group
+     * @return int
      */
-    public function getEndDate() { return $this->_data->EndDate; }
+    public function getOwnerOrgUnitID()
+    {
+        return $this->_data->OwnerOrgUnitId->Id;
+    }
     
     /**
-     * Set the organization end date
-     * @param $eDate timestamp - End Date (YYYY-mm-ddTHH:MM:SS)
-     * @return $this
+     * Set the ID of OrgUnit which owns this group
+     * @param int $ouid
+     * @return $this 
      */
-    public function setEndDate($eDate) { $this->_data->EndDate = $eDate; return $this; }  
+    public function setOwnerOrgUnitID($ouid)
+    {
+        $this->_data->OwnerOrgUnitId->Id = is_null($ouid) ? NULL : intval($ouid);
+        return $this;   
+    }  
 
 }
