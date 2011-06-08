@@ -44,6 +44,19 @@ class D2LWS_Soap_Client extends Zend_Soap_Client implements D2LWS_Soap_Client_In
          */
 
         $NS = @( is_array($args[0]) && count($args[0]) > 0 && is_array($args[0][array_shift(array_keys($args[0]))]) ? 'ns1' : 'ns2' );
+        
+        // TODO: Investigate why this is necessary
+        // Will get exception if namespace not forced in this way
+        // D2L.WS.Implementation.RequestHeaderValidationFailedException: Request header is required!
+        if ( in_array($method, array('CreateGroup')) )
+        {
+            $NS = 'ns3';
+        }
+        elseif ( in_array($method, array('UpdateGroup')) )
+        {
+            $NS = 'ns1';
+        }
+        
         $rawheaders = "<{$NS}:RequestHeader>";
         $rawheaders .= "<{$NS}:Version>1.0</{$NS}:Version><{$NS}:CorellationId>123456</{$NS}:CorellationId>";
         if ( !in_array(strtolower($method), array('authenticate','authenticate2')) )
@@ -57,8 +70,18 @@ class D2LWS_Soap_Client extends Zend_Soap_Client implements D2LWS_Soap_Client_In
         $metaheader = new SoapHeader($i->getConfig('webservice.common.namespace'),'RequestHeader',$innerHeader);//$headers);
         $this->addSoapInputHeader($metaheader);
 
-        $result = parent::__call($method, $args);
-
+        try {
+            $result = parent::__call($method, $args);
+        }
+        catch ( SoapFault $ex )
+        {
+            // If a header wasn't returned, re-throw the exception message
+            if ( @array_shift($xml->xpath('/soap:Envelope/soap:Header')) == NULL )
+            {
+                throw new D2LWS_Soap_Client_Exception($ex->getMessage());
+            }
+        }
+        
         $xml = new SimpleXMLElement($this->getLastResponse());
         $header = @array_shift($xml->xpath('/soap:Envelope/soap:Header'));
         if ( $header != NULL && $header->ResponseHeader->Status->Code != 'Success') 
