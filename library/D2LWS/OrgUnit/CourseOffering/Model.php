@@ -47,7 +47,7 @@ class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
         $this->_data->StartDate = '2008-08-08T08:08:08';
         $this->_data->EndDate = '2009-08-08T08:08:08';
         $this->_data->CanRegister = false;
-        $this->_data->AllowSetions = false;
+        $this->_data->AllowSections = false;
     }
 
     /**
