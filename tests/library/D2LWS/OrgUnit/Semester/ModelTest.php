@@ -47,17 +47,7 @@ class D2LWS_OrgUnit_Semester_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
         $oRole = new D2LWS_OrgUnit_Semester_Model();
-        $this->assertNull($oRole->getRawData());
-    }
-
-    /**
-     * Test that we can create a "blank" instance of the model
-     * by providing NULL argument to the constructor
-     */
-    public function testCreateNewInstanceWithNullConstructorArgument()
-    {
-        $oRole = new D2LWS_OrgUnit_Semester_Model(NULL);
-        $this->assertNull($oRole->getRawData());
+        $this->assertInstanceOf('stdClass', $oRole->getRawData());
     }
 
     /**
@@ -200,7 +190,7 @@ class D2LWS_OrgUnit_Semester_ModelTest extends GenericTestCase
         $testObj->setIsActive('something');
 
         // Assert that "Is Active" flag was updated
-        $this->assertNotEquals('something', $testObj->isActive());
+        $this->assertNotEquals('something', (string)$testObj->isActive());
     }
 
     /**
