@@ -107,4 +107,204 @@ class D2LWS_Grade_Value_ModelTest extends GenericTestCase
         $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'OrgUnitID');
     }
  
+    /**
+     * Test that setStudentID and getStudentID work as expected
+     */
+    public function testSetAndGetStudentID()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setStudentID(99);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals(99, $this->testObj->getStudentID());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'StudentID');
+    }
+   
+    /**
+     * Test that setGradeObjectID and getGradeObjectID work as expected
+     */
+    public function testSetAndGetGradeObjectID()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setGradeObjectID(999);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals(999, $this->testObj->getGradeObjectID());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'GradeObjectID');
+    } 
+
+    /**
+     * Test that setPointsNumerator and getPointsNumerator work as expected
+     */
+    public function testSetAndGetPointsNumerator()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setPointsNumerator(25);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals(25, $this->testObj->getPointsNumerator());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'PointsNumerator');
+    }
+
+    /**
+     * Test that setPointsDenominator and getPointsDenominator work as expected
+     */
+    public function testSetAndGetPointsDenominator()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setPointsDenominator(50);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals(50, $this->testObj->getPointsDenominator());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'PointsDenominator');
+    }
+
+    /**
+     * Test that setWeightedNumerator and getWeightedNumerator work as expected
+     */
+    public function testSetAndGetWeightedNumerator()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setWeightedNumerator(50);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals(50, $this->testObj->getWeightedNumerator());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'WeightedNumerator');
+    }
+
+    /**
+     * Test that setWeightedDenominator and getWeightedDenominator work as expected
+     */
+    public function testSetAndGetWeightedDenominator()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setWeightedDenominator(100);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals(100, $this->testObj->getWeightedDenominator());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'WeightedDenominator');
+    }
+ 
+    /**
+     * Test that setGradeText and getGradeText work as expected
+     */
+    public function testSetAndGetGradeText()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setGradeText('Test Test Test');
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals('Test Test Test', $this->testObj->getGradeText());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'GradeText');
+    }
+   
+    /**
+     * Test that setStatus and getStatus work as expected
+     */
+    public function testSetAndGetStatus()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setStatus('DivideByZero');
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertEquals('DivideByZero', $this->testObj->getStatus());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'Status');
+    }  
+    
+    /**
+     * Test the isOK function
+     */
+    public function testIsOK()
+    {
+        $this->assertFalse($this->testObj->isOK());
+        $this->testObj->setStatus('OK');
+        $this->assertTrue($this->testObj->isOK());
+    }    
+    
+    /**
+     * Test that setIsDropped and isDropped work as expected
+     */
+    public function testSetIsDroppedAndIsDropped()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setIsDropped(true);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertTrue($this->testObj->isDropped());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'IsDropped');
+    }  
+    
+    /**
+     * Test that setIsReleased and isReleased work as expected
+     */
+    public function testSetIsReleasedAndIsReleased()
+    {
+        
+        // Set the Role ID
+        $this->testObj->setIsReleased(true);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($this->testObj, $this->baseObj);
+
+        // Assert that Role ID field was updated
+        $this->assertTrue($this->testObj->isReleased());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($this->testObj, $this->baseObj, 'IsReleased');
+    } 
+    
 }
