@@ -24,11 +24,16 @@ define('APPLICATION_PATH', BASE_PATH . '/application');
 // Define application environment
 define('APPLICATION_ENV', 'testing');
 
+define('APPLICATION_CFG', realpath(APPLICATION_PATH . '/configs/application.ini'));
+
+if ( !is_readable(APPLICATION_CFG) )
+    die("\nFailed to locate configuration file!\nFile: APPLICATION_PATH/configs/application.ini)\n\n");
+
 // Bootstrap Application
 require_once 'Zend/Application.php';
 $application = new Zend_Application(
     APPLICATION_ENV,
-    realpath(APPLICATION_PATH . '/configs/application.ini')
+    APPLICATION_CFG
 );
 $application->bootstrap();
 
