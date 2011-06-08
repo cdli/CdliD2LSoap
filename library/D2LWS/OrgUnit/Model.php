@@ -11,15 +11,21 @@
  * OrgUnit Model
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  */
-abstract class D2LWS_OrgUnit_Model
+abstract class D2LWS_OrgUnit_Model extends D2LWS_Abstract_Model
 {
     
     /**
-     * Return raw data object
-     * @return stdClass - Raw data object
+     * Initialize Default Data Structure
      */
-    public function getRawData() { return $this->_data; }
+    public function init() 
+    {
+        $this->_data = new stdClass();
+    }
     
+    /**
+     * Return the Org Unit Type
+     * @return type 
+     */
     public function getOrgUnitTypeID() { return $this->OUTYPE; }
     public function getOrgUnitTypeDesc() { return $this->OUDESC; }
     

@@ -10,19 +10,13 @@
 /**
  * Role Model
  */
-class D2LWS_Role_Model
+class D2LWS_Role_Model extends D2LWS_Abstract_Model
 {
 
-    protected $_data = NULL;
-    
     /**
-     * Default Constructor
-     * @param $soapResponse stdClass - Response from SOAP call
+     * Initialize Default Data Structure
      */
-    public function __construct(stdClass $soapResponse = NULL)
-    {
-        $this->_data = $soapResponse;
-    }
+    public function init() {}
     
     /**
      * Get D2L Role ID

@@ -15,15 +15,12 @@ class D2LWS_OrgUnit_Semester_Model extends D2LWS_OrgUnit_Model
     protected $OUTYPE = "Semester";
     protected $OUDESC = "Semester";
     
-    protected $_data = NULL;
-    
     /**
-     * Default Constructor
-     * @param $soapResponse stdClass - Response from SOAP call
+     * Initialize Default Data Structure
      */
-    public function __construct(stdClass $soapResponse = NULL)
+    public function init() 
     {
-        $this->_data = $soapResponse;
+        parent::init();
     }
 
     /**
