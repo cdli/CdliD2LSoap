@@ -168,6 +168,7 @@ class D2LWS_Grade_Value_Model extends D2LWS_Abstract_Model
      * Set Status Value
      * @param string $status Status
      * @return D2LWS_Grade_Value_Model fluent interface
+     * @todo: Restrict to allowed types: OK DivideByZero Overflow TransferError NullDenominator MissingFormula Other
      */
     public function setStatus($status) { $this->_data->GradeStatus = $status; return $this; }
 
