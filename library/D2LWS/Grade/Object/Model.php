@@ -176,11 +176,5 @@ class D2LWS_Grade_Object_Model extends D2LWS_Abstract_Model
     {
         return ( $this->getType() == 'Category' );
     }
-    
-    /**
-     * Return raw data object
-     * @return stdClass - Raw data object
-     */
-    public function getRawData() { return $this->_data; }
 
 }
