@@ -91,14 +91,14 @@ class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
      * Determine if this department is active
      * @return boolean - True if active, false otherwise
      */
-    public function isActive() { return $this->_data->IsActive; }
+    public function isActive() { return ($this->_data->IsActive==true); }
     
     /**
      * Set the 'active' flag
      * @param $tf boolean - True=active, false=inactive
      * @return $this
      */
-    public function setIsActive($tf) { $this->_data->IsActive = $tf; return $this; }   
+    public function setIsActive($tf) { $this->_data->IsActive = ($tf==true); return $this; }   
     
     /**
      * Retrieve the organization start date
@@ -130,26 +130,26 @@ class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
      * Determine if this course offering is open for new registrations
      * @return boolean - True if open, false otherwise
      */
-    public function canRegister() { return $this->_data->CanRegister; }
+    public function canRegister() { return ($this->_data->CanRegister==true); }
     
     /**
      * Set the 'CanRegister' flag
      * @param $tf boolean - True for yes, false otherwise
      * @return $this
      */
-    public function setCanRegister($tf) { $this->_data->CanRegister = $tf; return $this; }   
+    public function setCanRegister($tf) { $this->_data->CanRegister = ($tf==true); return $this; }   
      
     /**
      * Determine if this course offering allows sections
      * @return boolean - True if yes, false otherwise
      */
-    public function allowsSections() { return $this->_data->AllowSections; }
+    public function allowsSections() { return ($this->_data->AllowSections==true); }
     
     /**
      * Set the 'AllowSections' flag
      * @param $tf boolean - True for yes, false otherwise
      * @return $this
      */
-    public function setAllowSections($tf) { $this->_data->AllowSections = $tf; return $this; }   
+    public function setAllowSections($tf) { $this->_data->AllowSections = ($tf==true); return $this; }   
 
 }
