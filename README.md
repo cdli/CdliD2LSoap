@@ -8,7 +8,7 @@ Learning Management System (LMS).
 SYSTEM REQUIREMENTS
 -------------------
 ###Library Usage###
-* PHP v5.2.4+, with the following extensions enabled:
+* PHP v5.3.0+, with the following extensions enabled:
     * dom
     * SimpleXML
     * soap

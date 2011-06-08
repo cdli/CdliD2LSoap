@@ -47,17 +47,7 @@ class D2LWS_OrgUnit_Department_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
         $oRole = new D2LWS_OrgUnit_Department_Model();
-        $this->assertNull($oRole->getRawData());
-    }
-
-    /**
-     * Test that we can create a "blank" instance of the model
-     * by providing NULL argument to the constructor
-     */
-    public function testCreateNewInstanceWithNullConstructorArgument()
-    {
-        $oRole = new D2LWS_OrgUnit_Department_Model(NULL);
-        $this->assertNull($oRole->getRawData());
+        $this->assertInstanceOf('stdClass', $oRole->getRawData());
     }
 
     /**
@@ -77,7 +67,7 @@ class D2LWS_OrgUnit_Department_ModelTest extends GenericTestCase
     {
         $oModel = $this->_createMockModel();
         $this->assertEquals('Department', $oModel->getOrgUnitTypeID());
-        $this->assertEquals('Course Template', $oModel->getOrgUnitTypeDesc());
+        $this->assertEquals('Department', $oModel->getOrgUnitTypeDesc());
     }
 
     /**

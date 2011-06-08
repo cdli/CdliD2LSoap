@@ -51,17 +51,7 @@ class D2LWS_User_ModelTest extends UserTestCase
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
         $oUser = new D2LWS_User_Model();
-        $this->assertNull($oUser->getRawData());
-    }
-
-    /**
-     * Test that we can create a "blank" instance of the model
-     * by providing NULL argument to the constructor
-     */
-    public function testCreateNewInstanceWithNullConstructorArgument()
-    {
-        $oUser = new D2LWS_User_Model(NULL);
-        $this->assertNull($oUser->getRawData());
+        $this->assertInstanceOf('stdClass', $oUser->getRawData());
     }
 
     /**

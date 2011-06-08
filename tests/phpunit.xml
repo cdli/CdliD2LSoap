@@ -2,11 +2,6 @@
     <testsuite name="D2LWS Test Suite">
         <directory>./</directory>
     </testsuite>
-    <groups>
-        <exclude>
-            <group>D2LWS_API_Live</group>
-        </exclude>
-    </groups>
     <filter>
         <whitelist>
             <directory suffix=".php">../library/</directory>

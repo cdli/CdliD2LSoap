@@ -46,17 +46,7 @@ class D2LWS_Role_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
         $oRole = new D2LWS_Role_Model();
-        $this->assertNull($oRole->getRawData());
-    }
-
-    /**
-     * Test that we can create a "blank" instance of the model
-     * by providing NULL argument to the constructor
-     */
-    public function testCreateNewInstanceWithNullConstructorArgument()
-    {
-        $oRole = new D2LWS_Role_Model(NULL);
-        $this->assertNull($oRole->getRawData());
+        $this->assertInstanceOf('stdClass', $oRole->getRawData());
     }
 
     /**

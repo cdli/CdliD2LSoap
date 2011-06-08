@@ -47,17 +47,7 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
         $oRole = new D2LWS_OrgUnit_Group_Model();
-        $this->assertNull($oRole->getRawData());
-    }
-
-    /**
-     * Test that we can create a "blank" instance of the model
-     * by providing NULL argument to the constructor
-     */
-    public function testCreateNewInstanceWithNullConstructorArgument()
-    {
-        $oRole = new D2LWS_OrgUnit_Group_Model(NULL);
-        $this->assertNull($oRole->getRawData());
+        $this->assertInstanceOf('stdClass', $oRole->getRawData());
     }
 
     /**
@@ -77,7 +67,7 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     {
         $oModel = $this->_createMockModel();
         $this->assertEquals('Group', $oModel->getOrgUnitTypeID());
-        $this->assertEquals('Course Template', $oModel->getOrgUnitTypeDesc());
+        $this->assertEquals('Group', $oModel->getOrgUnitTypeDesc());
     }
 
     /**
@@ -142,108 +132,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'Code');
     }
-
-    /**
-     * Test that setPath and getPath work as expected
-     */
-    public function testSetAndGetPath()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the Path
-        $testObj->setPath(99);
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that the Path field was updated
-        $this->assertEquals(99, $testObj->getPath());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'Path');
-    }
-
-    /**
-     * Test that setIsActive and isActive work as expected
-     */
-    public function testSetAndGetActive()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        $arg = !$baseObj->isActive();
-
-        // Set the "Is Active" flag
-        $testObj->setIsActive($arg);
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that "Is Active" flag field was updated
-        $this->assertEquals($arg, $testObj->isActive());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'Active');
-    }
-
-    /**
-     * Test that setIsActive and isActive work as expected
-     * @todo Update model to enforce boolean argument
-     */
-    public function testSetActiveShouldNotAcceptNonBooleanArgument()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the "Is Active" flag
-        $testObj->setIsActive('something');
-
-        // Assert that "Is Active" flag was updated
-        $this->assertNotEquals('something', (string)$testObj->isActive());
-    }
-
-    /**
-     * Test that setStartDate and getStartDate work as expected
-     */
-    public function testSetAndGetStartDate()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the Start Date field
-        $testObj->setStartDate('2011-06-04T05:12:34');
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that the Start Date field was updated
-        $this->assertEquals('2011-06-04T05:12:34', $testObj->getStartDate());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'StartDate');
-    }
-
-    /**
-     * Test that setEndDate and getEndDate work as expected
-     */
-    public function testSetAndGetEndDate()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the End Date field
-        $testObj->setEndDate('2011-06-04T05:12:34');
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that the End Date field was updated
-        $this->assertEquals('2011-06-04T05:12:34', $testObj->getEndDate());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'EndDate');
-    }
     
     /**
      * Defines the methods we should test
@@ -257,26 +145,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
         'Name'=>array(
             'get'=>'getName',
             'set'=>'setName'
-        ),
-        'Code'=>array(
-            'get'=>'getCode',
-            'set'=>'setCode'
-        ),
-        'Path'=>array(
-            'get'=>'getPath',
-            'set'=>'setPath'
-        ),
-        'Active'=>array(
-            'get'=>'isActive',
-            'set'=>'setIsActive'
-        ),
-        'StartDate'=>array(
-            'get'=>'getStartDate',
-            'set'=>'setStartDate'
-        ),
-        'EndDate'=>array(
-            'get'=>'getEndDate',
-            'set'=>'setEndDate'
         )
     );
 
@@ -285,20 +153,7 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     protected function _createMockDataObject()
     {
-        $obj = new stdClass();
-        
-        $obj->OrgUnitId = new stdClass();
-        $obj->OrgUnitId->Id = 0;
-        $obj->OrgUnitId->Source = "Desire2Learn";
-
-        $obj->Name = '';
-        $obj->Code = '';
-        $obj->Path = '';
-        $obj->IsActive = false;
-        $obj->StartDate = '';
-        $obj->EndDate = '';
-
-        return $obj;
+        return $this->_createMockModel()->getRawData();
     }
 
     /**
@@ -306,6 +161,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_Group_Model($this->_createMockDataObject());
+         return new D2LWS_OrgUnit_Group_Model();
     }
 }

@@ -24,4 +24,12 @@ define('APPLICATION_PATH', BASE_PATH . '/application');
 // Define application environment
 define('APPLICATION_ENV', 'testing');
 
+// Bootstrap Application
+require_once 'Zend/Application.php';
+$application = new Zend_Application(
+    APPLICATION_ENV,
+    realpath(APPLICATION_PATH . '/configs/application.ini')
+);
+$application->bootstrap();
+
 require_once 'GenericTestCase.php';

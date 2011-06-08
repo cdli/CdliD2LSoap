@@ -25,7 +25,7 @@
  * @group D2LWS
  * @group D2LWS_Core
  */
-class D2LWS_Role_InstanceTest extends GenericTestCase
+class D2LWS_InstanceTest extends GenericTestCase
 {
     
     /**
