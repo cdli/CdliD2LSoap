@@ -4,7 +4,7 @@
     </testsuite>
     <groups>
         <exclude>
-            <group>D2LWS_API_Live</group>
+            <group>D2LWS_Live</group>
         </exclude>
     </groups>
     <filter>
