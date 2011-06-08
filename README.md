@@ -42,6 +42,7 @@ If you are interested in contributing source code or documentation updates back 
 2. __Git Client Software__:  Git is a distributed version control system.  For instructions on how to install Git on Windows, Mac or Linux and configure it for use with GitHub, see [this Help.GitHub page](http://help.github.com/win-set-up-git/)
 
 Once you have completed both of those steps, fork our project into your own GitHub account and get crackin'!  If you are new to GitHub, the *Beginner* section on [Help.GitHub](http://help.github.com) is a fantastic resource.  Our suggestion is to start with the [Fork a Repo](http://help.github.com/fork-a-repo/) page and work your way through the section from there.
+Once you have completed both of those steps, fork our project into your own GitHub account and get crackin'!  If you are new to GitHub, the *Beginner* section on [Help.GitHub](http://help.github.com) is a fantastic resource.  Our suggestion is to start with the [Fork a Repo)](http://help.github.com/fork-a-repo/) page and work your way through the section from there.
 
 
 ###List of Contributors###
