@@ -25,4 +25,24 @@
 abstract class LiveTestCase extends GenericTestCase
 {
 
+    /**
+     * Retrieve Instance of Test Course Offering
+     * @return D2LWS_OrgUnit_CourseOffering_Model 
+     */
+    protected function getTestCourseOffering()
+    {
+        $svc = new D2LWS_OrgUnit_CourseOffering_API($this->_getInstanceManager());
+        return $svc->findByID($this->testOptions['live']['course_offering']['ouid']);        
+    }
+ 
+    /**
+     * Retrieve Instance of Test Student Account
+     * @return D2LWS_User
+     */
+    protected function getTestStudentAccount()
+    {
+        $svc = new D2LWS_User_API($this->_getInstanceManager());
+        return $svc->findByID($this->testOptions['live']['student']['ouid']);        
+    }
+    
 }
