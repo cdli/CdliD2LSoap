@@ -17,6 +17,7 @@ SYSTEM REQUIREMENTS
     * NOTE: Support for earlier versions is untested.
 
 ###Unit Test Suite###
+* PHP 5.3.0+
 * PHPUnit v3.6+
 
 CONTRIBUTING
