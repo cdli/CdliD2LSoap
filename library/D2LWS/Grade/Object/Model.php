@@ -28,7 +28,21 @@ class D2LWS_Grade_Object_Model extends D2LWS_Abstract_Model
     /**
      * Initialize Default Data Structure
      */
-    public function init() {}
+    public function init()
+    {
+        $this->_data = new stdClass();
+        
+        $this->_data->GradeObjectId = new stdClass();
+        $this->_data->GradeObjectId->Id = NULL;
+        $this->_data->GradeObjectId->Source = 'Desire2Learn';
+        
+        $this->_data->OrgUnitId = new stdClass();
+        $this->_data->OrgUnitId->Id = NULL;
+        $this->_data->OrgUnitId->Source = 'Desire2Learn';
+        
+        $this->_data->Name = '';
+        $this->_data->GradeObjectType = '';
+    }
     
     /**
      * Get Grade Object ID
@@ -82,32 +96,40 @@ class D2LWS_Grade_Object_Model extends D2LWS_Abstract_Model
      */
     public function setOrgUnitID($ouid) { $this->_data->OrgUnitId->Id = $ouid; return $this; }
 
-
     /**
-     * Is Category?
+     * Is Numeric?
      * @return boolean
      */
-    public function isCategory()
+    public function isNumeric()
     {
-        return ( $this->getType() == 'Category' );
+        return ( $this->getType() == 'Numeric' );
     }
-
+    
     /**
-     * Is Adjusted Final Grade item?
+     * Is Pass/Fail?
      * @return boolean
      */
-    public function isAdjustedFinalGrade()
+    public function isPassFail()
     {
-        return ( $this->getType() == 'AdjustedFinalGrade' );
+        return ( $this->getType() == 'PassFail' );
     }
-
+    
     /**
-     * Is Calculated Final Grade item?
+     * Is Select Box?
      * @return boolean
      */
-    public function isCalculatedFinalGrade()
+    public function isSelectBox()
     {
-        return ( $this->getType() == 'CalculatedFinalGrade' );
+        return ( $this->getType() == 'SelectBox' );
+    }
+    
+    /**
+     * Is Text?
+     * @return boolean
+     */
+    public function isText()
+    {
+        return ( $this->getType() == 'Text' );
     }
 
     /**
@@ -118,11 +140,41 @@ class D2LWS_Grade_Object_Model extends D2LWS_Abstract_Model
     {
         return ( $this->getType() == 'Calculated' );
     }
+    
+    /**
+     * Is Formula?
+     * @return boolean
+     */
+    public function isFormula()
+    {
+        return ( $this->getType() == 'Formula' );
+    }
 
     /**
-     * Return raw data object
-     * @return stdClass - Raw data object
+     * Is Calculated Final Grade item?
+     * @return boolean
      */
-    public function getRawData() { return $this->_data; }
+    public function isCalculatedFinalGrade()
+    {
+        return ( $this->getType() == 'CalculatedFinalGrade' );
+    }
+    
+    /**
+     * Is Adjusted Final Grade item?
+     * @return boolean
+     */
+    public function isAdjustedFinalGrade()
+    {
+        return ( $this->getType() == 'AdjustedFinalGrade' );
+    }
+
+    /**
+     * Is Category?
+     * @return boolean
+     */
+    public function isCategory()
+    {
+        return ( $this->getType() == 'Category' );
+    }
 
 }

@@ -49,6 +49,7 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
             realpath(APPLICATION_PATH . '/configs/application.ini')
         );
 
+        $this->testOptions = $this->application->getOption('phpunit');
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
     }
@@ -56,7 +57,6 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
     public function appBootstrap()
     {
         $this->application->bootstrap();
-        $this->testOptions = $this->application->getOption('phpunit');
     }
 
     /**

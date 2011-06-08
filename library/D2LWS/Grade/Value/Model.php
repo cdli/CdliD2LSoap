@@ -28,7 +28,31 @@ class D2LWS_Grade_Value_Model extends D2LWS_Abstract_Model
     /**
      * Initialize Default Data Structure
      */
-    public function init() {}
+    public function init()
+    {
+        $this->_data = new stdClass();
+        
+        $this->_data->OrgUnitId = new stdClass();
+        $this->_data->OrgUnitId->Id = NULL;
+        $this->_data->OrgUnitId->Source = 'Desire2Learn';
+        
+        $this->_data->UserId = new stdClass();
+        $this->_data->UserId->Id = NULL;
+        $this->_data->UserId->Source = 'Desire2Learn';
+        
+        $this->_data->GradeObjectId = new stdClass();
+        $this->_data->GradeObjectId->Id = NULL;
+        $this->_data->GradeObjectId->Source = 'Desire2Learn';
+        
+        $this->_data->PointsNumerator = 0;
+        $this->_data->PointsDenominator = 0;
+        $this->_data->WeightedNumerator = 0;
+        $this->_data->WeightedDenominator = 0;
+        $this->_data->GradeText = '';
+        $this->_data->Status = '';
+        $this->_data->IsDropped = false;
+        $this->_data->IsReleased = false;
+    }
     
     /**
      * Get Org Unit ID

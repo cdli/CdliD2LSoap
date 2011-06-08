@@ -33,3 +33,4 @@ $application = new Zend_Application(
 $application->bootstrap();
 
 require_once 'GenericTestCase.php';
+require_once 'LiveTestCase.php';
