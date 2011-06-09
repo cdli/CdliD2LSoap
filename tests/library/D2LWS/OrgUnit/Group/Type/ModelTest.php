@@ -7,7 +7,7 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.
  * It is also available through the world-wide-web at this URL:
- * https://github.com/adamlundrigan/zfD2L/blob/0.1a0/LICENSE
+ * https://github.com/adamlundrigan/zfD2L/blob/master/LICENSE
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to adamlundrigan@cdli.ca so we can send you a copy immediately.
@@ -19,15 +19,16 @@
  */
 
 /**
- * PHPUnit test for D2LWS_OrgUnit_Group_Model
+ * PHPUnit test for D2LWS_OrgUnit_Group_Type_Model
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * 
  * @group D2LWS
  * @group D2LWS_Model
  * @group D2LWS_OrgUnit
  * @group D2LWS_OrgUnit_Group
+ * @group D2LWS_OrgUnit_Group_Type
  */
-class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
+class D2LWS_OrgUnit_Group_Type_ModelTest extends GenericTestCase
 {
 
     /**
@@ -36,8 +37,8 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithValidConstructorArgument()
     {
         $mock = $this->_createMockDataObject();
-        $oGroup = new D2LWS_OrgUnit_Group_Model($mock);
-        $this->assertEquals($mock, $oGroup->getRawData());
+        $oGroupType = new D2LWS_OrgUnit_Group_Type_Model($mock);
+        $this->assertEquals($mock, $oGroupType->getRawData());
     }
 
     /**
@@ -46,8 +47,8 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
-        $oGroup = new D2LWS_OrgUnit_Group_Model();
-        $this->assertInstanceOf('stdClass', $oGroup->getRawData());
+        $oGroupType = new D2LWS_OrgUnit_Group_Type_Model();
+        $this->assertInstanceOf('stdClass', $oGroupType->getRawData());
     }
 
     /**
@@ -57,7 +58,7 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithInvalidConstructorArgument()
     {
-        $oGroup = new D2LWS_OrgUnit_Group_Model('shouldNotAcceptString');
+        $oGroupType = new D2LWS_OrgUnit_Group_Type_Model('shouldNotAcceptString');
     }
 
     /**
@@ -66,8 +67,8 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     public function testModelReturnsCorrectTypeInformation()
     {
         $oModel = $this->_createMockModel();
-        $this->assertEquals('Group', $oModel->getOrgUnitTypeID());
-        $this->assertEquals('Group', $oModel->getOrgUnitTypeDesc());
+        $this->assertEquals('GroupType', $oModel->getOrgUnitTypeID());
+        $this->assertEquals('Group Type', $oModel->getOrgUnitTypeDesc());
     }
 
     /**
@@ -110,27 +111,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
 
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'Name');
-    }
-
-    /**
-     * Test that setCode and getCode work as expected
-     */
-    public function testSetAndGetCode()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the Code
-        $testObj->setCode('GroupCode');
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that the Code field was updated
-        $this->assertEquals('GroupCode', $testObj->getCode());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'Code');
     }
 
     /**
@@ -177,48 +157,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
         $testObj->setIsDescriptionHTML(true);
         $this->assertTrue($testObj->isDescriptionHTML());
     }
-
-    /**
-     * Test that setGroupTypeID and getGroupTypeID work as expected
-     */
-    public function testSetAndGetGroupTypeID()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the Group Type ID
-        $testObj->setGroupTypeID(9999);
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that Group Type ID field was updated
-        $this->assertEquals(9999, $testObj->getGroupTypeID());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'GroupTypeID');
-    }
-
-    /**
-     * Test that setOwnerOrgUnitID and getOwnerOrgUnitID work as expected
-     */
-    public function testSetAndGetOwnerOrgUnitID()
-    {
-        $testObj = $this->_createMockModel();
-        $baseObj = $this->_createMockModel();
-
-        // Set the Owner OU
-        $testObj->setOwnerOrgUnitID(99999);
-
-        // Assert that a change occurred in the test object
-        $this->assertNotEquals($testObj, $baseObj);
-
-        // Assert that Owner OU field was updated
-        $this->assertEquals(99999, $testObj->getOwnerOrgUnitID());
-
-        // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, 'OwnerOrgUnitID');
-    }
     
     /**
      * Defines the methods we should test
@@ -240,14 +178,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
         'IsDescriptionHTML'=>array(
             'get'=>'isDescriptionHTML',
             'set'=>'setIsDescriptionHTML'
-        ),
-        'GroupTypeID'=>array(
-            'get'=>'getGroupTypeID',
-            'set'=>'setGroupTypeID'
-        ),
-        'OwnerOrgUnitID'=>array(
-            'get'=>'getOwnerOrgUnitID',
-            'set'=>'setOwnerOrgUnitID'
         )
     );
 
@@ -264,6 +194,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_Group_Model();
+         return new D2LWS_OrgUnit_Group_Type_Model();
     }
 }

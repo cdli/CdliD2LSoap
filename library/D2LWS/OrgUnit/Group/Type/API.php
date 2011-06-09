@@ -24,28 +24,31 @@
 class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
 {
         
-    public function findByID($id)
+    public function findByID($GroupID, $OwnerID)
     {
         $i = $this->getInstance();        
 
         $result = $i->getSoapClient()
             ->setWsdl($i->getConfig('webservice.org.wsdl'))
             ->setLocation($i->getConfig('webservice.org.endpoint'))
-            ->GetGroup(array(
-                'OrgUnitId'=>array(
-                    'Id'=>intval($id),
+            ->GetGroupType(array(
+                'GroupTypeId'=>array(
+                    'Id'=>intval($GroupID),
+                    'Source'=>'Desire2Learn'
+                ),
+                'OwnerOrgUnitId'=>array(
+                    'Id'=>intval($OwnerID),
                     'Source'=>'Desire2Learn'
                 )
             ));
-        
-        if ( $result instanceof stdClass && isset($result->Group) && $result->Group instanceof stdClass )
+        if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
         {
-            $User = new D2LWS_OrgUnit_Group_Model($result->Group);
-            return $User;
+            $GroupType = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
+            return $GroupType;
         }
         else
         {
-            throw new D2LWS_OrgUnit_Group_Exception_NotFound('Id=' . $id);
+            throw new D2LWS_OrgUnit_Group_Type_Exception_NotFound("GroupId={$GroupID}, OwnerID={$OwnerID}");
         }
     }
     

@@ -20,6 +20,7 @@
  
 /**
  * Course Offering OU API
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  */
 class D2LWS_OrgUnit_CourseOffering_API extends D2LWS_Common
 {
