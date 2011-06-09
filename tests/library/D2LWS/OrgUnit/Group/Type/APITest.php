@@ -82,4 +82,85 @@ class D2LWS_OrgUnit_Group_Type_APITest extends GenericTestCase
         $objGType = $apiGType->findByID(99,199);
     }
     
+    /**
+     * Test method getTypesByOrgUnit() when a single Group Type exists
+     */
+    public function testGetTypesByOrgUnitWhenOUHasSingleGroupType()
+    {
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return an stdClass object with attribute
+        // GroupType containing single stdClass object with information
+        // pertaining to the group type.
+        $mock->getSoapClient()->addCallback("OrgUnitManagement", "GetGroupTypes",
+            function($args) {            
+                $modelObj = new D2LWS_OrgUnit_Group_Type_Model();
+                $modelObj->setOwnerOrgUnitID($args['OwnerOrgUnitId']['Id']);
+                
+                $result = new stdClass();
+                $result->GroupTypes = new stdClass();
+                $result->GroupTypes->GroupTypeInfo = $modelObj->getRawData();
+                return $result;
+            }
+        );
+
+        // Find the grade objects
+        $apiGType = new D2LWS_OrgUnit_Group_Type_API($mock);
+        $objGTSet = $apiGType->getTypesByOrgUnitID(199);
+
+        $this->assertInternalType('array', $objGTSet);
+        $this->assertContainsOnly('D2LWS_OrgUnit_Group_Type_Model', $objGTSet);
+        $this->assertEquals(1, count($objGTSet));
+    }
+      
+    /**
+     * Test method getTypesByOrgUnit() when no Group Type exists
+     */
+    public function testGetTypesByOrgUnitWhenOUHasZeroGroupTypes()
+    {
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return an stdClass object with attribute
+        // GroupType containing single stdClass object with information
+        // pertaining to the group type.
+        $mock->getSoapClient()->addCallback("OrgUnitManagement", "GetGroupTypes",
+            function($args) {            
+                $result = new stdClass();
+                $result->GroupTypes = new stdClass();
+                return $result;
+            }
+        );
+
+        // Find the grade objects
+        $apiGType = new D2LWS_OrgUnit_Group_Type_API($mock);
+        $objGTSet = $apiGType->getTypesByOrgUnitID(199);
+
+        $this->assertInternalType('array', $objGTSet);
+        $this->assertContainsOnly('D2LWS_OrgUnit_Group_Type_Model', $objGTSet);
+        $this->assertEquals(0, count($objGTSet));
+    }
+    
+      
+    /**
+     * Test method getTypesByOrgUnit() when no Group Type exists
+     * @expectedException D2LWS_OrgUnit_Group_Type_Exception_NotFound
+     */
+    public function testGetTypesByOrgUnitReturnsAMalformedResponse()
+    {
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return an stdClass object with attribute
+        // GroupType containing single stdClass object with information
+        // pertaining to the group type.
+        $mock->getSoapClient()->addCallback("OrgUnitManagement", "GetGroupTypes",
+            function($args) {            
+                return null;
+            }
+        );
+
+        // Find the grade objects
+        $apiGType = new D2LWS_OrgUnit_Group_Type_API($mock);
+        $objGTSet = $apiGType->getTypesByOrgUnitID(199);
+    }
+    
 }

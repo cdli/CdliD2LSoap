@@ -76,5 +76,30 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
             $this->testOptions['live']['course_offering']['ouid']
         );
     }
+        
+    /**
+     * Fetch our test course offering's group types
+     */
+    public function testGetTypesByOrgUnit()
+    {
+        $grouptype_ouid = $this->testOptions['live']['group_type']['ouid'];
+        $offering_ouid = $this->testOptions['live']['course_offering']['ouid'];
+        
+        $objGroupTypes = $this->service->getTypesByOrgUnitID($offering_ouid);
+        $this->assertInternalType('array', $objGroupTypes);
+        $this->assertContainsOnly('D2LWS_OrgUnit_Group_Type_Model', $objGroupTypes);
+        $this->assertArrayHasKey($grouptype_ouid, $objGroupTypes);
+        
+        return $objGroupTypes;
+    }
+    
+    /**
+     * Attempt to fetch a non-existent OUID
+     * @expectedException D2LWS_Soap_Client_Exception
+     */
+    public function testGetTypesByOrgUnitWhichDoesNotExist()
+    {
+        $objGroupType = $this->service->getTypesByOrgUnitID('9999999');
+    }
     
 }
