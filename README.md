@@ -18,7 +18,7 @@ SYSTEM REQUIREMENTS
 
 ###Unit Test Suite###
 * PHP 5.3.0+
-* PHPUnit v3.6+
+* PHPUnit v3.5+
 
 CONTRIBUTING
 ------------
