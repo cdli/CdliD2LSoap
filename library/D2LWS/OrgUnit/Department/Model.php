@@ -18,16 +18,14 @@
  * @author     Thomas Hawkins <thawkins@mun.ca>
  */
 
- 
 /**
  * Department Model
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  */
 class D2LWS_OrgUnit_Department_Model extends D2LWS_OrgUnit_Model
 {
     protected $OUTYPE = "Department";
     protected $OUDESC = "Department";
-    
-    protected $_data = NULL;
     
     /**
      * Initialize Default Data Structure
@@ -35,6 +33,19 @@ class D2LWS_OrgUnit_Department_Model extends D2LWS_OrgUnit_Model
     public function init() 
     {
         parent::init();
+
+        $this->_data = new stdClass();
+        
+        $this->_data->OrgUnitId = new stdClass();;        
+        $this->_data->OrgUnitId->Id = NULL;
+        $this->_data->OrgUnitId->Source = 'Desire2Learn';
+        
+        $this->_data->Name = '';
+        $this->_data->Code = '';
+        $this->_data->Path = '';
+        $this->_data->IsActive = false;
+        $this->_data->StartDate = '2008-08-08T08:08:08';
+        $this->_data->EndDate = '2009-08-08T08:08:08';
     }
 
     /**
