@@ -36,8 +36,8 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     public function testCreateNewInstanceWithValidConstructorArgument()
     {
         $mock = $this->_createMockDataObject();
-        $oRole = new D2LWS_OrgUnit_Group_Model($mock);
-        $this->assertEquals($mock, $oRole->getRawData());
+        $oGroup = new D2LWS_OrgUnit_Group_Model($mock);
+        $this->assertEquals($mock, $oGroup->getRawData());
     }
 
     /**
@@ -46,8 +46,8 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithoutConstructorArgument()
     {
-        $oRole = new D2LWS_OrgUnit_Group_Model();
-        $this->assertInstanceOf('stdClass', $oRole->getRawData());
+        $oGroup = new D2LWS_OrgUnit_Group_Model();
+        $this->assertInstanceOf('stdClass', $oGroup->getRawData());
     }
 
     /**
@@ -57,7 +57,7 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
      */
     public function testCreateNewInstanceWithInvalidConstructorArgument()
     {
-        $oRole = new D2LWS_OrgUnit_Group_Model('shouldNotAcceptString');
+        $oGroup = new D2LWS_OrgUnit_Group_Model('shouldNotAcceptString');
     }
 
     /**
@@ -121,16 +121,103 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
         $baseObj = $this->_createMockModel();
 
         // Set the Code
-        $testObj->setCode(99);
+        $testObj->setCode('GroupCode');
 
         // Assert that a change occurred in the test object
         $this->assertNotEquals($testObj, $baseObj);
 
         // Assert that the Code field was updated
-        $this->assertEquals(99, $testObj->getCode());
+        $this->assertEquals('GroupCode', $testObj->getCode());
 
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'Code');
+    }
+
+    /**
+     * Test that setDescription and getDescription work as expected
+     */
+    public function testSetAndGetDescription()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Description
+        $testObj->setDescription('Test Test Test Test');
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that the Description field was updated
+        $this->assertEquals('Test Test Test Test', $testObj->getDescription());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'Description');
+    }
+
+    /**
+     * Test that setIsDescriptionHTML and isDescriptionHTML work as expected
+     */
+    public function testSetAndGetIsDescriptionHTML()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Description to not HTML
+        $testObj->setIsDescriptionHTML(false);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that the Description field was updated
+        $this->assertFalse($testObj->isDescriptionHTML());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'IsDescriptionHTML');
+        
+        $testObj->setIsDescriptionHTML(true);
+        $this->assertTrue($testObj->isDescriptionHTML());
+    }
+
+    /**
+     * Test that setGroupTypeID and getGroupTypeID work as expected
+     */
+    public function testSetAndGetGroupTypeID()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Group Type ID
+        $testObj->setGroupTypeID(9999);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that Group Type ID field was updated
+        $this->assertEquals(9999, $testObj->getGroupTypeID());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'GroupTypeID');
+    }
+
+    /**
+     * Test that setOwnerOrgUnitID and getOwnerOrgUnitID work as expected
+     */
+    public function testSetAndGetOwnerOrgUnitID()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Owner OU
+        $testObj->setOwnerOrgUnitID(99999);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that Owner OU field was updated
+        $this->assertEquals(99999, $testObj->getOwnerOrgUnitID());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'OwnerOrgUnitID');
     }
     
     /**
@@ -145,6 +232,22 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
         'Name'=>array(
             'get'=>'getName',
             'set'=>'setName'
+        ),
+        'Description'=>array(
+            'get'=>'getDescription',
+            'set'=>'setDescription'
+        ),
+        'IsDescriptionHTML'=>array(
+            'get'=>'isDescriptionHTML',
+            'set'=>'setIsDescriptionHTML'
+        ),
+        'GroupTypeID'=>array(
+            'get'=>'getGroupTypeID',
+            'set'=>'setGroupTypeID'
+        ),
+        'OwnerOrgUnitID'=>array(
+            'get'=>'getOwnerOrgUnitID',
+            'set'=>'setOwnerOrgUnitID'
         )
     );
 
