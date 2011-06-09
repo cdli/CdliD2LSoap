@@ -109,7 +109,7 @@ class D2LWS_OrgUnit_Group_Model extends D2LWS_OrgUnit_Model
      * Is Description field in HTML?
      * @return bool
      */
-    public function isDescriptionHTML() { return $this->_data->Description->IsHtml; }
+    public function isDescriptionHTML() { return ($this->_data->Description->IsHtml==true); }
     
     /**
      * Set the IsHtml flag for Description field
