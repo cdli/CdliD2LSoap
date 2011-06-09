@@ -20,10 +20,16 @@
  
 /**
  * Group OU API
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  */
 class D2LWS_OrgUnit_Group_API extends D2LWS_Common
 {
-        
+    /**
+     * Find Group by OU
+     * @param int $id
+     * @return D2LWS_OrgUnit_Group_Model
+     * @throws D2LWS_OrgUnit_Group_Exception_NotFound
+     */
     public function findByID($id)
     {
         $i = $this->getInstance();        
