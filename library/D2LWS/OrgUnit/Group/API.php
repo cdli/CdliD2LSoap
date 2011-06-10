@@ -7,7 +7,7 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.
  * It is also available through the world-wide-web at this URL:
- * https://github.com/adamlundrigan/zfD2L/blob/0.1a0/LICENSE
+ * https://github.com/adamlundrigan/zfD2L/blob/master/LICENSE
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to adamlundrigan@cdli.ca so we can send you a copy immediately.
@@ -116,6 +116,26 @@ class D2LWS_OrgUnit_Group_API extends D2LWS_Common
         
         return false;
     }    
+    
+    public function delete(D2LWS_OrgUnit_Group_Model $g)
+    {
+        if ( !is_null($g->getID()) )
+        {
+            $i = $this->getInstance();
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->DeleteGroup(array(
+                    'OrgUnitId'=>array(
+                        'Id'=>$g->getID(),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            
+            return ( $result instanceof stdClass );
+        }
+        return false;
+    }
 
     /**
      * Create SOAP Request datastructure from model
