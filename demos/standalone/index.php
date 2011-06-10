@@ -43,11 +43,10 @@ try {
 }
 
 
-if ( isset($_POST['username']) && isset($_POST['password']) )
+if ( isset($_POST['username']) )
 {
     
     $username = $_POST['username'];
-    $password = $_POST['password'];
     
     try 
     {
@@ -56,18 +55,14 @@ if ( isset($_POST['username']) && isset($_POST['password']) )
         
         if ( $user instanceof D2LWS_User_Model )
         {
-            $enrollments = $svcUser->getActiveCourseOfferings($user->getUserID());
-            
-            require_once __DIR__ . "/views/enrollments.php";
-            
-        }        
+            $enrollments = $svcUser->getActiveCourseOfferings($user->getUserID());            
+            require_once __DIR__ . "/views/enrollments.php";            
+        }
     }
     catch ( Exception $ex )
     {
         die("ERROR: " . $ex->getMessage());
     }    
-    
-    //$user = $svcUser->performSSO($u)
     
 }
 else
