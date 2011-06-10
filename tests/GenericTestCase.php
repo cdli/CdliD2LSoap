@@ -29,34 +29,20 @@ require_once 'Zend/Application.php';
  */
 abstract class GenericTestCase extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Application Instance
-     * @var Zend_Application
-     */
-    public $application;
-    
+
     /**
      * Application configurations from the 'phpunit' group
      * @var array
      */
-    public $testOptions;
+    public $config;
 
     public function setUp()
     {
-
-        $this->application = new Zend_Application(
-            APPLICATION_ENV,
-            realpath(APPLICATION_PATH . '/configs/application.ini')
+        $this->config = new Zend_Config_Ini(
+            APPLICATION_CFG,
+            APPLICATION_ENV
         );
-
-        $this->testOptions = $this->application->getOption('phpunit');
-        $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
-    }
-
-    public function appBootstrap()
-    {
-        $this->application->bootstrap();
     }
 
     /**

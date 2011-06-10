@@ -53,7 +53,7 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->testOptions['live']['department']['ouid'];
+        $ouid = $this->config->phpunit->live->department->ouid;
         
         $objDepartment = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_Department_Model', $objDepartment);        

@@ -53,7 +53,7 @@ class D2LWS_OrgUnit_Group_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->testOptions['live']['group']['ouid'];
+        $ouid = $this->config->phpunit->live->group->ouid;
         
         $objGroup = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_Group_Model', $objGroup);        
