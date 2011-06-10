@@ -7,7 +7,7 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.
  * It is also available through the world-wide-web at this URL:
- * https://github.com/adamlundrigan/zfD2L/blob/0.1a0/LICENSE
+ * https://github.com/adamlundrigan/zfD2L/blob/master/LICENSE
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to adamlundrigan@cdli.ca so we can send you a copy immediately.
@@ -47,14 +47,14 @@ class D2LWS_Role_Model extends D2LWS_Abstract_Model
      * Get Rolename
      * @return string - Rolename
      */
-    public function getRoleName() { return $this->_data->RoleName->_; }
+    public function getRoleName() { return $this->_data->Name; }
     
     /**
      * Set Rolename
      * @param $uname string - Rolename
      * @return $this
      */
-    public function setRoleName($uname) { $this->_data->RoleName->_ = $uname; return $this; }
+    public function setRoleName($uname) { $this->_data->Name = $uname; return $this; }
         
     /**
      * Get Role Code
