@@ -152,9 +152,7 @@ class D2LWS_Role_ModelTest extends GenericTestCase
         $obj->RoleId->Id = 0;
         $obj->RoleId->Source = "Desire2Learn";
 
-        $obj->RoleName = new stdClass();
-        $obj->RoleName->_ = '';
-
+        $obj->Name = '';
         $obj->Code = '';
 
         return $obj;

@@ -53,7 +53,7 @@ class D2LWS_OrgUnit_CourseOffering_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->testOptions['live']['course_offering']['ouid'];
+        $ouid = $this->config->phpunit->live->course_offering->ouid;
         
         $objCourseOffering = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_CourseOffering_Model', $objCourseOffering);        

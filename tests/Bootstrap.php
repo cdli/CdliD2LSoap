@@ -18,24 +18,14 @@
  * @author     Thomas Hawkins <thawkins@mun.ca>
  */
 
-define('BASE_PATH', realpath(dirname(__FILE__) . '/../'));
-define('APPLICATION_PATH', BASE_PATH . '/application');
+define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../'));
 
 // Define application environment
 define('APPLICATION_ENV', 'testing');
-
 define('APPLICATION_CFG', realpath(APPLICATION_PATH . '/configs/application.ini'));
 
-if ( !is_readable(APPLICATION_CFG) )
-    die("\nFailed to locate configuration file!\nFile: APPLICATION_PATH/configs/application.ini)\n\n");
-
-// Bootstrap Application
-require_once 'Zend/Application.php';
-$application = new Zend_Application(
-    APPLICATION_ENV,
-    APPLICATION_CFG
-);
-$application->bootstrap();
+!defined("D2LWS_MANUAL_AUTOLOADER") && define("D2LWS_MANUAL_AUTOLOADER", true);
+require_once __DIR__ . "/../library/D2LWS/Instance.php";
 
 require_once 'GenericTestCase.php';
 require_once 'LiveTestCase.php';
