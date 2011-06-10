@@ -7,7 +7,7 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.
  * It is also available through the world-wide-web at this URL:
- * https://github.com/adamlundrigan/zfD2L/blob/0.1a0/LICENSE
+ * https://github.com/adamlundrigan/zfD2L/blob/master/LICENSE
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to adamlundrigan@cdli.ca so we can send you a copy immediately.
@@ -21,13 +21,14 @@
 /**
  * Filesystem path where library is installed
  */
-define("D2LWS_BASE", dirname(__FILE__));
+define("D2LWS_BASE", __DIR__);
 
 /**
  * Determine whether we should use our own internal autoloader
  */
-if ( !defined("D2LWS_MANUAL_AUTOLOADER") )
+if ( !defined("D2LWS_MANUAL_AUTOLOADER") ) {
     define("D2LWS_MANUAL_AUTOLOADER", false);
+}
 
 /**
  * Server instance
@@ -192,12 +193,13 @@ class D2LWS_Instance
 // own internal autoloader we can hook into
 if ( D2LWS_MANUAL_AUTOLOADER )
 {
+    // Add D2LWS library to the include path
+    set_include_path(D2LWS_BASE . PATH_SEPARATOR . get_include_path());
+    
+    // Push the D2LWS Autoloader
     spl_autoload_register(function($class){
-        require_once D2LWS_BASE
-            . DIRECTORY_SEPARATOR
-            . ".."
-            . DIRECTORY_SEPARATOR
-            . preg_replace("|[^a-z0-9-.]|i", DIRECTORY_SEPARATOR, $class)
+        require_once 
+            preg_replace("|[^a-z0-9-.]|i", DIRECTORY_SEPARATOR, $class)
             . ".php";
     });
 }

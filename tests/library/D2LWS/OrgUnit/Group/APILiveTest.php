@@ -96,4 +96,67 @@ class D2LWS_OrgUnit_Group_APILiveTest extends LiveTestCase
         $objGroup = $this->service->findByCode($code);
     }
     
+    /**
+     * Test Creating New Group
+     */
+    public function testCreateGroup()
+    {
+        $objGType = $this->getTestGroupType();
+        if ( ! $objGType instanceof D2LWS_OrgUnit_Group_Type_Model ) {
+            $this->markTestSkipped('Could not retrieve test group type!');
+        }
+        $OwnerOU = $objGType->getOwnerOrgUnitID();
+        
+        $objGroup = new D2LWS_OrgUnit_Group_Model();
+        $objGroup->setCode(uniqid("G"))
+                 ->setName('API Test Group')
+                 ->setDescription('API Test Group Description!')
+                 ->setIsDescriptionHTML(false)
+                 ->setGroupTypeID($objGType->getID())
+                 ->setOwnerOrgUnitID($OwnerOU);
+        
+        $saveGroup = clone $objGroup;
+        $result = $this->service->save($saveGroup);
+        $this->assertTrue($result);
+        $this->_assertModelsSameExcept($objGroup, $saveGroup, 'ID');
+        $this->assertNotNull($saveGroup->getID());
+        return $saveGroup;
+    }
+    
+    /**
+     * Test Updating Existing Group
+     * @param D2LWS_OrgUnit_Group_Model $existingGroup
+     * @depends testCreateGroup
+     */
+    public function testUpdateGroup(D2LWS_OrgUnit_Group_Model $existingGroup)
+    {
+        $saveGroup = clone $existingGroup;
+        
+        $newDescription = '<h1>'.uniqid('').'</h1>';
+        $saveGroup->setDescription($newDescription)
+                  ->setIsDescriptionHTML(true);
+        $result = $this->service->save($saveGroup);
+        $this->assertTrue($result);
+        $this->_assertModelsSameExcept($existingGroup, $saveGroup, array(
+            'Description',
+            'IsDescriptionHTML'
+        ));
+    }
+    
+    /**
+     * Test Deleting Group
+     * @param D2LWS_OrgUnit_Group_Model $existingGroup 
+     * @depends testCreateGroup
+     * @todo Find out why the created group doesn't actually get deleted
+     */
+    public function testDeleteGroup(D2LWS_OrgUnit_Group_Model $existingGroup)
+    {
+        $this->assertTrue($this->service->delete($existingGroup));
+        
+        try {
+            $this->service->findByID($existingGroup->getID());
+            $this->fail('DeleteGroup call did not delete group!');
+        } catch ( D2LWS_OrgUnit_Group_Exception_NotFound $ex ) {}
+    }
+    
 }

@@ -7,7 +7,7 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.
  * It is also available through the world-wide-web at this URL:
- * https://github.com/adamlundrigan/zfD2L/blob/0.1a0/LICENSE
+ * https://github.com/adamlundrigan/zfD2L/blob/master/LICENSE
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to adamlundrigan@cdli.ca so we can send you a copy immediately.
@@ -63,28 +63,31 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
      * Assert that two models are the same, except for the return value of one method
      * @param mixed $obj1
      * @param mixed $obj2
-     * @param string $method
+     * @param string|array $methods
      */
-    protected function _assertModelsSameExcept($obj1, $obj2, $method)
+    protected function _assertModelsSameExcept($obj1, $obj2, $methods)
     {
         if ( isset($this->_methodsToTest) )
         {
             if ( is_array($this->_methodsToTest) && count($this->_methodsToTest) > 0 )
             {
-                if ( isset($this->_methodsToTest[$method]) )
+                foreach ( (array)$methods as $method )
                 {
-                    foreach ( $this->_methodsToTest as $mkey=>$mnames )
+                    if ( isset($this->_methodsToTest[$method]) )
                     {
-                        if ( $mkey == $method )
+                        foreach ( $this->_methodsToTest as $mkey=>$mnames )
                         {
-                            $this->assertNotEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
+                            if ( $mkey == $method )
+                            {
+                                $this->assertNotEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
+                            }
+                            else
+                            {
+                                $this->assertEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
+                            }
                         }
-                        else
-                        {
-                            $this->assertEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
-                        }
-                    }
-                }                
+                    }                
+                }
             }
         }
     }

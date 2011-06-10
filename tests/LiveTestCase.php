@@ -55,4 +55,17 @@ abstract class LiveTestCase extends GenericTestCase
         return $svc->findByID($this->testOptions['live']['student']['ouid']);        
     }
     
+    /**
+     * Retrieve Instance of Test Group Type
+     * @return D2LWS_OrgUnit_Group_Type_Model 
+     */
+    protected function getTestGroupType()
+    {
+        $svc = new D2LWS_OrgUnit_Group_Type_API($this->_getInstanceManager());
+        return $svc->findByID(
+            $this->testOptions['live']['group_type']['ouid'],
+            $this->testOptions['live']['course_offering']['ouid']
+        );
+    }
+    
 }
