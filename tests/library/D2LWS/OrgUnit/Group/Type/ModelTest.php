@@ -157,6 +157,76 @@ class D2LWS_OrgUnit_Group_Type_ModelTest extends GenericTestCase
         $testObj->setIsDescriptionHTML(true);
         $this->assertTrue($testObj->isDescriptionHTML());
     }
+
+    /**
+     * Test that setOwnerOrgUnitID and getOwnerOrgUnitID work as expected
+     */
+    public function testSetAndGetOwnerOrgUnitID()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the ID
+        $testObj->setOwnerOrgUnitID(99999);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that ID field was updated
+        $this->assertEquals(99999, $testObj->getOwnerOrgUnitID());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'OwnerOrgUnitID');
+    }
+
+    /**
+     * Test that setOwnerOrgUnitRole and getOwnerOrgUnitRole work as expected
+     */
+    public function testSetAndGetOwnerOrgUnitRole()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the ID
+        $testObj->setOwnerOrgUnitRole('CourseOffering');
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that ID field was updated
+        $this->assertEquals('CourseOffering', $testObj->getOwnerOrgUnitRole());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'OwnerOrgUnitRole');
+    }
+    
+    /**
+     * Test that setOwner works as expected
+     */
+    public function testSetOwner()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        $owner = new D2LWS_OrgUnit_CourseOffering_Model();
+        $owner->setID(9999);
+        
+        // Set the owner
+        $testObj->setOwner($owner);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that owner fields were updated
+        $this->assertEquals($owner->getID(), $testObj->getOwnerOrgUnitID());
+        $this->assertEquals($owner->getOrgUnitTypeID(), $testObj->getOwnerOrgUnitRole());
+        
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, array(
+            'OwnerOrgUnitID',
+            'OwnerOrgUnitRole'
+        ));
+    }
     
     /**
      * Defines the methods we should test
@@ -178,6 +248,14 @@ class D2LWS_OrgUnit_Group_Type_ModelTest extends GenericTestCase
         'IsDescriptionHTML'=>array(
             'get'=>'isDescriptionHTML',
             'set'=>'setIsDescriptionHTML'
+        ),
+        'OwnerOrgUnitID'=>array(
+            'get'=>'getOwnerOrgUnitID',
+            'set'=>'setOwnerOrgUnitID'
+        ),
+        'OwnerOrgUnitRole'=>array(
+            'get'=>'getOwnerOrgUnitRole',
+            'set'=>'setOwnerOrgUnitRole'
         )
     );
 
