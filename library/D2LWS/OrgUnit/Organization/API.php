@@ -23,16 +23,6 @@
  */
 class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
 {
-
-    /**
-     * Default Constructor
-     * @param $i D2LWS_Instance - Instance to assign
-     */
-    public function __construct(D2LWS_Instance $i = NULL)
-    {
-        parent::__construct($i);
-
-    }
     
     public function load()
     {
