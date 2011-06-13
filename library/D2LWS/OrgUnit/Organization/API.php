@@ -72,14 +72,5 @@ class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
         
         return $result;
     }
-    
-    
-    public function save(D2LWS_OrgUnit_Organization_Model $o)
-    {
-        $data = $o->getRawData();        
-        $i = $this->getInstance();     
 
-        return;
-    }
-    
 }
