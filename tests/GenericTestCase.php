@@ -67,7 +67,7 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
                             {
                                 $this->assertNotEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
                             }
-                            else
+                            elseif ( !in_array($mkey, (array)$methods) )
                             {
                                 $this->assertEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
                             }

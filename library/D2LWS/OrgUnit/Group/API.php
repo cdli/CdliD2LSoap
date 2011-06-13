@@ -117,6 +117,11 @@ class D2LWS_OrgUnit_Group_API extends D2LWS_Common
         return false;
     }    
     
+    /**
+     * Delete Group from D2L
+     * @param D2LWS_OrgUnit_Group_Model $g Group to delete
+     * @return bool success?
+     */
     public function delete(D2LWS_OrgUnit_Group_Model $g)
     {
         if ( !is_null($g->getID()) )

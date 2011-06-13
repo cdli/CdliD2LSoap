@@ -28,28 +28,32 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
     {
         $i = $this->getInstance();        
 
-        $result = $i->getSoapClient()
-            ->setWsdl($i->getConfig('webservice.org.wsdl'))
-            ->setLocation($i->getConfig('webservice.org.endpoint'))
-            ->GetGroupType(array(
-                'GroupTypeId'=>array(
-                    'Id'=>intval($GroupID),
-                    'Source'=>'Desire2Learn'
-                ),
-                'OwnerOrgUnitId'=>array(
-                    'Id'=>intval($OwnerID),
-                    'Source'=>'Desire2Learn'
-                )
-            ));
-        if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
+        try
         {
-            $GroupType = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
-            return $GroupType;
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->GetGroupType(array(
+                    'GroupTypeId'=>array(
+                        'Id'=>intval($GroupID),
+                        'Source'=>'Desire2Learn'
+                    ),
+                    'OwnerOrgUnitId'=>array(
+                        'Id'=>intval($OwnerID),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
+            {
+                $GroupType = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
+                return $GroupType;
+            }
         }
-        else
+        catch ( D2LWS_Soap_Client_Exception $ex ) 
         {
-            throw new D2LWS_OrgUnit_Group_Type_Exception_NotFound("GroupId={$GroupID}, OwnerID={$OwnerID}");
         }
+
+        throw new D2LWS_OrgUnit_Group_Type_Exception_NotFound("GroupId={$GroupID}, OwnerID={$OwnerID}");
     }
     
     public function getTypesByOrgUnitID($ouid)
@@ -98,15 +102,15 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
  
     /**
      * Save Group Type to D2L
-     * @param D2LWS_OrgUnit_Group_Type_Model $u
+     * @param D2LWS_OrgUnit_Group_Type_Model $gt
      * @return bool success?
      */
-    public function save(D2LWS_OrgUnit_Group_Type_Model &$u)
+    public function save(D2LWS_OrgUnit_Group_Type_Model &$gt)
     {
         $i = $this->getInstance();     
-        $arr = $this->_makeRequestStruct($u);        
+        $arr = $this->_makeRequestStruct($gt);        
         
-        if ( is_null($u->getID()) )
+        if ( is_null($gt->getID()) )
         {
             $result = $i->getSoapClient()
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
@@ -115,7 +119,7 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
             
             if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
             {
-                $u = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
+                $gt = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
                 return true;
             }
         }
@@ -125,10 +129,38 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
                 ->setLocation($i->getConfig('webservice.org.endpoint'))
                 ->UpdateGroupType($arr);
-            
             return ( $result instanceof stdClass );
         }
         
+        return false;
+    }
+    
+    /**
+     * Delete Group Type from D2L
+     * @param D2LWS_OrgUnit_Group_Type_Model $gt
+     * @return type 
+     */
+    public function delete(D2LWS_OrgUnit_Group_Type_Model $gt)
+    {
+        if ( !is_null($gt->getID()) )
+        {
+            $i = $this->getInstance();
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->DeleteGroupType(array(
+                    'GroupTypeId'=>array(
+                        'Id'=>$gt->getID(),
+                        'Source'=>'Desire2Learn'
+                    ),
+                    'OwnerOrgUnitId'=>array(
+                        'Id'=>$gt->getOwnerOrgUnitID(),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            
+            return ( $result instanceof stdClass );
+        }
         return false;
     }
     
@@ -160,10 +192,6 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
         $result = new stdClass();
         $result->Name = $u->getName();
         
-        $result->OwnerOrgUnitId = new stdClass();
-        $result->OwnerOrgUnitId->Id = $u->getOwnerOrgUnitID();
-        $result->OwnerOrgUnitId->Source = 'Desire2Learn';
-        
         $result->Description = new stdClass();
         $result->Description->Text = $u->getDescription();
         $result->Description->IsHtml = $u->isDescriptionHTML();
@@ -174,17 +202,30 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
         $result->RandomizeEnrollments = false;
         $result->EnrollmentStyle = 'Manual';
 
-        // If there is an ID, format request as update
-        if ( !is_null($u->getID()) )
+        if ( is_null($u->getID()) )
         {
+            $result->OwnerOrgUnitId = new stdClass();
+            $result->OwnerOrgUnitId->Id = $u->getOwnerOrgUnitID();
+            $result->OwnerOrgUnitId->Source = 'Desire2Learn';
+        }
+        // If there is an ID, format request as update
+        else
+        {
+            $result->OwnerIdentifier = new stdClass();
+            $result->OwnerIdentifier->OrgUnitId = new stdClass();
+            $result->OwnerIdentifier->OrgUnitId->Id = $u->getOwnerOrgUnitID();
+            $result->OwnerIdentifier->OrgUnitId->Source = 'Desire2Learn';
+            $result->OwnerIdentifier->OrgUnitRole = $u->getOwnerOrgUnitRole();
+            
             $updateResult = new stdClass();
             $updateResult->GroupType = $result;
             $updateResult->GroupType->GroupTypeId = new stdClass();
             $updateResult->GroupType->GroupTypeId->Id = $u->getID();
             $updateResult->GroupType->GroupTypeId->Source = 'Desire2Learn';
+            
             return $updateResult;
         }
-        
+                
         return $result;
     }
 }

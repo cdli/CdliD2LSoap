@@ -100,6 +100,69 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
     public function testGetTypesByOrgUnitWhichDoesNotExist()
     {
         $objGroupType = $this->service->getTypesByOrgUnitID('9999999');
+    }    
+
+    /**
+     * Test Creating New Group Type
+     */
+    public function testCreateGroupType()
+    {
+        $co = $this->getTestCourseOffering();
+        if ( ! $co instanceof D2LWS_OrgUnit_CourseOffering_Model ) {
+            $this->markTestSkipped('Could not retrieve test course offering!');
+        }
+        
+        $objGType = new D2LWS_OrgUnit_Group_Type_Model();
+        $objGType->setName('API Test Category')
+                 ->setDescription('API Test Category Description!')
+                 ->setIsDescriptionHTML(false)
+                 ->setOwner($co);
+        
+        $savedGType = clone $objGType;
+        $result = $this->service->save($savedGType);
+        $this->assertTrue($result);
+        $this->_assertModelsSameExcept($objGType, $savedGType, 'ID');
+        $this->assertNotNull($savedGType->getID());
+        return $savedGType;
     }
     
+    /**
+     * Test Updating Existing Group Type
+     * @param D2LWS_OrgUnit_Group_Type_Model $existingGType
+     * @depends testCreateGroupType
+     */
+    public function testUpdateGroupType(D2LWS_OrgUnit_Group_Type_Model $existingGType)
+    {
+        $saveGType = clone $existingGType;
+        
+        $newDescription = '<h1>'.uniqid('').'</h1>';
+        $saveGType->setDescription($newDescription)
+                  ->setIsDescriptionHTML(true);
+        $result = $this->service->save($saveGType);
+        $this->assertTrue($result);
+        $this->_assertModelsSameExcept($existingGType, $saveGType, array(
+            'Description',
+            'IsDescriptionHTML'
+        ));
+    }
+    
+    /**
+     * Test Deleting Group Type
+     * @param D2LWS_OrgUnit_Group_Type_Model $existingGType 
+     * @depends testCreateGroupType
+     */
+    public function testDeleteGroup(D2LWS_OrgUnit_Group_Type_Model $existingGType)
+    {
+        $this->assertTrue($this->service->delete($existingGType));
+        
+        try {
+            $this->service->findByID(
+                $existingGType->getID(),
+                $existingGType->getOrgUnitTypeID()
+            );
+            $this->fail('DeleteGroupType call did not delete group!');
+        } catch ( D2LWS_OrgUnit_Group_Type_Exception_NotFound $ex ) {
+            // Exception thrown == pass
+        }
+    }
 }

@@ -20,20 +20,16 @@
  
 /**
  * Organization API
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  */
 class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
 {
-
-    /**
-     * Default Constructor
-     * @param $i D2LWS_Instance - Instance to assign
-     */
-    public function __construct(D2LWS_Instance $i = NULL)
-    {
-        parent::__construct($i);
-
-    }
     
+    /**
+     * Load Organization
+     * @return D2LWS_OrgUnit_Organization_Model 
+     * @throws D2LWS_OrgUnit_Organization_Exception_NotFound
+     */
     public function load()
     {
         $i = $this->getInstance();        
@@ -54,7 +50,12 @@ class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
         }
     }
     
-    
+    /**
+     * Get child OUs of the given organization
+     * @param D2LWS_OrgUnit_Organization_Model $org
+     * @return stdClass
+     * @todo Should return array of D2LWS_OrgUnit_*_Model instances
+     */
     public function getChildrenOf(D2LWS_OrgUnit_Organization_Model $org)
     {
         $i = $this->getInstance();        
@@ -71,14 +72,5 @@ class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
         
         return $result;
     }
-    
-    
-    public function save(D2LWS_OrgUnit_Organization_Model $o)
-    {
-        $data = $o->getRawData();        
-        $i = $this->getInstance();     
 
-        return;
-    }
-    
 }
