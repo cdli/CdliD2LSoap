@@ -28,28 +28,32 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
     {
         $i = $this->getInstance();        
 
-        $result = $i->getSoapClient()
-            ->setWsdl($i->getConfig('webservice.org.wsdl'))
-            ->setLocation($i->getConfig('webservice.org.endpoint'))
-            ->GetGroupType(array(
-                'GroupTypeId'=>array(
-                    'Id'=>intval($GroupID),
-                    'Source'=>'Desire2Learn'
-                ),
-                'OwnerOrgUnitId'=>array(
-                    'Id'=>intval($OwnerID),
-                    'Source'=>'Desire2Learn'
-                )
-            ));
-        if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
+        try
         {
-            $GroupType = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
-            return $GroupType;
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->GetGroupType(array(
+                    'GroupTypeId'=>array(
+                        'Id'=>intval($GroupID),
+                        'Source'=>'Desire2Learn'
+                    ),
+                    'OwnerOrgUnitId'=>array(
+                        'Id'=>intval($OwnerID),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
+            {
+                $GroupType = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
+                return $GroupType;
+            }
         }
-        else
+        catch ( D2LWS_Soap_Client_Exception $ex ) 
         {
-            throw new D2LWS_OrgUnit_Group_Type_Exception_NotFound("GroupId={$GroupID}, OwnerID={$OwnerID}");
         }
+
+        throw new D2LWS_OrgUnit_Group_Type_Exception_NotFound("GroupId={$GroupID}, OwnerID={$OwnerID}");
     }
     
     public function getTypesByOrgUnitID($ouid)
