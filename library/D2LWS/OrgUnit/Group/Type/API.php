@@ -192,10 +192,6 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
         $result = new stdClass();
         $result->Name = $u->getName();
         
-        $result->OwnerOrgUnitId = new stdClass();
-        $result->OwnerOrgUnitId->Id = $u->getOwnerOrgUnitID();
-        $result->OwnerOrgUnitId->Source = 'Desire2Learn';
-        
         $result->Description = new stdClass();
         $result->Description->Text = $u->getDescription();
         $result->Description->IsHtml = $u->isDescriptionHTML();
@@ -206,17 +202,30 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
         $result->RandomizeEnrollments = false;
         $result->EnrollmentStyle = 'Manual';
 
-        // If there is an ID, format request as update
-        if ( !is_null($u->getID()) )
+        if ( is_null($u->getID()) )
         {
+            $result->OwnerOrgUnitId = new stdClass();
+            $result->OwnerOrgUnitId->Id = $u->getOwnerOrgUnitID();
+            $result->OwnerOrgUnitId->Source = 'Desire2Learn';
+        }
+        // If there is an ID, format request as update
+        else
+        {
+            $result->OwnerIdentifier = new stdClass();
+            $result->OwnerIdentifier->OrgUnitId = new stdClass();
+            $result->OwnerIdentifier->OrgUnitId->Id = $u->getOwnerOrgUnitID();
+            $result->OwnerIdentifier->OrgUnitId->Source = 'Desire2Learn';
+            $result->OwnerIdentifier->OrgUnitRole = $u->getOwnerOrgUnitRole();
+            
             $updateResult = new stdClass();
             $updateResult->GroupType = $result;
             $updateResult->GroupType->GroupTypeId = new stdClass();
             $updateResult->GroupType->GroupTypeId->Id = $u->getID();
             $updateResult->GroupType->GroupTypeId->Source = 'Desire2Learn';
+            
             return $updateResult;
         }
-        
+                
         return $result;
     }
 }
