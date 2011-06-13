@@ -20,10 +20,16 @@
  
 /**
  * Organization API
+ * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  */
 class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
 {
     
+    /**
+     * Load Organization
+     * @return D2LWS_OrgUnit_Organization_Model 
+     * @throws D2LWS_OrgUnit_Organization_Exception_NotFound
+     */
     public function load()
     {
         $i = $this->getInstance();        
@@ -44,7 +50,12 @@ class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
         }
     }
     
-    
+    /**
+     * Get child OUs of the given organization
+     * @param D2LWS_OrgUnit_Organization_Model $org
+     * @return stdClass
+     * @todo Should return array of D2LWS_OrgUnit_*_Model instances
+     */
     public function getChildrenOf(D2LWS_OrgUnit_Organization_Model $org)
     {
         $i = $this->getInstance();        
