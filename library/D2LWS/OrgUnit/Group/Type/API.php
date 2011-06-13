@@ -102,15 +102,15 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
  
     /**
      * Save Group Type to D2L
-     * @param D2LWS_OrgUnit_Group_Type_Model $u
+     * @param D2LWS_OrgUnit_Group_Type_Model $gt
      * @return bool success?
      */
-    public function save(D2LWS_OrgUnit_Group_Type_Model &$u)
+    public function save(D2LWS_OrgUnit_Group_Type_Model &$gt)
     {
         $i = $this->getInstance();     
-        $arr = $this->_makeRequestStruct($u);        
+        $arr = $this->_makeRequestStruct($gt);        
         
-        if ( is_null($u->getID()) )
+        if ( is_null($gt->getID()) )
         {
             $result = $i->getSoapClient()
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
@@ -119,7 +119,7 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
             
             if ( $result instanceof stdClass && isset($result->GroupType) && $result->GroupType instanceof stdClass )
             {
-                $u = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
+                $gt = new D2LWS_OrgUnit_Group_Type_Model($result->GroupType);
                 return true;
             }
         }
@@ -129,7 +129,6 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
                 ->setLocation($i->getConfig('webservice.org.endpoint'))
                 ->UpdateGroupType($arr);
-            
             return ( $result instanceof stdClass );
         }
         
