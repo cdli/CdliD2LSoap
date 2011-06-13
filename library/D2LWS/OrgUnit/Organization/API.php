@@ -55,6 +55,7 @@ class D2LWS_OrgUnit_Organization_API extends D2LWS_Common
      * @param D2LWS_OrgUnit_Organization_Model $org
      * @return stdClass
      * @todo Should return array of D2LWS_OrgUnit_*_Model instances
+     * @todo Determine if this method actually works, as GetChildOrgUnitIds is seemingly broken (@see https://github.com/cdli/zfD2L/issues/2)
      */
     public function getChildrenOf(D2LWS_OrgUnit_Organization_Model $org)
     {
