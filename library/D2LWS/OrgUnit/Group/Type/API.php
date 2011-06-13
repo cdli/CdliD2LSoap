@@ -136,6 +136,35 @@ class D2LWS_OrgUnit_Group_Type_API extends D2LWS_Common
     }
     
     /**
+     * Delete Group Type from D2L
+     * @param D2LWS_OrgUnit_Group_Type_Model $gt
+     * @return type 
+     */
+    public function delete(D2LWS_OrgUnit_Group_Type_Model $gt)
+    {
+        if ( !is_null($gt->getID()) )
+        {
+            $i = $this->getInstance();
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->DeleteGroupType(array(
+                    'GroupTypeId'=>array(
+                        'Id'=>$gt->getID(),
+                        'Source'=>'Desire2Learn'
+                    ),
+                    'OwnerOrgUnitId'=>array(
+                        'Id'=>$gt->getOwnerOrgUnitID(),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            
+            return ( $result instanceof stdClass );
+        }
+        return false;
+    }
+    
+    /**
      * Reindex result set by item name
      * @param array $set
      * @return array
