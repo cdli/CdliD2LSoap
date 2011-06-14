@@ -24,17 +24,14 @@
  */
 class D2LWS_User_API extends D2LWS_Common
 {
-
-    /**
-     * Default Constructor
-     * @param $i D2LWS_Instance - Instance to assign
-     */
-    public function __construct(D2LWS_Instance $i = NULL)
-    {
-        parent::__construct($i);
-
-    }
     
+    /**
+     * Find User by OUID
+     * @param int $id
+     * @return D2LWS_User_Model 
+     * @throws D2LWS_User_Exception_NotFound on local error
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function findByID($id)
     {
         $i = $this->getInstance();        
@@ -60,7 +57,13 @@ class D2LWS_User_API extends D2LWS_Common
         }
     }
     
-    
+    /**
+     * Find User by OrgDefinedId value
+     * @param int $id
+     * @return D2LWS_User_Model 
+     * @throws D2LWS_User_Exception_NotFound on local error
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function findByOrgDefinedID($id)
     {
         $i = $this->getInstance();        
@@ -81,6 +84,13 @@ class D2LWS_User_API extends D2LWS_Common
         }
     }
     
+    /**
+     * Find User by Login (User) Name
+     * @param string $uname
+     * @return D2LWS_User_Model 
+     * @throws D2LWS_User_Exception_NotFound on local error
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function findByUserName($uname)
     {
         $i = $this->getInstance();        
@@ -105,7 +115,8 @@ class D2LWS_User_API extends D2LWS_Common
      * Perform Single-SignOn for specified user
      * @param D2LWS_User_Model $u User Account
      * @return string|bool GUID if successful, false otherwise
-     * @todo Move to new "Authentication" module?
+     * @throws D2LWS_User_Exception_NotFound on local error
+     * @throws D2LWS_Soap_Client_Exception on server error
      */
     public function performSSO(D2LWS_User_Model $u)
     {
@@ -130,7 +141,13 @@ class D2LWS_User_API extends D2LWS_Common
         return false;
     }
     
-    
+    /**
+     * Retrieve User Course Enrollments 
+     * @param type $UserID
+     * @return D2LWS_OrgUnit_CourseOffering_Model 
+     * @throws D2LWS_User_Exception_NotFound on local error
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function getActiveCourseOfferings($UserID)
     {
         $Result = array();
@@ -171,8 +188,14 @@ class D2LWS_User_API extends D2LWS_Common
             throw new D2LWS_User_Exception_NotFound('No Course Offering Enrollments for UserID=' . $UserID);
         }
     }
-    
-    
+        
+    /**
+     * Enroll user in an OU as the specified role
+     * @param int $UserID User ID
+     * @param int $OUID OrgUnit ID
+     * @param int $RoleID Role ID
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function enrollUserInOUAsRole($UserID, $OUID, $RoleID)
     {
         $i = $this->getInstance(); 
@@ -195,7 +218,13 @@ class D2LWS_User_API extends D2LWS_Common
             ));
     }
     
-    
+    /**
+     * Unenroll user from specified OU
+     * @param int $UserID User ID
+     * @param int $OUID  OrgUnit ID
+     * @throws D2LWS_User_Exception_NotFound on local error
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function unenrollUserFromOU($UserID, $OUID)
     {
         $i = $this->getInstance(); 
@@ -214,7 +243,13 @@ class D2LWS_User_API extends D2LWS_Common
             ));
     }
     
-    
+    /**
+     * Update User Password
+     * @param int $userId
+     * @param string $newPassword
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function savePassword($userId, $newPassword)
     {
         $i = $this->getInstance();   
@@ -241,7 +276,12 @@ class D2LWS_User_API extends D2LWS_Common
         }
     }
     
-    
+    /**
+     * Persist user object to Desire2Learn
+     * @param D2LWS_User_Model $u User
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
     public function save(D2LWS_User_Model &$u)
     {
         $data = $u->getRawData();        
@@ -298,8 +338,12 @@ class D2LWS_User_API extends D2LWS_Common
         return false;
     }
     
-    
-    protected function _makeRequestArray($u)
+    /**
+     * Construct Request Structure for transmission via SOAP
+     * @param D2LWS_User_Model $u User Object
+     * @return array
+     */
+    protected function _makeRequestArray(D2LWS_User_Model $u)
     {
         $data = array(
             'UserName'=>$u->getUserName(),
