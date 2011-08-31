@@ -1,4 +1,4 @@
-Desire2Learn API for Zend Framework
+Desire2Learn API for Zend Framework ![Project status](http://stillmaintained.com/adamlundrigan/zfD2L.png)
 ===================================
 
 This project aims to provide a robust, complete Zend Framework component for 
