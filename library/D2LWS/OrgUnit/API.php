@@ -24,6 +24,13 @@
 class D2LWS_OrgUnit_API extends D2LWS_Common
 {
 
+    /**
+     * Get Child Org Units for specified OU
+     * @param int $ouid OUID of org unit to search under
+     * @return array Child OUs
+     * @todo SOAP method GetChildOrgUnitIds is broken, so we query each org-type-specific method and collate the results.
+     * @see https://github.com/cdli/zfD2L/issues/2
+     */
     public function getChildrenOf($ouid)
     {
         $i = $this->getInstance();        
@@ -88,6 +95,11 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
         return $Children;
     }
 
+    /**
+     * Get new D2LWS model instance of the specified org unit type
+     * @param string $type OrgUnit type 
+     * @return D2LWS_OrgUnit_Model 
+     */
     public function getSubtypeAPI($type)
     {
         $type = preg_replace("/[^a-z0-9]/i", "", $type);

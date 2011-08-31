@@ -88,6 +88,9 @@ class D2LWS_Soap_Client extends Zend_Soap_Client implements D2LWS_Soap_Client_In
         }
         catch ( SoapFault $ex )
         {
+            if ( isset($ex->faultstring) ) {
+                throw new D2LWS_Soap_Client_Exception($ex->faultstring);
+            }
             // If a header wasn't returned, re-throw the exception message
             try 
             {
