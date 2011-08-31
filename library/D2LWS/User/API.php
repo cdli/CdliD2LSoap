@@ -216,6 +216,7 @@ class D2LWS_User_API extends D2LWS_Common
                     'Source'=>'Desire2Learn'
                 )
             ));
+        return ( $result instanceof stdClass );
     }
     
     /**
@@ -241,6 +242,7 @@ class D2LWS_User_API extends D2LWS_Common
                     'Source'=>'Desire2Learn'
                 )
             ));
+        return ( $result instanceof stdClass );
     }
     
     /**
