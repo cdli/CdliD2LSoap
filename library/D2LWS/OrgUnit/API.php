@@ -118,4 +118,92 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
         return NULL;
     }
     
+    /** 
+     * Get Parent Org Units of specified OU
+     */
+    public function getParentsOf($ouid, $SearchTypes=NULL)
+    {
+        $i = $this->getInstance();  
+        $Parents = array();
+        
+        // Default is to search everything
+        if ( is_null($SearchTypes) ) {
+            $SearchTypes = array('CourseTemplate', 'CourseOffering', 'Group', 'Section', 'Department', 'Semester');
+        }
+        
+        $typeResult = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->GetParentOrgUnitIds(array(
+                'OrgUnitId'=>array(
+                    'Id'=>$ouid,
+                    'Source'=>'Desire2Learn'
+                )
+            ));
+        
+        if ( $typeResult instanceof stdClass && isset($typeResult->OrgUnitIds) && isset($typeResult->OrgUnitIds->OrgUnitIdentifier) )
+        {
+            if ( !is_array($typeResult->OrgUnitIds) )
+                $typeResult->OrgUnitIds = array($typeResult->OrgUnitIds);
+            
+            foreach ( $typeResult->OrgUnitIds as $OrgUnit )
+            {
+                if ( isset($OrgUnit->OrgUnitIdentifier) )
+                {
+                    if ( in_array($OrgUnit->OrgUnitIdentifier->OrgUnitRole, $SearchTypes) )
+                    {
+                        $ouAPI = $this->getSubtypeAPI($OrgUnit->OrgUnitIdentifier->OrgUnitRole);
+                        if ( $ouAPI instanceof D2LWS_Common )
+                        {
+                            $className = preg_replace("/_API$/i", "_Model", get_class($ouAPI));
+                            if ( @class_exists($className) )
+                            {
+                                try
+                                {
+                                    $Parents[$OrgUnit->OrgUnitIdentifier->OrgUnitId->Id] =$ouAPI->findById($OrgUnit->OrgUnitIdentifier->OrgUnitId->Id);
+                                }
+                                catch ( Exception $ex )
+                                {
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $Parents;
+    }
+    
+    
+    public function getEnrollmentsFor($ouid)
+    {
+        $Enrollments = array();
+        $i = $this->getInstance();  
+        
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.user.wsdl'))
+            ->setLocation($i->getConfig('webservice.user.endpoint'))
+            ->GetEnrollmentsByOrgUnit(array(
+                'OrgUnitId'=>array(
+                    'Id'=>$ouid,
+                    'Source'=>'Desire2Learn'
+                )
+            ));
+        
+        if ( $result instanceof stdClass && isset($result->OrgUnitEnrollments) && isset($result->OrgUnitEnrollments->OrgUnitEnrollmentInfo) )
+        {
+            if ( !is_array($result->OrgUnitEnrollments->OrgUnitEnrollmentInfo) )
+            {
+                $result->OrgUnitEnrollments->OrgUnitEnrollmentInfo = array(
+                    $result->OrgUnitEnrollments->OrgUnitEnrollmentInfo
+                );
+            }
+            
+            $Enrollments = $result->OrgUnitEnrollments->OrgUnitEnrollmentInfo;            
+        }
+        
+        return $Enrollments;
+    }
+    
 }
