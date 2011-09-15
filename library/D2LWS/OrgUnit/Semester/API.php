@@ -70,4 +70,39 @@ class D2LWS_OrgUnit_Semester_API extends D2LWS_Common
         }
     }
     
+    /**
+     * Persist user object to Desire2Learn
+     * @param D2LWS_OrgUnit_Semester_Model $o Semester
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
+    public function save(D2LWS_OrgUnit_Semester_Model &$o)
+    {
+        $data = $o->getRawData();        
+        $i = $this->getInstance();     
+        
+        if ( is_null($o->getID()) )
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->CreateSemester($data);
+            
+            if ( $result instanceof stdClass && isset($result->Semester) )
+            {
+                $o = new D2LWS_OrgUnit_Semester_Model($result->Semester);
+                return true;
+            }
+        }
+        else
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->UpdateSemester($data);
+            return ( $result instanceof stdClass );
+        }
+        
+        return false;
+    }
 }
