@@ -87,4 +87,40 @@ class D2LWS_OrgUnit_CourseOffering_API extends D2LWS_Common
         }
     }
     
+    /**
+     * Persist Course Offering object to Desire2Learn
+     * @param D2LWS_OrgUnit_CourseOffering_Model $o Course Offering
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
+    public function save(D2LWS_OrgUnit_CourseOffering_Model &$o)
+    {
+        $data = $o->getRawData();        
+        $i = $this->getInstance();     
+        
+        if ( is_null($o->getID()) )
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->CreateCourseOffering($data);
+            
+            if ( $result instanceof stdClass && isset($result->CourseOffering) )
+            {
+                $o = new D2LWS_OrgUnit_CourseOffering_Model($result->CourseOffering);
+                return true;
+            }
+        }
+        else
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->UpdateCourseOffering($data);
+            return ( $result instanceof stdClass );
+        }
+        
+        return false;
+    }
+    
 }
