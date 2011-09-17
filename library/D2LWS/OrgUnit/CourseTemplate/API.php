@@ -48,5 +48,35 @@ class D2LWS_OrgUnit_CourseTemplate_API extends D2LWS_Common
             throw new D2LWS_OrgUnit_CourseTemplate_Exception_NotFound('Id=' . $id);
         }
     }
+
+    /**
+     * Find course template by code
+     * @param string $code
+     * @return D2LWS_OrgUnit_CourseTemplate_Model
+     * @throws D2LWS_OrgUnit_CourseTemplate_Exception_NotFound
+     */
+    public function findByCode($code)
+    {
+        $i = $this->getInstance();
+
+        //TODO: handle exceptions from SOAP client
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->GetCourseTemplateByCode(array(
+                'Code'=>$code
+            ));
+
+        if ( $result instanceof stdClass && isset($result->CourseTemplate) && $result->CourseTemplate instanceof stdClass )
+        {
+            $Template = new D2LWS_OrgUnit_CourseTemplate_Model($result->CourseTemplate);
+            return $Template;
+        }
+        else
+        {
+            //TODO: more descriptive exception message?
+            throw new D2LWS_OrgUnit_CourseTemplate_Exception_NotFound('Code=' . $code);
+        }
+    }
     
 }
