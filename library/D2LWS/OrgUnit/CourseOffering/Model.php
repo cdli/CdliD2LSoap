@@ -40,6 +40,10 @@ class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
         $this->_data->OrgUnitId->Id = NULL;
         $this->_data->OrgUnitId->Source = 'Desire2Learn';
         
+        $this->_data->TemplateId = new stdClass();;        
+        $this->_data->TemplateId->Id = NULL;
+        $this->_data->TemplateId->Source = 'Desire2Learn';
+        
         $this->_data->Name = '';
         $this->_data->Code = '';
         $this->_data->Path = '';
@@ -102,6 +106,44 @@ class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
      */
     public function setPath($path) { $this->_data->Path = $path; return $this; }   
 
+    /**
+     * Get Course Template OUID
+     * @return int
+     */
+    public function getTemplateID() { return $this->_data->TemplateId->Id; }
+
+    /**
+     * Set Course Template OUID
+     * @param int $id Template OUID
+     * @return $this
+     */
+    public function setTemplateID($id) { $this->_data->TemplateId->Id = $id; return $this; }
+    
+    /**
+     * Get Course Template Source
+     * @return string 
+     */
+    public function getTemplateSource() { return $this->_data->TemplateId->Source; }
+    
+    /**
+     * Set Course Template Source
+     * @param string $source Template Source
+     * @return $this
+     */
+    public function setTemplateSource($source) { $this->_data->TemplateId->Source = $source; return $this; }
+    
+    /**
+     * Set Course Template
+     * @param D2LWS_OrgUnit_CourseTemplate_Model $tpl Template
+     * @return $this;
+     */
+    public function setTemplate(D2LWS_OrgUnit_CourseTemplate_Model $tpl)
+    {
+        $this->setTemplateID($tpl->getID());
+        $this->setTemplateSource('Desire2Learn');
+        return $this;
+    }
+    
     /**
      * Determine if this department is active
      * @return boolean - True if active, false otherwise
