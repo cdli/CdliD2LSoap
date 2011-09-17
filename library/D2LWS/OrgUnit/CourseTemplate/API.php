@@ -79,4 +79,40 @@ class D2LWS_OrgUnit_CourseTemplate_API extends D2LWS_Common
         }
     }
     
+    /**
+     * Persist Course Template object to Desire2Learn
+     * @param D2LWS_OrgUnit_CourseTemplate_Model $o Course Template
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
+    public function save(D2LWS_OrgUnit_CourseTemplate_Model &$o)
+    {
+        $data = $o->getRawData();        
+        $i = $this->getInstance();     
+        
+        if ( is_null($o->getID()) )
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->CreateCourseTemplate($data);
+            
+            if ( $result instanceof stdClass && isset($result->CourseTemplate) )
+            {
+                $o = new D2LWS_OrgUnit_CourseTemplate_Model($result->CourseTemplate);
+                return true;
+            }
+        }
+        else
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->UpdateCourseTemplate($data);
+            return ( $result instanceof stdClass );
+        }
+        
+        return false;
+    }
+    
 }
