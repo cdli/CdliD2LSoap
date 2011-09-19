@@ -49,4 +49,34 @@ class D2LWS_OrgUnit_Department_API extends D2LWS_Common
         }
     }
     
+    /**
+     * Find department by code
+     * @param string $code
+     * @return D2LWS_OrgUnit_Department_Model
+     * @throws D2LWS_OrgUnit_Department_Exception_NotFound
+     */
+    public function findByCode($code)
+    {
+        $i = $this->getInstance();
+
+        //TODO: handle exceptions from SOAP client
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->GetDepartmentByCode(array(
+                'Code'=>$code
+            ));
+
+        if ( $result instanceof stdClass && isset($result->Department) && $result->Department instanceof stdClass )
+        {
+            $Department = new D2LWS_OrgUnit_Department_Model($result->Department);
+            return $Department;
+        }
+        else
+        {
+            //TODO: more descriptive exception message?
+            throw new D2LWS_OrgUnit_Department_Exception_NotFound('Code=' . $code);
+        }
+    }
+    
 }
