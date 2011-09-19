@@ -61,11 +61,11 @@ class D2LWS_Soap_Client extends Zend_Soap_Client implements D2LWS_Soap_Client_In
         // TODO: Investigate why this is necessary
         // Will get exception if namespace not forced in this way
         // D2L.WS.Implementation.RequestHeaderValidationFailedException: Request header is required!
-        if ( in_array($method, array('CreateGroup')) )
+        if ( in_array($method, array('CreateGroup','CreateSection')) )
         {
             $NS = 'ns3';
         }
-        elseif ( in_array($method, array('UpdateGroup', 'UpdateGroupType')) )
+        elseif ( in_array($method, array('UpdateGroup', 'UpdateGroupType', 'UpdateSection')) )
         {
             $NS = 'ns1';
         }
