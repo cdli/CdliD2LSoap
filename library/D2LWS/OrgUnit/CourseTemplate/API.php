@@ -110,7 +110,9 @@ class D2LWS_OrgUnit_CourseTemplate_API extends D2LWS_Common
             $result = $i->getSoapClient()
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
                 ->setLocation($i->getConfig('webservice.org.endpoint'))
-                ->UpdateCourseTemplate($data);
+                ->UpdateCourseTemplate(array(
+                      'CourseTemplate'=>(array)$data
+                  ));
             return ( $result instanceof stdClass );
         }
         
