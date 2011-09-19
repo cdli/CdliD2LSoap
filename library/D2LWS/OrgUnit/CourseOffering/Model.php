@@ -58,7 +58,7 @@ class D2LWS_OrgUnit_CourseOffering_Model extends D2LWS_OrgUnit_Model
      * Retrieve the organization identifier (OrgUnitID)
      * @return integer - Org Unit ID
      */
-    public function getID() { return $this->_data->OrgUnitId->Id; }
+    public function getID() { return @$this->_data->OrgUnitId->Id; }
     
     /**
      * Set the organization identifier (OrgUnitID)
