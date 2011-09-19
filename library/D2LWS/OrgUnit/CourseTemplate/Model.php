@@ -35,8 +35,6 @@ class D2LWS_OrgUnit_CourseTemplate_Model extends D2LWS_OrgUnit_Model
     public function init() 
     {
         parent::init();
-
-        $this->_data = new stdClass();
         
         $this->_data->OrgUnitId = new stdClass();;        
         $this->_data->OrgUnitId->Id = NULL;
@@ -54,7 +52,7 @@ class D2LWS_OrgUnit_CourseTemplate_Model extends D2LWS_OrgUnit_Model
      * Retrieve the organization identifier (OrgUnitID)
      * @return integer - Org Unit ID
      */
-    public function getID() { return $this->_data->OrgUnitId->Id; }
+    public function getID() { return @$this->_data->OrgUnitId->Id; }
     
     /**
      * Set the organization identifier (OrgUnitID)
