@@ -100,6 +100,8 @@ class D2LWS_OrgUnit_CourseOffering_API extends D2LWS_Common
         
         if ( is_null($o->getID()) )
         {
+            unset($data->OrgUnitId);
+            
             $result = $i->getSoapClient()
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
                 ->setLocation($i->getConfig('webservice.org.endpoint'))
