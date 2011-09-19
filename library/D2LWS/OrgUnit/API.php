@@ -148,7 +148,7 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
             
             foreach ( $typeResult->OrgUnitIds as $OrgUnit )
             {
-                if ( isset($OrgUnit->OrgUnitIdentifier) )
+                if ( isset($OrgUnit->OrgUnitIdentifier) && isset($OrgUnit->OrgUnitIdentifier->OrgUnitRole) )
                 {
                     if ( in_array($OrgUnit->OrgUnitIdentifier->OrgUnitRole, $SearchTypes) )
                     {
