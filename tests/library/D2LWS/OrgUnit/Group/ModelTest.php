@@ -252,14 +252,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     );
 
     /**
-     * Create an empty mock object
-     */
-    protected function _createMockDataObject()
-    {
-        return $this->_createMockModel()->getRawData();
-    }
-
-    /**
      * Create mock model object
      */
     protected function _createMockModel()

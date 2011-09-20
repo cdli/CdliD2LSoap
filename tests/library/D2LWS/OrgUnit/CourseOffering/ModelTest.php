@@ -215,9 +215,9 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that the field was updated
         $this->assertEquals(123456, $testObj->getTemplateID());
         $this->assertEquals('Desire2Learn', $testObj->getTemplateSource());
-
+        
         // Assert that no other return values were affected
-        $this->_assertModelsSameExcept($testObj, $baseObj, array('TemplateID','TemplateSource'));
+        $this->_assertModelsSameExcept($testObj, $baseObj, array('TemplateID'));
     }
     
     /**
@@ -378,78 +378,12 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that "Allows Sections" flag was updated
         $this->assertNotEquals('something', (string)$testObj->allowsSections());
     }
-    
-    /**
-     * Defines the methods we should test
-     * @var array
-     */
-    protected $_methodsToTest = array(
-        'ID'=>array(
-            'get'=>'getID',
-            'set'=>'setID'
-        ),
-        'Name'=>array(
-            'get'=>'getName',
-            'set'=>'setName'
-        ),
-        'Code'=>array(
-            'get'=>'getCode',
-            'set'=>'setCode'
-        ),
-        'Path'=>array(
-            'get'=>'getPath',
-            'set'=>'setPath'
-        ),
-        'Active'=>array(
-            'get'=>'isActive',
-            'set'=>'setIsActive'
-        ),
-        'StartDate'=>array(
-            'get'=>'getStartDate',
-            'set'=>'setStartDate'
-        ),
-        'EndDate'=>array(
-            'get'=>'getEndDate',
-            'set'=>'setEndDate'
-        ),
-        'CanRegister'=>array(
-            'get'=>'canRegister',
-            'set'=>'setCanRegister'
-        ),
-        'AllowSections'=>array(
-            'get'=>'allowsSections',
-            'set'=>'setAllowSections'
-        ),
-    );
-
-    /**
-     * Create an empty mock object
-     */
-    protected function _createMockDataObject()
-    {
-        $obj = new stdClass();
-        
-        $obj->OrgUnitId = new stdClass();
-        $obj->OrgUnitId->Id = 0;
-        $obj->OrgUnitId->Source = "Desire2Learn";
-
-        $obj->Name = '';
-        $obj->Code = '';
-        $obj->Path = '';
-        $obj->IsActive = false;
-        $obj->StartDate = '';
-        $obj->EndDate = '';
-        $obj->CanRegister = false;
-        $obj->AllowSections = false;
-
-        return $obj;
-    }
 
     /**
      * Create mock model object
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_CourseOffering_Model($this->_createMockDataObject());
+         return new D2LWS_OrgUnit_CourseOffering_Model();
     }
 }
