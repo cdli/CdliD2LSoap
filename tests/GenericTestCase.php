@@ -51,6 +51,15 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
         );
         parent::setUp();
     }
+    
+    /**
+     * Create an empty mock object
+     */
+    protected function _createMockDataObject()
+    {
+        $mock = $this->_createMockModel();
+        return $mock->getRawData();
+    }
 
     /**
      * Assert that two models are the same, except for the return value of one method
