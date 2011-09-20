@@ -35,7 +35,14 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
      * @var array
      */
     public $config;
-
+    
+    /**
+     * Methods to ignore when comparing two models
+     * @var array
+     */
+    private $_methodsToIgnore = array('getRawData');
+    
+    
     public function setUp()
     {
         $this->config = new Zend_Config_Ini(
@@ -47,36 +54,49 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
 
     /**
      * Assert that two models are the same, except for the return value of one method
-     * @param mixed $obj1
-     * @param mixed $obj2
-     * @param string|array $methods
+     * @param mixed $m1
+     * @param mixed $m2
+     * @param string|array $diff
      */
-    protected function _assertModelsSameExcept($obj1, $obj2, $methods)
+    public function _assertModelsSameExcept($m1, $m2, $diff)
     {
-        if ( isset($this->_methodsToTest) )
+        $errorLoc = array();
+        $result = true;
+
+        if ( get_class($m1) == get_class($m2) )
         {
-            if ( is_array($this->_methodsToTest) && count($this->_methodsToTest) > 0 )
+            $methods = get_class_methods($m1);
+            foreach ( $methods as $method )
             {
-                foreach ( (array)$methods as $method )
+                if ( preg_match("/^(get|is)/", $method) && !in_array($method, $this->_methodsToIgnore) )
                 {
-                    if ( isset($this->_methodsToTest[$method]) )
+                    try
                     {
-                        foreach ( $this->_methodsToTest as $mkey=>$mnames )
+                        $methodPart = preg_replace("/^(get|is)/i", "", $method);
+                        $partTest = ( in_array($method, $diff) || in_array($methodPart, $diff) )
+                            ? ( $m1->{$method}() != $m2->{$method}() )
+                            : ( $m1->{$method}() == $m2->{$method}() );
+                        $result &= $partTest;
+                        if ( ! $partTest )
                         {
-                            if ( $mkey == $method )
-                            {
-                                $this->assertNotEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
-                            }
-                            elseif ( !in_array($mkey, (array)$methods) )
-                            {
-                                $this->assertEquals($obj1->{$mnames['get']}(), $obj2->{$mnames['get']}());
-                            }
+                            $errorLoc[] = $method;
                         }
-                    }                
+
+                    }
+                    catch ( Exception $ex )
+                    {
+                    }
                 }
             }
+        } 
+        else 
+        {    
+            $this->fail("Supplied model instances are not of the same type");
         }
+
+        $this->assertTrue(($result==true), 'Supplied models differ in following methods: ' . implode(", ", $errorLoc));
     }
+    
 
     /**
      * Return an Instance Manager instance
