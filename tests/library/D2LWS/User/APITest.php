@@ -183,7 +183,65 @@ class D2LWS_User_APITest extends UserTestCase
         $apiUser = new D2LWS_User_API($mock);
         $userObj = $apiUser->findByUserName('TestUser');
     }
+    
+    public function testGetActiveCourseOfferingsWhenSingleResultIsReturned()
+    {
+        $mockObj = $this->_createMockDataObject();
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
 
+        // SOAP client should return empty response when D2L
+        // could not find active course enrollments for user
+        $mock->getSoapClient()->addCallback("UserManagement", "GetActiveCourseOfferingsEx",
+            function($args) use (&$mockObj) {
+                $result = new stdClass();
+                
+                $result->CourseOfferings = new stdClass();
+                $result->CourseOfferings->CourseOfferingInfo = new stdClass();
+                $result->CourseOfferings->CourseOfferingInfo->OrgUnitId = new stdClass();
+                $result->CourseOfferings->CourseOfferingInfo->OrgUnitId->Id = 42;
+                
+                $result->Roles = new stdClass();
+                $result->Roles->RoleInfo = new stdClass();
+                $result->Roles->RoleInfo->RoleId = new stdClass();
+                $result->Roles->RoleInfo->RoleId->Id = 24;
+                
+                return $result;
+            }
+        );
+
+        $apiUser = new D2LWS_User_API($mock);
+        $results = $apiUser->getActiveCourseOfferings(9999);
+        
+        $this->assertInternalType('array', $results);
+        $this->assertArrayHasKey(42, $results);
+        $this->assertArrayHasKey('CourseOffering', $results[42]);
+        $this->assertInstanceOf('D2LWS_OrgUnit_CourseOffering_Model', $results[42]['CourseOffering']);
+        $this->assertEquals(42, $results[42]['CourseOffering']->getID());
+        $this->assertArrayHasKey('Role', $results[42]);
+        $this->assertInstanceOf('D2LWS_Role_Model', $results[42]['Role']);
+        $this->assertEquals(24, $results[42]['Role']->getRoleID());
+    }
+
+    /**
+     * @expectedException D2LWS_User_Exception_NotFound
+     */
+    public function testGetActiveCourseOfferingsWhenReturnedDataIsInvalid()
+    {
+        $mockObj = $this->_createMockDataObject();
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+
+        // SOAP client should return empty response when D2L
+        // could not find active course enrollments for user
+        $mock->getSoapClient()->addCallback("UserManagement", "GetActiveCourseOfferingsEx",
+            function($args) use (&$mockObj) {
+                return NULL;
+            }
+        );
+
+        $apiUser = new D2LWS_User_API($mock);
+        $userObj = $apiUser->getActiveCourseOfferings(9999);
+    }
+    
     /**
      * Test Single Sign-on
      */
