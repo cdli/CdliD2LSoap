@@ -27,7 +27,44 @@ class D2LWS_User_Model extends D2LWS_Abstract_Model
     /**
      * Initialize Default Data Structure
      */
-    public function init() {}
+    public function init() 
+    {
+        $this->_data = new stdClass();
+        $this->_data->UserId = new stdClass();
+
+        $this->_data->UserId->Id = 0;
+        $this->_data->UserId->Source = "Desire2Learn";
+
+        $this->_data->UserName = new stdClass();
+        $this->_data->UserName->_ = "";
+
+        $this->_data->OrgDefinedId = new stdClass();
+        $this->_data->OrgDefinedId->_ = 0;
+
+        $this->_data->RoleId = new stdClass();
+        $this->_data->RoleId->_ = 0;
+
+        $this->_data->Password = new stdClass();
+        $this->_data->Password->_ = "";
+
+        $this->_data->FirstName = new stdClass();
+        $this->_data->FirstName->_ = "";
+
+        $this->_data->LastName = new stdClass();
+        $this->_data->LastName->_ = "";
+
+        $this->_data->FormsOfContact = new stdClass();
+        $this->_data->FormsOfContact->FormOfContactInfo = new stdClass();
+        $this->_data->FormsOfContact->FormOfContactInfo->Type = '';
+        $this->_data->FormsOfContact->FormOfContactInfo->Name = '';
+        $this->_data->FormsOfContact->FormOfContactInfo->Value = '';
+
+        $this->_data->Demographics = new stdClass();
+        $this->_data->Demographics->Gender = new stdClass();
+        $this->_data->Demographics->Gender->_ = '';
+        $this->_data->Demographics->BirthDate = new stdClass();
+        $this->_data->Demographics->BirthDate->_ = '';    
+    }
     
     /**
      * Get D2L User ID

@@ -19,11 +19,6 @@
  */
 
 /**
- * Include the test case definition
- */
-require_once "UserTestCase.php";
-
-/**
  * PHPUnit test for D2LWS_User_Model
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * 
@@ -31,7 +26,7 @@ require_once "UserTestCase.php";
  * @group D2LWS_Model
  * @group D2LWS_User
  */
-class D2LWS_User_ModelTest extends UserTestCase
+class D2LWS_User_ModelTest extends GenericTestCase
 {
 
     /**
@@ -272,6 +267,15 @@ class D2LWS_User_ModelTest extends UserTestCase
 
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'BirthDate');
+    }
+    
+    /**
+     * Create mock model object
+     * @return D2LWS_User_Model
+     */
+    public function _createMockModel()
+    {
+        return new D2LWS_User_Model();
     }
 
 }
