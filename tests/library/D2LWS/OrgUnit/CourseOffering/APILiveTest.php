@@ -96,4 +96,57 @@ class D2LWS_OrgUnit_CourseOffering_APILiveTest extends LiveTestCase
         $objCourseOffering = $this->service->findByCode($code);
     }
     
+    public function testCreateCourseOffering()
+    {
+        $obj = new D2LWS_OrgUnit_CourseOffering_Model();
+        $obj->setName('zfD2L Test Course Offering')
+            ->setCode('zfd2ltestco')
+            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestco')
+            ->setTemplateID($this->config->phpunit->live->course_template->ouid)
+            ->setIsActive(true)
+            ->setStartDate(date("Y-m-d\TH:i:s"))
+            ->setEndDate(date("Y-m-d\TH:i:s", time()+600))
+            ->setCanRegister(false)
+            ->setAllowSections(true);
+        
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getID());
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        //@todo For some reason, our D2L dev server adds 5h to timestamps.  Ignore for now
+        //$this->assertEquals($obj, $savedObj);
+        $this->_assertModelsSameExcept($obj, $savedObj, array('StartDate','EndDate'));
+        
+        return $obj;
+    }
+ 
+    /**
+     * @depends testCreateCourseOffering
+     */
+    public function testUpdateCourseOffering(D2LWS_OrgUnit_CourseOffering_Model $obj)
+    {
+        $obj->setCode('zfd2ltestco_update');
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        $this->assertEquals('zfd2ltestco_update', $savedObj->getCode());
+    }
+    
+    /**
+     * @depends testCreateCourseOffering
+     * @expectedException D2LWS_OrgUnit_CourseOffering_Exception_NotFound
+     */
+    public function testDeleteCourseOffering(D2LWS_OrgUnit_CourseOffering_Model $obj)
+    {
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getID());
+    }
+    
+    /**
+     * @depends testCreateCourseOffering
+     */
+    public function testDeleteUnsavedCourseOffering(D2LWS_OrgUnit_CourseOffering_Model $obj)
+    {
+        $this->assertFalse($this->service->delete(new D2LWS_OrgUnit_CourseOffering_Model()));
+    }
 }

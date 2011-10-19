@@ -70,4 +70,67 @@ class D2LWS_OrgUnit_Semester_API extends D2LWS_Common
         }
     }
     
+    /**
+     * Persist user object to Desire2Learn
+     * @param D2LWS_OrgUnit_Semester_Model $o Semester
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
+    public function save(D2LWS_OrgUnit_Semester_Model &$o)
+    {
+        $data = $o->getRawData();        
+        $i = $this->getInstance();     
+        
+        if ( is_null($o->getID()) )
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->CreateSemester($data);
+            
+            if ( $result instanceof stdClass && isset($result->Semester) )
+            {
+                $o = new D2LWS_OrgUnit_Semester_Model($result->Semester);
+                return true;
+            }
+        }
+        else
+        {
+            $obj = new stdClass;
+            $obj->Semester = $data;
+            
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->UpdateSemester($obj);
+            return ( $result instanceof stdClass );
+        }
+        
+        return false;
+    }
+        
+    /**
+     * Delete Semester from D2L
+     * @param D2LWS_OrgUnit_Semester_Model $s Semester to delete
+     * @return bool success?
+     */
+    public function delete(D2LWS_OrgUnit_Semester_Model $s)
+    {
+        if ( !is_null($s->getID()) )
+        {
+            $i = $this->getInstance();
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->DeleteSemester(array(
+                    'OrgUnitId'=>array(
+                        'Id'=>$s->getID(),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            
+            return ( $result instanceof stdClass );
+        }
+        return false;
+    }
 }

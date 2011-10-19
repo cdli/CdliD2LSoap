@@ -153,27 +153,10 @@ class D2LWS_OrgUnit_Organization_ModelTest extends GenericTestCase
     );
 
     /**
-     * Create an empty mock object
-     */
-    protected function _createMockDataObject()
-    {
-        $obj = new stdClass();
-        
-        $obj->OrgUnitId = new stdClass();
-        $obj->OrgUnitId->Id = 0;
-        $obj->OrgUnitId->Source = "Desire2Learn";
-
-        $obj->Name = '';
-        $obj->Code = '';
-
-        return $obj;
-    }
-
-    /**
      * Create mock model object
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_Organization_Model($this->_createMockDataObject());
+         return new D2LWS_OrgUnit_Organization_Model();
     }
 }

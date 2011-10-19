@@ -101,10 +101,7 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
     {
         $objGroupType = $this->service->getTypesByOrgUnitID('9999999');
     }    
-
-    /**
-     * Test Creating New Group Type
-     */
+    
     public function testCreateGroupType()
     {
         $co = $this->getTestCourseOffering();
@@ -112,57 +109,51 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
             $this->markTestSkipped('Could not retrieve test course offering!');
         }
         
-        $objGType = new D2LWS_OrgUnit_Group_Type_Model();
-        $objGType->setName('API Test Category')
-                 ->setDescription('API Test Category Description!')
-                 ->setIsDescriptionHTML(false)
-                 ->setOwner($co);
+        $obj = new D2LWS_OrgUnit_Group_Type_Model();
+        $obj->setName('zfD2L Category')
+            ->setDescription('zfD2L Test Category Description!')
+            ->setIsDescriptionHTML(false)
+            ->setOwner($co);
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getID());
         
-        $savedGType = clone $objGType;
-        $result = $this->service->save($savedGType);
-        $this->assertTrue($result);
-        $this->_assertModelsSameExcept($objGType, $savedGType, 'ID');
-        $this->assertNotNull($savedGType->getID());
-        return $savedGType;
+        $savedObj = $this->service->findByID($obj->getID(), $obj->getOwnerOrgUnitID());
+        $this->assertEquals($obj, $savedObj);
+        
+        return $obj;
     }
-    
+ 
     /**
-     * Test Updating Existing Group Type
-     * @param D2LWS_OrgUnit_Group_Type_Model $existingGType
      * @depends testCreateGroupType
      */
-    public function testUpdateGroupType(D2LWS_OrgUnit_Group_Type_Model $existingGType)
+    public function testUpdateGroup(D2LWS_OrgUnit_Group_Type_Model $obj)
     {
-        $saveGType = clone $existingGType;
-        
         $newDescription = '<h1>'.uniqid('').'</h1>';
-        $saveGType->setDescription($newDescription)
-                  ->setIsDescriptionHTML(true);
-        $result = $this->service->save($saveGType);
-        $this->assertTrue($result);
-        $this->_assertModelsSameExcept($existingGType, $saveGType, array(
-            'Description',
-            'IsDescriptionHTML'
-        ));
+        $obj->setDescription($newDescription)
+            ->setIsDescriptionHTML(true);
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getID(), $obj->getOwnerOrgUnitID());
+        $this->assertEquals($obj, $savedObj);
+        $this->assertEquals($newDescription, $savedObj->getDescription());
+        $this->assertTrue($savedObj->isDescriptionHTML());
     }
     
     /**
-     * Test Deleting Group Type
-     * @param D2LWS_OrgUnit_Group_Type_Model $existingGType 
+     * @depends testCreateGroupType
+     * @expectedException D2LWS_OrgUnit_Group_Type_Exception_NotFound
+     */
+    public function testDeleteGroup(D2LWS_OrgUnit_Group_Type_Model $obj)
+    {
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getID(), $obj->getOwnerOrgUnitID());
+    }
+    
+    /**
      * @depends testCreateGroupType
      */
-    public function testDeleteGroup(D2LWS_OrgUnit_Group_Type_Model $existingGType)
+    public function testDeleteUnsavedGroup(D2LWS_OrgUnit_Group_Type_Model $obj)
     {
-        $this->assertTrue($this->service->delete($existingGType));
-        
-        try {
-            $this->service->findByID(
-                $existingGType->getID(),
-                $existingGType->getOrgUnitTypeID()
-            );
-            $this->fail('DeleteGroupType call did not delete group!');
-        } catch ( D2LWS_OrgUnit_Group_Type_Exception_NotFound $ex ) {
-            // Exception thrown == pass
-        }
+        $this->assertFalse($this->service->delete(new D2LWS_OrgUnit_Group_Type_Model()));
     }
 }

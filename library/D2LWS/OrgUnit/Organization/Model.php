@@ -33,6 +33,11 @@ class D2LWS_OrgUnit_Organization_Model extends D2LWS_OrgUnit_Model
     public function init() 
     {
         parent::init();
+        $this->_data->OrgUnitId = new stdClass();
+        $this->_data->OrgUnitId->Id = NULL;
+        $this->_data->OrgUnitId->Source = 'Desire2Learn';
+        $this->_data->Name = '';
+        $this->_data->Code = '';
     }
 
     /**
