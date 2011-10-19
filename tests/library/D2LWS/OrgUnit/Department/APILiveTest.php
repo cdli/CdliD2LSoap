@@ -72,4 +72,23 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
         $objDepartment = $this->service->findByID($ouid);
     }
     
+    /**
+     * Fetch our test course template by it's code
+     * @depends testFindByIdentifierWhichExists
+     */
+    public function testFindByCodeWhichExists(D2LWS_OrgUnit_Department_Model $o)
+    {
+        $objDepartment = $this->service->findByCode($o->getCode());
+        $this->assertInstanceOf('D2LWS_OrgUnit_Department_Model', $objDepartment);        
+        $this->assertEquals($o,$objDepartment);
+    }
+    
+    /**
+     * Attempt to fetch a non-existent OUID
+     * @expectedException D2LWS_OrgUnit_Department_Exception_NotFound
+     */
+    public function testFindByCodeWhichDoesNotExist()
+    {
+        $objDepartment = $this->service->findByCode(md5(uniqid("")));
+    }
 }
