@@ -194,6 +194,17 @@ class D2LWS_User_APILiveTest extends LiveTestCase
         $savedObj = $this->service->findByID($obj->getUserID());
         $this->assertEquals('APITEST', $savedObj->getLastName());
     }
+ 
+    /**
+     * @depends testCreateUser
+     */
+    public function testUpdateUserWithNewRole(D2LWS_User_Model $obj)
+    {
+        $RoleID = $this->config->phpunit->live->roles->observer->ouid;
+        
+        $obj->setRoleID($RoleID);
+        $this->assertTrue($this->service->save($obj));
+    }
     
     /**
      * @depends testCreateUser
