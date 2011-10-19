@@ -180,7 +180,16 @@ class D2LWS_User_Model extends D2LWS_Abstract_Model
      * Get Gender
      * @return string - Gender
      */
-    public function getGender() { return ( isset($this->_data->Demographics->Gender->_) ? $this->_data->Demographics->Gender->_ : 'Unknown' ); }
+    public function getGender() 
+    { 
+        if ( isset($this->_data->Demographics->Gender->_) ) {
+            return $this->_data->Demographics->Gender->_;
+        } elseif ( isset($this->_data->Demographics->Gender) ) {
+            return $this->_data->Demographics->Gender;
+        } else {
+            return 'Unknown';
+        }
+    }
     
     /**
      * Set Gender
@@ -196,7 +205,16 @@ class D2LWS_User_Model extends D2LWS_Abstract_Model
      * Get Birth Date
      * @return int - Birth Date
      */
-    public function getBirthDate() { return ( isset($this->_data->Demographics->BirthDate->_) ? @$this->_data->Demographics->BirthDate->_ : 0 ); }
+    public function getBirthDate()
+    {
+        if ( isset($this->_data->Demographics->BirthDate->_) ) {
+            return $this->_data->Demographics->BirthDate->_;
+        } elseif ( isset($this->_data->Demographics->BirthDate) ) {
+            return $this->_data->Demographics->BirthDate;
+        } else {
+            return 0;
+        }
+    }
     
     /**
      * Set Birth Date
