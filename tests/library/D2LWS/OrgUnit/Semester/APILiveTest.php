@@ -72,4 +72,25 @@ class D2LWS_OrgUnit_Semester_APILiveTest extends LiveTestCase
         $objSemester = $this->service->findByID($ouid);
     }
     
+    /**
+     * Fetch our test semester by it's Code
+     * @depends testFindByIdentifierWhichExists
+     */
+    public function testFindByCodeWhichExists(D2LWS_OrgUnit_Semester_Model $o)
+    {
+        $objSemester = $this->service->findByCode($o->getCode());
+        $this->assertInstanceOf('D2LWS_OrgUnit_Semester_Model', $objSemester);        
+        $this->assertEquals($o, $objSemester);
+        
+        return $objSemester;
+    }
+    
+    /**
+     * Attempt to fetch a non-existent OUCode
+     * @expectedException D2LWS_OrgUnit_Semester_Exception_NotFound
+     */
+    public function testFindByCodeWhichDoesNotExist()
+    {
+        $objSemester = $this->service->findByCode(md5(uniqid("")));
+    }
 }
