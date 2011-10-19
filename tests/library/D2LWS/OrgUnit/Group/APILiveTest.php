@@ -96,9 +96,6 @@ class D2LWS_OrgUnit_Group_APILiveTest extends LiveTestCase
         $objGroup = $this->service->findByCode($code);
     }
     
-    /**
-     * Test Creating New Group
-     */
     public function testCreateGroup()
     {
         $objGType = $this->getTestGroupType();
@@ -107,56 +104,53 @@ class D2LWS_OrgUnit_Group_APILiveTest extends LiveTestCase
         }
         $OwnerOU = $objGType->getOwnerOrgUnitID();
         
-        $objGroup = new D2LWS_OrgUnit_Group_Model();
-        $objGroup->setCode(uniqid("G"))
-                 ->setName('API Test Group')
-                 ->setDescription('API Test Group Description!')
-                 ->setIsDescriptionHTML(false)
-                 ->setGroupTypeID($objGType->getID())
-                 ->setOwnerOrgUnitID($OwnerOU);
+        $obj = new D2LWS_OrgUnit_Group_Model();
+        $obj->setName('zfD2L Test Group')
+            ->setCode('zfd2ltestgroup')
+            ->setDescription('zfD2L Test Group Description!')
+            ->setIsDescriptionHTML(false)
+            ->setGroupTypeID($objGType->getID())
+            ->setOwnerOrgUnitID($OwnerOU);
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getID());
         
-        $saveGroup = clone $objGroup;
-        $result = $this->service->save($saveGroup);
-        $this->assertTrue($result);
-        $this->_assertModelsSameExcept($objGroup, $saveGroup, 'ID');
-        $this->assertNotNull($saveGroup->getID());
-        return $saveGroup;
+        $savedObj = $this->service->findByID($obj->getID());
+        $this->assertEquals($obj, $savedObj);
+        
+        return $obj;
     }
-    
+ 
     /**
-     * Test Updating Existing Group
-     * @param D2LWS_OrgUnit_Group_Model $existingGroup
      * @depends testCreateGroup
      */
-    public function testUpdateGroup(D2LWS_OrgUnit_Group_Model $existingGroup)
+    public function testUpdateGroup(D2LWS_OrgUnit_Group_Model $obj)
     {
-        $saveGroup = clone $existingGroup;
-        
         $newDescription = '<h1>'.uniqid('').'</h1>';
-        $saveGroup->setDescription($newDescription)
-                  ->setIsDescriptionHTML(true);
-        $result = $this->service->save($saveGroup);
-        $this->assertTrue($result);
-        $this->_assertModelsSameExcept($existingGroup, $saveGroup, array(
-            'Description',
-            'IsDescriptionHTML'
-        ));
+        $obj->setDescription($newDescription)
+            ->setIsDescriptionHTML(true);
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        $this->assertEquals($obj, $savedObj);
+        $this->assertEquals($newDescription, $savedObj->getDescription());
+        $this->assertTrue($savedObj->isDescriptionHTML());
     }
     
     /**
-     * Test Deleting Group
-     * @param D2LWS_OrgUnit_Group_Model $existingGroup 
      * @depends testCreateGroup
-     * @todo Find out why the created group doesn't actually get deleted
+     * @expectedException D2LWS_OrgUnit_Group_Exception_NotFound
      */
-    public function testDeleteGroup(D2LWS_OrgUnit_Group_Model $existingGroup)
+    public function testDeleteGroup(D2LWS_OrgUnit_Group_Model $obj)
     {
-        $this->assertTrue($this->service->delete($existingGroup));
-        
-        try {
-            $this->service->findByID($existingGroup->getID());
-            $this->fail('DeleteGroup call did not delete group!');
-        } catch ( D2LWS_OrgUnit_Group_Exception_NotFound $ex ) {}
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getID());
     }
     
+    /**
+     * @depends testCreateGroup
+     */
+    public function testDeleteUnsavedGroup(D2LWS_OrgUnit_Group_Model $obj)
+    {
+        $this->assertFalse($this->service->delete(new D2LWS_OrgUnit_Group_Model()));
+    }
 }
