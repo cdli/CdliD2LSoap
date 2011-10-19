@@ -127,4 +127,28 @@ class D2LWS_OrgUnit_CourseOffering_API extends D2LWS_Common
         return false;
     }
     
+    /**
+     * Delete Course Offering object from Desire2Learn
+     * @param D2LWS_OrgUnit_CourseOffering_Model $o Course Offering
+     * @return bool
+     */
+    public function delete(D2LWS_OrgUnit_CourseOffering_Model &$o)
+    {
+        if ( is_null($o->getID()) ) {
+            return false;
+        }
+        
+        $i = $this->getInstance();
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->DeleteCourseOffering(array(
+                  'OrgUnitId'=>array(
+                      'Id'=>$o->getID(),
+                      'Source'=>'Desire2Learn'
+                  )
+              ));
+        return ( $result instanceof stdClass );
+    }
+    
 }
