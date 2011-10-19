@@ -96,10 +96,13 @@ class D2LWS_OrgUnit_Semester_API extends D2LWS_Common
         }
         else
         {
+            $obj = new stdClass;
+            $obj->Semester = $data;
+            
             $result = $i->getSoapClient()
                 ->setWsdl($i->getConfig('webservice.org.wsdl'))
                 ->setLocation($i->getConfig('webservice.org.endpoint'))
-                ->UpdateSemester($data);
+                ->UpdateSemester($obj);
             return ( $result instanceof stdClass );
         }
         
