@@ -49,7 +49,7 @@ class D2LWS_OrgUnit_CourseTemplate_APILiveTest extends LiveTestCase
     }
     
     /**
-     * Fetch our test course offering by it's ID
+     * Fetch our test course template by it's ID
      */
     public function testFindByIdentifierWhichExists()
     {
@@ -58,6 +58,8 @@ class D2LWS_OrgUnit_CourseTemplate_APILiveTest extends LiveTestCase
         $objCourseTemplate = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_CourseTemplate_Model', $objCourseTemplate);        
         $this->assertEquals($ouid, $objCourseTemplate->getID());
+        
+        return $objCourseTemplate;
     }
     
     /**
@@ -70,4 +72,75 @@ class D2LWS_OrgUnit_CourseTemplate_APILiveTest extends LiveTestCase
         $objCourseTemplate = $this->service->findByID($ouid);
     }
     
+    /**
+     * Fetch our test course template by it's code
+     * @depends testFindByIdentifierWhichExists
+     */
+    public function testFindByCodeWhichExists(D2LWS_OrgUnit_CourseTemplate_Model $o)
+    {
+        $objCourseTemplate = $this->service->findByCode($o->getCode());
+        $this->assertInstanceOf('D2LWS_OrgUnit_CourseTemplate_Model', $objCourseTemplate);        
+        $this->assertEquals($o,$objCourseTemplate);
+    }
+    
+    /**
+     * Attempt to fetch a non-existent OUID
+     * @expectedException D2LWS_OrgUnit_CourseTemplate_Exception_NotFound
+     */
+    public function testFindByCodeWhichDoesNotExist()
+    {
+        $objCourseTemplate = $this->service->findByCode(md5(uniqid("")));
+    }
+    
+    
+    public function testCreateCourseTemplate()
+    {
+        $obj = new D2LWS_OrgUnit_CourseTemplate_Model();
+        $obj->setName('zfD2L Test Course Template')
+            ->setCode('zfd2ltestct')
+            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestct')
+            ->setIsActive(true)
+            ->setStartDate(date("Y-m-d\TH:i:s"))
+            ->setEndDate(date("Y-m-d\TH:i:s", time()+600));
+
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getID());
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        //@todo For some reason, our D2L dev server adds 5h to timestamps.  Ignore for now
+        //$this->assertEquals($obj, $savedObj);
+        $this->_assertModelsSameExcept($obj, $savedObj, array('StartDate','EndDate'));
+        
+        return $obj;
+    }
+ 
+    /**
+     * @depends testCreateCourseTemplate
+     */
+    public function testUpdateCourseTemplate(D2LWS_OrgUnit_CourseTemplate_Model $obj)
+    {
+        $obj->setCode('zfd2ltestct_update');
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        $this->assertEquals('zfd2ltestct_update', $savedObj->getCode());
+    }
+    
+    /**
+     * @depends testCreateCourseTemplate
+     * @expectedException D2LWS_OrgUnit_CourseTemplate_Exception_NotFound
+     */
+    public function testDeleteCourseTemplate(D2LWS_OrgUnit_CourseTemplate_Model $obj)
+    {
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getID());
+    }
+    
+    /**
+     * @depends testCreateCourseTemplate
+     */
+    public function testDeleteUnsavedCourseTemplate(D2LWS_OrgUnit_CourseTemplate_Model $obj)
+    {
+        $this->assertFalse($this->service->delete(new D2LWS_OrgUnit_CourseTemplate_Model()));
+    }
 }
