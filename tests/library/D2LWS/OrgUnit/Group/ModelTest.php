@@ -221,37 +221,6 @@ class D2LWS_OrgUnit_Group_ModelTest extends GenericTestCase
     }
     
     /**
-     * Defines the methods we should test
-     * @var array
-     */
-    protected $_methodsToTest = array(
-        'ID'=>array(
-            'get'=>'getID',
-            'set'=>'setID'
-        ),
-        'Name'=>array(
-            'get'=>'getName',
-            'set'=>'setName'
-        ),
-        'Description'=>array(
-            'get'=>'getDescription',
-            'set'=>'setDescription'
-        ),
-        'IsDescriptionHTML'=>array(
-            'get'=>'isDescriptionHTML',
-            'set'=>'setIsDescriptionHTML'
-        ),
-        'GroupTypeID'=>array(
-            'get'=>'getGroupTypeID',
-            'set'=>'setGroupTypeID'
-        ),
-        'OwnerOrgUnitID'=>array(
-            'get'=>'getOwnerOrgUnitID',
-            'set'=>'setOwnerOrgUnitID'
-        )
-    );
-
-    /**
      * Create mock model object
      */
     protected function _createMockModel()
