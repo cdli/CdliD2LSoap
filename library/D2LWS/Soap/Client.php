@@ -65,7 +65,7 @@ class D2LWS_Soap_Client extends Zend_Soap_Client implements D2LWS_Soap_Client_In
         {
             $NS = 'ns3';
         }
-        elseif ( in_array($method, array('UpdateGroup', 'UpdateGroupType', 'UpdateSection')) )
+        elseif ( in_array($method, array('UpdateGroup', 'UpdateGroupType', 'UpdateSection','UpdateSemester')) )
         {
             $NS = 'ns1';
         }
