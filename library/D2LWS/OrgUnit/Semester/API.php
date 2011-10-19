@@ -108,4 +108,29 @@ class D2LWS_OrgUnit_Semester_API extends D2LWS_Common
         
         return false;
     }
+        
+    /**
+     * Delete Semester from D2L
+     * @param D2LWS_OrgUnit_Semester_Model $s Semester to delete
+     * @return bool success?
+     */
+    public function delete(D2LWS_OrgUnit_Semester_Model $s)
+    {
+        if ( !is_null($s->getID()) )
+        {
+            $i = $this->getInstance();
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->DeleteSemester(array(
+                    'OrgUnitId'=>array(
+                        'Id'=>$s->getID(),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            
+            return ( $result instanceof stdClass );
+        }
+        return false;
+    }
 }
