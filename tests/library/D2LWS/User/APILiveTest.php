@@ -157,4 +157,70 @@ class D2LWS_User_APILiveTest extends LiveTestCase
         $this->assertTrue($this->service->enrollUserInOUASRole($u->getUserID(), $OUID, $RoleID));
     }
     
+    public function testCreateUser()
+    {
+        $RoleID = $this->config->phpunit->live->roles->student->ouid;
+        
+        $obj = new D2LWS_User_Model();
+        $obj->setUserName('zfd2luser')
+            ->setOrgDefinedID('ZFD2LUSER')
+            ->setRoleID($RoleID)
+            ->setPassword('zfD2L')
+            ->setFirstName('ZFD2L')
+            ->setLastName('TEST')
+            ->setEmailAddress('foo@bar.com')
+            ->setGender('Male')
+            ->setBirthDate(date("Y-m-d\TH:i:s", time()-3600*24*10000));
+
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getUserID());
+        
+        $savedObj = $this->service->findByID($obj->getUserID());
+        //@todo For some reason, our D2L dev server adds 5h to timestamps.  Ignore for now
+        //$this->assertEquals($obj, $savedObj);
+        $this->_assertModelsSameExcept($obj, $savedObj, array('BirthDate'));
+        
+        return $obj;
+    }
+ 
+    /**
+     * @depends testCreateUser
+     */
+    public function testUpdateUser(D2LWS_User_Model $obj)
+    {
+        $obj->setLastName('APITEST');
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getUserID());
+        $this->assertEquals('APITEST', $savedObj->getLastName());
+    }
+ 
+    /**
+     * @depends testCreateUser
+     */
+    public function testUpdateUserWithNewRole(D2LWS_User_Model $obj)
+    {
+        $RoleID = $this->config->phpunit->live->roles->observer->ouid;
+        
+        $obj->setRoleID($RoleID);
+        $this->assertTrue($this->service->save($obj));
+    }
+    
+    /**
+     * @depends testCreateUser
+     * @expectedException D2LWS_User_Exception_NotFound
+     */
+    public function testDeleteUser(D2LWS_User_Model $obj)
+    {
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getUserID());
+    }
+    
+    /**
+     * @depends testCreateUser
+     */
+    public function testDeleteUnsavedUser(D2LWS_User_Model $obj)
+    {
+        $this->assertFalse($this->service->delete(new D2LWS_User_Model()));
+    }
 }

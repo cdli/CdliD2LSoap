@@ -72,4 +72,76 @@ class D2LWS_OrgUnit_Semester_APILiveTest extends LiveTestCase
         $objSemester = $this->service->findByID($ouid);
     }
     
+    /**
+     * Fetch our test semester by it's Code
+     * @depends testFindByIdentifierWhichExists
+     */
+    public function testFindByCodeWhichExists(D2LWS_OrgUnit_Semester_Model $o)
+    {
+        $objSemester = $this->service->findByCode($o->getCode());
+        $this->assertInstanceOf('D2LWS_OrgUnit_Semester_Model', $objSemester);        
+        $this->assertEquals($o, $objSemester);
+        
+        return $objSemester;
+    }
+    
+    /**
+     * Attempt to fetch a non-existent OUCode
+     * @expectedException D2LWS_OrgUnit_Semester_Exception_NotFound
+     */
+    public function testFindByCodeWhichDoesNotExist()
+    {
+        $objSemester = $this->service->findByCode(md5(uniqid("")));
+    }
+    
+    public function testCreateSemester()
+    {
+        $obj = new D2LWS_OrgUnit_Semester_Model();
+        $obj->setName('zfD2L Test Semester')
+            ->setCode('zfd2ltestsem')
+            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestsem')
+            ->setIsActive(true)
+            ->setStartDate(date("Y-m-d\TH:i:s"))
+            ->setEndDate(date("Y-m-d\TH:i:s", time()+600));
+
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getID());
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        //@todo For some reason, our D2L dev server adds 5h to timestamps.  Ignore for now
+        //$this->assertEquals($obj, $savedObj);
+        $this->_assertModelsSameExcept($obj, $savedObj, array('StartDate','EndDate'));
+        
+        return $obj;
+    }
+ 
+    /**
+     * @depends testCreateSemester
+     */
+    public function testUpdateSemester(D2LWS_OrgUnit_Semester_Model $obj)
+    {
+        $obj->setCode('zfd2ltestsem_update');
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        $this->assertEquals('zfd2ltestsem_update', $savedObj->getCode());
+    }
+    
+    /**
+     * @depends testCreateSemester
+     * @expectedException D2LWS_OrgUnit_Semester_Exception_NotFound
+     */
+    public function testDeleteSemester(D2LWS_OrgUnit_Semester_Model $obj)
+    {
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getID());
+    }
+    
+    /**
+     * @depends testCreateSemester
+     */
+    public function testDeleteUnsavedSemester(D2LWS_OrgUnit_Semester_Model $obj)
+    {
+        $this->assertFalse($this->service->delete(new D2LWS_OrgUnit_Semester_Model()));
+    }
 }

@@ -163,4 +163,26 @@ class D2LWS_OrgUnit_Group_Type_APITest extends GenericTestCase
         $objGTSet = $apiGType->getTypesByOrgUnitID(199);
     }
     
+    public function testReindexByName()
+    {
+        $set = array();
+        $set[0] = new D2LWS_OrgUnit_Group_Type_Model();
+        $set[0]->setID(9999)->setName('Test1');
+        $set[1] = new D2LWS_OrgUnit_Group_Type_Model();
+        $set[1]->setID(9998)->setName('Test2');
+        
+        
+        $mock = $this->_getInstanceManagerWithMockSoapClient();
+        $service = new D2LWS_OrgUnit_Group_Type_API($mock);
+        
+        $newset = $service->reindexByName($set);
+        $this->assertInternalType('array', $newset);
+        $this->assertArrayHasKey('Test1', $newset);
+        $this->assertInstanceOf('D2LWS_OrgUnit_Group_Type_Model', $newset['Test1']);
+        $this->assertEquals(9999, $newset['Test1']->getID());
+        $this->assertArrayHasKey('Test2', $newset);
+        $this->assertInstanceOf('D2LWS_OrgUnit_Group_Type_Model', $newset['Test2']);
+        $this->assertEquals(9998, $newset['Test2']->getID());
+    }
+    
 }

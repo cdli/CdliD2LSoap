@@ -84,7 +84,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that a change occurred in the test object
         $this->assertNotEquals($testObj, $baseObj);
 
-        // Assert that ID field was updated
+        // Assert that field was updated
         $this->assertEquals(99, $testObj->getID());
 
         // Assert that no other return values were affected
@@ -105,7 +105,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that a change occurred in the test object
         $this->assertNotEquals($testObj, $baseObj);
 
-        // Assert that Name field was updated
+        // Assert that field was updated
         $this->assertEquals(99, $testObj->getName());
 
         // Assert that no other return values were affected
@@ -126,7 +126,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that a change occurred in the test object
         $this->assertNotEquals($testObj, $baseObj);
 
-        // Assert that the Code field was updated
+        // Assert that the field was updated
         $this->assertEquals(99, $testObj->getCode());
 
         // Assert that no other return values were affected
@@ -147,13 +147,79 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that a change occurred in the test object
         $this->assertNotEquals($testObj, $baseObj);
 
-        // Assert that the Path field was updated
+        // Assert that the field was updated
         $this->assertEquals(99, $testObj->getPath());
 
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'Path');
     }
+    
+    /**
+     * Test that setTemplateID and getTemplateID work as expected
+     */
+    public function testSetAndGetTemplateID()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
 
+        // Set the Template ID
+        $testObj->setTemplateID(1234);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that the field was updated
+        $this->assertEquals(1234, $testObj->getTemplateID());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'TemplateID');
+    }
+    
+    /**
+     * Test that setTemplateSource and getTemplateSource work as expected
+     */
+    public function testSetAndGetTemplateSource()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Template Source
+        $testObj->setTemplateSource('Test');
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that the field was updated
+        $this->assertEquals('Test', $testObj->getTemplateSource());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'TemplateSource');
+    }
+    
+    /**
+     * Test that setTemplate and getTemplate work as expected
+     */
+    public function testSetAndGetTemplate()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Template Object
+        $tpl = new D2LWS_OrgUnit_CourseTemplate_Model();
+        $tpl->setID(123456);
+        $testObj->setTemplate($tpl);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that the field was updated
+        $this->assertEquals(123456, $testObj->getTemplateID());
+        $this->assertEquals('Desire2Learn', $testObj->getTemplateSource());
+        
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, array('TemplateID'));
+    }
+    
     /**
      * Test that setIsActive and isActive work as expected
      */
@@ -228,7 +294,7 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that a change occurred in the test object
         $this->assertNotEquals($testObj, $baseObj);
 
-        // Assert that the End Date field was updated
+        // Assert that the field was updated
         $this->assertEquals('2011-06-04T05:12:34', $testObj->getEndDate());
 
         // Assert that no other return values were affected
@@ -312,78 +378,12 @@ class D2LWS_OrgUnit_CourseOffering_ModelTest extends GenericTestCase
         // Assert that "Allows Sections" flag was updated
         $this->assertNotEquals('something', (string)$testObj->allowsSections());
     }
-    
-    /**
-     * Defines the methods we should test
-     * @var array
-     */
-    protected $_methodsToTest = array(
-        'ID'=>array(
-            'get'=>'getID',
-            'set'=>'setID'
-        ),
-        'Name'=>array(
-            'get'=>'getName',
-            'set'=>'setName'
-        ),
-        'Code'=>array(
-            'get'=>'getCode',
-            'set'=>'setCode'
-        ),
-        'Path'=>array(
-            'get'=>'getPath',
-            'set'=>'setPath'
-        ),
-        'Active'=>array(
-            'get'=>'isActive',
-            'set'=>'setIsActive'
-        ),
-        'StartDate'=>array(
-            'get'=>'getStartDate',
-            'set'=>'setStartDate'
-        ),
-        'EndDate'=>array(
-            'get'=>'getEndDate',
-            'set'=>'setEndDate'
-        ),
-        'CanRegister'=>array(
-            'get'=>'canRegister',
-            'set'=>'setCanRegister'
-        ),
-        'AllowSections'=>array(
-            'get'=>'allowsSections',
-            'set'=>'setAllowSections'
-        ),
-    );
-
-    /**
-     * Create an empty mock object
-     */
-    protected function _createMockDataObject()
-    {
-        $obj = new stdClass();
-        
-        $obj->OrgUnitId = new stdClass();
-        $obj->OrgUnitId->Id = 0;
-        $obj->OrgUnitId->Source = "Desire2Learn";
-
-        $obj->Name = '';
-        $obj->Code = '';
-        $obj->Path = '';
-        $obj->IsActive = false;
-        $obj->StartDate = '';
-        $obj->EndDate = '';
-        $obj->CanRegister = false;
-        $obj->AllowSections = false;
-
-        return $obj;
-    }
 
     /**
      * Create mock model object
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_CourseOffering_Model($this->_createMockDataObject());
+         return new D2LWS_OrgUnit_CourseOffering_Model();
     }
 }

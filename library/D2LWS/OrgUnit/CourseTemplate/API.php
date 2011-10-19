@@ -48,5 +48,99 @@ class D2LWS_OrgUnit_CourseTemplate_API extends D2LWS_Common
             throw new D2LWS_OrgUnit_CourseTemplate_Exception_NotFound('Id=' . $id);
         }
     }
+
+    /**
+     * Find course template by code
+     * @param string $code
+     * @return D2LWS_OrgUnit_CourseTemplate_Model
+     * @throws D2LWS_OrgUnit_CourseTemplate_Exception_NotFound
+     */
+    public function findByCode($code)
+    {
+        $i = $this->getInstance();
+
+        //TODO: handle exceptions from SOAP client
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->GetCourseTemplateByCode(array(
+                'Code'=>$code
+            ));
+
+        if ( $result instanceof stdClass && isset($result->CourseTemplate) && $result->CourseTemplate instanceof stdClass )
+        {
+            $Template = new D2LWS_OrgUnit_CourseTemplate_Model($result->CourseTemplate);
+            return $Template;
+        }
+        else
+        {
+            //TODO: more descriptive exception message?
+            throw new D2LWS_OrgUnit_CourseTemplate_Exception_NotFound('Code=' . $code);
+        }
+    }
+    
+    /**
+     * Persist Course Template object to Desire2Learn
+     * @param D2LWS_OrgUnit_CourseTemplate_Model $o Course Template
+     * @return bool
+     * @throws D2LWS_Soap_Client_Exception on server error
+     */
+    public function save(D2LWS_OrgUnit_CourseTemplate_Model &$o)
+    {
+        $data = $o->getRawData();        
+        $i = $this->getInstance();     
+        
+        if ( is_null($o->getID()) )
+        {
+            unset($data->OrgUnitId);
+            
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->CreateCourseTemplate($data);
+            
+            if ( $result instanceof stdClass && isset($result->CourseTemplate) )
+            {
+                $o = new D2LWS_OrgUnit_CourseTemplate_Model($result->CourseTemplate);
+                return true;
+            }
+        }
+        else
+        {
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                ->setLocation($i->getConfig('webservice.org.endpoint'))
+                ->UpdateCourseTemplate(array(
+                      'CourseTemplate'=>(array)$data
+                  ));
+            return ( $result instanceof stdClass );
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Delete Course Template object from Desire2Learn
+     * @param D2LWS_OrgUnit_CourseTemplate_Model $o Course Template
+     * @return bool
+     */
+    public function delete(D2LWS_OrgUnit_CourseTemplate_Model &$o)
+    {
+        if ( is_null($o->getID()) ) {
+            return false;
+        }
+        
+        $i = $this->getInstance();
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->DeleteCourseTemplate(array(
+                  'OrgUnitId'=>array(
+                      'Id'=>$o->getID(),
+                      'Source'=>'Desire2Learn'
+                  )
+              ));
+        return ( $result instanceof stdClass );
+    }
     
 }

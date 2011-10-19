@@ -28,7 +28,15 @@ class D2LWS_Role_Model extends D2LWS_Abstract_Model
     /**
      * Initialize Default Data Structure
      */
-    public function init() {}
+    public function init() 
+    {
+        $this->_data = new stdClass();
+        $this->_data->RoleId = new stdClass();
+        $this->_data->RoleId->Id = NULL;
+        $this->_data->RoleId->Source = 'Desire2Learn';
+        $this->_data->Name = '';
+        $this->_data->Code = '';
+    }
     
     /**
      * Get D2L Role ID

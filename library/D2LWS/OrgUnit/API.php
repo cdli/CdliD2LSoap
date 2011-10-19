@@ -148,7 +148,7 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
             
             foreach ( $typeResult->OrgUnitIds as $OrgUnit )
             {
-                if ( isset($OrgUnit->OrgUnitIdentifier) )
+                if ( isset($OrgUnit->OrgUnitIdentifier) && isset($OrgUnit->OrgUnitIdentifier->OrgUnitRole) )
                 {
                     if ( in_array($OrgUnit->OrgUnitIdentifier->OrgUnitRole, $SearchTypes) )
                     {
@@ -204,6 +204,30 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
         }
         
         return $Enrollments;
+    }
+    
+    /**
+     * Create Parent-Child Association between Org Units
+     * @param D2LWS_OrgUnit_Model $parent
+     * @param D2LWS_OrgUnit_Model $child 
+     */
+    public function createParentChildAssociation(D2LWS_OrgUnit_Model $parent, D2LWS_OrgUnit_Model $child)
+    {
+        $i = $this->getInstance();  
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.org.wsdl'))
+            ->setLocation($i->getConfig('webservice.org.endpoint'))
+            ->AddChildOrgUnit(array(
+                'OrgUnitId'=>array(
+                    'Id'=>$parent->getID(),
+                    'Source'=>'Desire2Learn'
+                ),
+                'ChildOrgUnitId'=>array(
+                    'Id'=>$child->getID(),
+                    'Source'=>'Desire2Learn'
+                )
+            ));
+        return ( $result instanceof stdClass && empty($result) );
     }
     
 }

@@ -19,11 +19,6 @@
  */
 
 /**
- * Include the test case definition
- */
-require_once "UserTestCase.php";
-
-/**
  * PHPUnit test for D2LWS_User_API
  * @author Adam Lundrigan <adamlundrigan@cdli.ca>
  * 
@@ -31,7 +26,7 @@ require_once "UserTestCase.php";
  * @group D2LWS_API
  * @group D2LWS_User
  */
-class D2LWS_User_APITest extends UserTestCase
+class D2LWS_User_APITest extends GenericTestCase
 {
     /**
      * Load an existing user by ID
@@ -291,6 +286,15 @@ class D2LWS_User_APITest extends UserTestCase
         $guid = $apiUser->performSSO($o);
 
         $this->assertEquals(false, $guid);
+    }
+    
+    /**
+     * Create mock model object
+     * @return D2LWS_User_Model
+     */
+    public function _createMockModel()
+    {
+        return new D2LWS_User_Model();
     }
     
 }

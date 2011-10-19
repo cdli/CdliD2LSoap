@@ -24,6 +24,15 @@
  */
 abstract class LiveTestCase extends GenericTestCase
 {
+    
+    public function setUp()
+    {
+        parent::setUp();
+        if ( ! $this->config->phpunit->live->run_live_tests )
+        {
+            $this->markTestSkipped('Live Tests are Disabled');
+        }
+    }
 
     /**
      * Retrieve Instance of Test Course Offering

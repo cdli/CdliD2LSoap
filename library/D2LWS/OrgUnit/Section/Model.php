@@ -44,6 +44,10 @@ class D2LWS_OrgUnit_Section_Model extends D2LWS_OrgUnit_Model
         $this->_data->Description = new stdClass();
         $this->_data->Description->Text = "";
         $this->_data->Description->IsHtml = 1;
+        
+        $this->_data->CourseOfferingId = new stdClass();
+        $this->_data->CourseOfferingId->Id = NULL;
+        $this->_data->CourseOfferingId->Source = 'Desire2Learn';
     }
 
     /**
@@ -109,6 +113,44 @@ class D2LWS_OrgUnit_Section_Model extends D2LWS_OrgUnit_Model
      * @param $tf bool - true=HTML, false=plain
      * @return $this
      */
-    public function setIsDescriptionHTML($tf) { $this->_data->Description->IsHtml = ($tf==true); return $this; }
+    public function setIsDescriptionHTML($tf) { $this->_data->Description->IsHtml = ($tf==true); return $this; }    
+
+    /**
+     * Get Course Offering OUID
+     * @return int
+     */
+    public function getCourseOfferingID() { return $this->_data->CourseOfferingId->Id; }
+
+    /**
+     * Set Course Offering OUID
+     * @param int $id Course Offering OUID
+     * @return $this
+     */
+    public function setCourseOfferingID($id) { $this->_data->CourseOfferingId->Id = $id; return $this; }
+    
+    /**
+     * Get Course Offering Source
+     * @return string 
+     */
+    public function getCourseOfferingSource() { return $this->_data->CourseOfferingId->Source; }
+    
+    /**
+     * Set Course Offering Source
+     * @param string $source Course Offering Source
+     * @return $this
+     */
+    public function setCourseOfferingSource($source) { $this->_data->CourseOfferingId->Source = $source; return $this; }
+    
+    /**
+     * Set Course Offering
+     * @param D2LWS_OrgUnit_CourseOffering_Model $tpl CourseOffering
+     * @return $this;
+     */
+    public function setCourseOffering(D2LWS_OrgUnit_CourseOffering_Model $tpl)
+    {
+        $this->setCourseOfferingID($tpl->getID());
+        $this->setCourseOfferingSource('Desire2Learn');
+        return $this;
+    }
 
 }

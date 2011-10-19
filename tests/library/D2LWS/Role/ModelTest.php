@@ -123,46 +123,10 @@ class D2LWS_Role_ModelTest extends GenericTestCase
     }
 
     /**
-     * Defines the methods we should test
-     * @var array
-     */
-    protected $_methodsToTest = array(
-        'RoleID'=>array(
-            'get'=>'getRoleID',
-            'set'=>'setRoleID'
-        ),
-        'RoleName'=>array(
-            'get'=>'getRoleName',
-            'set'=>'setRoleName'
-        ),
-        'RoleCode'=>array(
-            'get'=>'getRoleCode',
-            'set'=>'setRoleCode'
-        )
-    );
-
-    /**
-     * Create an empty mock object
-     */
-    protected function _createMockDataObject()
-    {
-        $obj = new stdClass();
-        
-        $obj->RoleId = new stdClass();
-        $obj->RoleId->Id = 0;
-        $obj->RoleId->Source = "Desire2Learn";
-
-        $obj->Name = '';
-        $obj->Code = '';
-
-        return $obj;
-    }
-
-    /**
      * Create mock model object
      */
     protected function _createMockModel()
     {
-         return new D2LWS_Role_Model($this->_createMockDataObject());
+         return new D2LWS_Role_Model();
     }
 }

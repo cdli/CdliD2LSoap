@@ -339,6 +339,31 @@ class D2LWS_User_API extends D2LWS_Common
         
         return false;
     }
+        
+    /**
+     * Delete User from D2L
+     * @param D2LWS_User_Model $u User to delete
+     * @return bool success?
+     */
+    public function delete(D2LWS_User_Model $u)
+    {
+        if ( !is_null($u->getUserID()) )
+        {
+            $i = $this->getInstance();
+            $result = $i->getSoapClient()
+                ->setWsdl($i->getConfig('webservice.user.wsdl'))
+                ->setLocation($i->getConfig('webservice.user.endpoint'))
+                ->DeleteUser(array(
+                    'UserId'=>array(
+                        'Id'=>$u->getUserID(),
+                        'Source'=>'Desire2Learn'
+                    )
+                ));
+            
+            return ( $result instanceof stdClass );
+        }
+        return false;
+    }
     
     /**
      * Construct Request Structure for transmission via SOAP

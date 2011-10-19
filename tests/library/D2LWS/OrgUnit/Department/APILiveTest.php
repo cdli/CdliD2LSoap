@@ -72,4 +72,75 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
         $objDepartment = $this->service->findByID($ouid);
     }
     
+    /**
+     * Fetch our test course template by it's code
+     * @depends testFindByIdentifierWhichExists
+     */
+    public function testFindByCodeWhichExists(D2LWS_OrgUnit_Department_Model $o)
+    {
+        $objDepartment = $this->service->findByCode($o->getCode());
+        $this->assertInstanceOf('D2LWS_OrgUnit_Department_Model', $objDepartment);        
+        $this->assertEquals($o,$objDepartment);
+    }
+    
+    /**
+     * Attempt to fetch a non-existent OUID
+     * @expectedException D2LWS_OrgUnit_Department_Exception_NotFound
+     */
+    public function testFindByCodeWhichDoesNotExist()
+    {
+        $objDepartment = $this->service->findByCode(md5(uniqid("")));
+    }
+    
+    public function testCreateDepartment()
+    {
+        $obj = new D2LWS_OrgUnit_Department_Model();
+        $obj->setName('zfD2L Test Department')
+            ->setCode('zfd2ltestdept')
+            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestdept')
+            ->setIsActive(true)
+            ->setStartDate(date("Y-m-d\TH:i:s"))
+            ->setEndDate(date("Y-m-d\TH:i:s", time()+600));
+
+        $this->assertTrue($this->service->save($obj));
+        $this->assertNotNull($obj->getID());
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        //@todo For some reason, our D2L dev server adds 5h to timestamps.  Ignore for now
+        //$this->assertEquals($obj, $savedObj);
+        $this->_assertModelsSameExcept($obj, $savedObj, array('StartDate','EndDate'));
+        
+        return $obj;
+    }
+ 
+    /**
+     * @depends testCreateDepartment
+     */
+    public function testUpdateDepartment(D2LWS_OrgUnit_Department_Model $obj)
+    {
+        $obj->setCode('zfd2ltestdept_update');
+        $this->assertTrue($this->service->save($obj));
+        
+        $savedObj = $this->service->findByID($obj->getID());
+        $this->assertEquals($obj, $savedObj);
+        $this->assertEquals('zfd2ltestdept_update', $savedObj->getCode());
+    }
+    
+    /**
+     * @depends testCreateDepartment
+     * @expectedException D2LWS_OrgUnit_Department_Exception_NotFound
+     */
+    public function testDeleteDepartment(D2LWS_OrgUnit_Department_Model $obj)
+    {
+        $this->assertTrue($this->service->delete($obj));
+        $savedObj = $this->service->findByID($obj->getID());
+    }
+    
+    /**
+     * @depends testCreateDepartment
+     */
+    public function testDeleteUnsavedDepartment(D2LWS_OrgUnit_Department_Model $obj)
+    {
+        $this->assertFalse($this->service->delete(new D2LWS_OrgUnit_Department_Model()));
+    }    
 }

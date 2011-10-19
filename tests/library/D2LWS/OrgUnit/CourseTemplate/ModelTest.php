@@ -234,68 +234,12 @@ class D2LWS_OrgUnit_CourseTemplate_ModelTest extends GenericTestCase
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'EndDate');
     }
-    
-    /**
-     * Defines the methods we should test
-     * @var array
-     */
-    protected $_methodsToTest = array(
-        'ID'=>array(
-            'get'=>'getID',
-            'set'=>'setID'
-        ),
-        'Name'=>array(
-            'get'=>'getName',
-            'set'=>'setName'
-        ),
-        'Code'=>array(
-            'get'=>'getCode',
-            'set'=>'setCode'
-        ),
-        'Path'=>array(
-            'get'=>'getPath',
-            'set'=>'setPath'
-        ),
-        'Active'=>array(
-            'get'=>'isActive',
-            'set'=>'setIsActive'
-        ),
-        'StartDate'=>array(
-            'get'=>'getStartDate',
-            'set'=>'setStartDate'
-        ),
-        'EndDate'=>array(
-            'get'=>'getEndDate',
-            'set'=>'setEndDate'
-        )
-    );
-
-    /**
-     * Create an empty mock object
-     */
-    protected function _createMockDataObject()
-    {
-        $obj = new stdClass();
-        
-        $obj->OrgUnitId = new stdClass();
-        $obj->OrgUnitId->Id = 0;
-        $obj->OrgUnitId->Source = "Desire2Learn";
-
-        $obj->Name = '';
-        $obj->Code = '';
-        $obj->Path = '';
-        $obj->IsActive = false;
-        $obj->StartDate = '';
-        $obj->EndDate = '';
-
-        return $obj;
-    }
 
     /**
      * Create mock model object
      */
     protected function _createMockModel()
     {
-         return new D2LWS_OrgUnit_CourseTemplate_Model($this->_createMockDataObject());
+         return new D2LWS_OrgUnit_CourseTemplate_Model();
     }
 }
