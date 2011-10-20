@@ -49,7 +49,7 @@ class D2LWS_Instance
     
     /**
      * Stores an instance of the SOAP client
-     * @type D2LWS_Soap_Client_Interface
+     * @type D2LWS_Soap_Client
      */
     protected $_soapObj = NULL;    
     
@@ -129,23 +129,18 @@ class D2LWS_Instance
     {
         if ( is_null($this->_soapObj) )
         {
-            $this->_soapObj = new D2LWS_Soap_Client(NULL, array('trace'=>1, 'exceptions'=>1));
+            $this->_soapObj = new D2LWS_Soap_Client_Live(NULL, array('trace'=>1, 'exceptions'=>1));
             $this->_soapObj->setInstance($this);
         }
-        //AAL 20110202 -- 'clone' gets around an issue with the SOAP client
-        // setWsdl() and setLocation() only work the first time
-        // Subsequent calls don't seem to change the endpoint URL
-        return $this->_soapObj instanceof D2LWS_Soap_Client
-            ? clone $this->_soapObj
-            : $this->_soapObj;
+        return $this->_soapObj;
     }
 
     /**
      * Set SOAP client instance
-     * @param D2LWS_Soap_Client_Interface $sc
+     * @param D2LWS_Soap_Client $sc
      * @return D2LWS_Instance fluent interface
      */
-    public function setSoapClient(D2LWS_Soap_Client_Interface $sc)
+    public function setSoapClient(D2LWS_Soap_Client $sc)
     {
         $this->_soapObj = $sc;
         return $this;
@@ -194,7 +189,7 @@ class D2LWS_Instance
 if ( D2LWS_MANUAL_AUTOLOADER )
 {
     // Add D2LWS library to the include path
-    set_include_path(D2LWS_BASE . PATH_SEPARATOR . get_include_path());
+    set_include_path(D2LWS_BASE . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . PATH_SEPARATOR . get_include_path());
     
     // Push the D2LWS Autoloader
     spl_autoload_register(function($class){
