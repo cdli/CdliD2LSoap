@@ -48,7 +48,7 @@ class D2LWS_InstanceLiveTest extends GenericTestCase
     {
         $o = $this->_getInstanceManager();
         $this->assertInstanceOf("D2LWS_Instance", $o);
-        $this->assertInstanceOf("D2LWS_Soap_Client_Interface", $o->getSoapClient());
+        $this->assertInstanceOf("D2LWS_Soap_Client", $o->getSoapClient());
     }
 
     /**

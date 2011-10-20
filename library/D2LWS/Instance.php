@@ -49,7 +49,7 @@ class D2LWS_Instance
     
     /**
      * Stores an instance of the SOAP client
-     * @type D2LWS_Soap_Client_Interface
+     * @type D2LWS_Soap_Client
      */
     protected $_soapObj = NULL;    
     
