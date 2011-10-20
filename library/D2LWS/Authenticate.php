@@ -73,6 +73,33 @@ class D2LWS_Authenticate extends D2LWS_Common
     }
     
     /**
+     * Get number of uses remaining on current token
+     * @return int
+     */
+    public function getTokenRemainingUseCount()
+    {
+        return $this->_tokenMaxUse;
+    }
+    
+    /**
+     * Get timestamp of token expiry
+     * @return int
+     */
+    public function getTokenExpiry()
+    {
+        return $this->_tokenExpires;
+    }
+    
+    /**
+     * Get number of seconds remaining in token's life
+     * @return int
+     */
+    public function getTokenTimeRemaining()
+    {
+        return ( $this->getTokenExpiry() - time() );
+    }
+    
+    /**
      * Authenticate against D2L web service
      * @return boolean - true if authenticated, false otherwise
      */
