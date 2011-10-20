@@ -194,7 +194,7 @@ class D2LWS_Instance
 if ( D2LWS_MANUAL_AUTOLOADER )
 {
     // Add D2LWS library to the include path
-    set_include_path(D2LWS_BASE . PATH_SEPARATOR . get_include_path());
+    set_include_path(D2LWS_BASE . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . PATH_SEPARATOR . get_include_path());
     
     // Push the D2LWS Autoloader
     spl_autoload_register(function($class){
