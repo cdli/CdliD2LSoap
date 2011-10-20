@@ -137,10 +137,10 @@ class D2LWS_Instance
 
     /**
      * Set SOAP client instance
-     * @param D2LWS_Soap_Client_Interface $sc
+     * @param D2LWS_Soap_Client $sc
      * @return D2LWS_Instance fluent interface
      */
-    public function setSoapClient(D2LWS_Soap_Client_Interface $sc)
+    public function setSoapClient(D2LWS_Soap_Client $sc)
     {
         $this->_soapObj = $sc;
         return $this;

@@ -21,7 +21,7 @@
 /**
  * Mock SOAP Client
  */
-class MockSoapClient extends Zend_Soap_Client implements D2LWS_Soap_Client_Interface
+class MockSoapClient extends Zend_Soap_Client implements D2LWS_Soap_Client
 {
 
     /**
