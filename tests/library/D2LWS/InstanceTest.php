@@ -36,7 +36,7 @@ class D2LWS_InstanceTest extends GenericTestCase
         $o = $this->_getInstanceManagerWithMockSoapClient();
         $this->assertInstanceOf("D2LWS_Instance", $o);
         $this->assertInstanceOf("MockSoapClient", $o->getSoapClient());
-        $this->assertInstanceOf("D2LWS_Soap_Client_Interface", $o->getSoapClient());
+        $this->assertInstanceOf("D2LWS_Soap_Client", $o->getSoapClient());
     }
 
     /**
@@ -58,7 +58,7 @@ class D2LWS_InstanceTest extends GenericTestCase
     {
         $o = $this->_getInstanceManager();
         //TODO: Remove @ once error with undefined constant SOAP_1_2 is located and fixed
-        $this->assertInstanceOf("D2LWS_Soap_Client_Interface", @$o->getSoapClient());
+        $this->assertInstanceOf("D2LWS_Soap_Client", @$o->getSoapClient());
     }
 
     /**
