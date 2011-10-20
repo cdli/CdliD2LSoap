@@ -21,7 +21,7 @@
 /**
  * SOAP Client Interface
  */
-interface D2LWS_Soap_Client_Interface
+interface D2LWS_Soap_Client
 {
     /**
      * Default constructor for SOAP client
