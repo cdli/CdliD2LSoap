@@ -270,6 +270,27 @@ class D2LWS_User_ModelTest extends GenericTestCase
     }
     
     /**
+     * @group GH-9
+     */
+    public function testSetAndGetBirthDateWithNumericalTimestamp()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Birth Date
+        $testObj->setBirthDate(1234567890);
+        
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that Birth Date field was updated
+        $this->assertEquals(date("Y-m-d\TH:i:sP", 1234567890), $testObj->getBirthDate());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'BirthDate');
+    }
+    
+    /**
      * Create mock model object
      * @return D2LWS_User_Model
      */
