@@ -106,9 +106,7 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
         $this->assertNotNull($obj->getID());
         
         $savedObj = $this->service->findByID($obj->getID());
-        //@todo For some reason, our D2L dev server adds 5h to timestamps.  Ignore for now
-        //$this->assertEquals($obj, $savedObj);
-        $this->_assertModelsSameExcept($obj, $savedObj, array('StartDate','EndDate'));
+        $this->assertEquals($obj, $savedObj);
         
         return $obj;
     }
