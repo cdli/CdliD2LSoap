@@ -193,8 +193,11 @@ if ( D2LWS_MANUAL_AUTOLOADER )
     
     // Push the D2LWS Autoloader
     spl_autoload_register(function($class){
-        require_once 
-            preg_replace("|[^a-z0-9-.]|i", DIRECTORY_SEPARATOR, $class)
-            . ".php";
+        if ( preg_match("{^(D2LWS|Zend)_}", $class) ) 
+        {
+            require_once 
+                preg_replace("|[^a-z0-9-.]|i", DIRECTORY_SEPARATOR, $class)
+                . ".php";
+        }
     });
 }
