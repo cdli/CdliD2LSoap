@@ -72,6 +72,7 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
                     {
                         // The GetChild<type>s method calls don't return their type
                         if ( !isset($ouObj->OrgUnitRole) ) $ouObj->OrgUnitRole = $Type;
+                        $ouObj->hasData = ( $Type != '*' );
                         $ChildOrgUnits[] = $ouObj;
                     }
                 }
@@ -97,12 +98,20 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
                 $ouAPI = $this->getSubtypeAPI($OUI->OrgUnitRole);
                 if ( $ouAPI instanceof D2LWS_Common )
                 {
-                    // Create a new instance of the model for this Org Unit type
-                    // We already have the data to build it, so why not...
-                    $className = preg_replace("/_API$/i", "_Model", get_class($ouAPI));
-                    if ( @class_exists($className) )
+                    if ( $OUI->hasData )
                     {
-                        $Children[$subid] = new $className($OUI);
+                        // Create a new instance of the model for this Org Unit type
+                        // We already have the data to build it, so why not...
+                        $className = preg_replace("/_API$/i", "_Model", get_class($ouAPI));
+                        if ( @class_exists($className) )
+                        {
+                           $Children[$subid] = new $className($OUI);
+                        } 
+                    }
+                    else
+                    {
+                        // Otherwise, load via SOAP call
+                        $Children[$subid] = $ouAPI->findByID($OUI->OrgUnitId->Id);
                     }
                 }
             }
