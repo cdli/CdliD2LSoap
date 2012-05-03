@@ -32,48 +32,61 @@ class D2LWS_OrgUnit_API extends D2LWS_Common
      * @todo SOAP method GetChildOrgUnitIds is broken, so we query each org-type-specific method and collate the results.
      * @see https://github.com/cdli/zfD2L/issues/2
      */
-    public function getChildrenOf($ouid, $SearchTypes=NULL)
+    public function getChildrenOf($ouid, $SearchTypes='*')
     {
         $i = $this->getInstance();        
         
         // Default is to search everything
-        if ( is_null($SearchTypes) ) {
-            $SearchTypes = array('CourseTemplate', 'CourseOffering', 'Group', 'Section', 'Department', 'Semester');
+        if ( empty($SearchTypes) ) {
+			$SearchTypes = '*';
         }
         
         $result = new stdClass();
         $ChildOrgUnits = array();
-        foreach ( $SearchTypes as $Type )
+        foreach ( (array)$SearchTypes as $Type )
         {
-            $Function = "GetChild{$Type}s";
-            $InfoField = "{$Type}Info";
+            $Function = ( $Type == '*' ? "GetChildOrgUnitIds" : "GetChild{$Type}s" );
+            $ContainerKey =  ( $Type == '*' ? "OrgUnitIds" : "ChildOrgUnits" );
+            $InfoField =  ( $Type == '*' ? "OrgUnitIdentifier" : "{$Type}Info" );
             
-            $typeResult = $i->getSoapClient()
-                ->setWsdl($i->getConfig('webservice.org.wsdl'))
-                ->setLocation($i->getConfig('webservice.org.endpoint'))
-                ->$Function(array(
-                    'OrgUnitId'=>array(
-                        'Id'=>$ouid,
-                        'Source'=>'Desire2Learn'
-                    )
-                ));
-            
-            if ( $typeResult instanceof stdClass && isset($typeResult->ChildOrgUnits) && isset($typeResult->ChildOrgUnits->$InfoField) )
+            try 
             {
-                // Inconsistency: If only a single child is returned, $InfoField is not an array
-                if ( !is_array($typeResult->ChildOrgUnits->$InfoField) )
+                $typeResult = $i->getSoapClient()
+                    ->setWsdl($i->getConfig('webservice.org.wsdl'))
+                    ->setLocation($i->getConfig('webservice.org.endpoint'))
+                    ->$Function(array(
+                        'OrgUnitId'=>array(
+                            'Id'=>$ouid,
+                            'Source'=>'Desire2Learn'
+                        )
+                    ));
+                if ( $typeResult instanceof stdClass && isset($typeResult->$ContainerKey) && isset($typeResult->$ContainerKey->$InfoField) )
                 {
-                    $typeResult->ChildOrgUnits->$InfoField = array($typeResult->ChildOrgUnits->$InfoField);
-                }
+                    // Inconsistency: If only a single child is returned, $InfoField is not an array
+                    if ( !is_array($typeResult->$ContainerKey->$InfoField) )
+                    {
+                        $typeResult->$ContainerKey->$InfoField = array($typeResult->$ContainerKey->$InfoField);
+                    }
                 
-                foreach ( $typeResult->ChildOrgUnits->$InfoField as $ouObj )
-                {
-                    $ouObj->OrgUnitRole = $Type;
-                    $ChildOrgUnits[] = $ouObj;
+                    foreach ( $typeResult->$ContainerKey->$InfoField as $ouObj )
+                    {
+                        // The GetChild<type>s method calls don't return their type
+                        if ( !isset($ouObj->OrgUnitRole) ) $ouObj->OrgUnitRole = $Type;
+                        $ChildOrgUnits[] = $ouObj;
+                    }
                 }
+            } catch ( Exception $ex ) {
+                /*
+                 * Circumvent GH-2 for users of LE < 9.4
+                 * @see https://github.com/cdli/zfD2L/issues/2)
+                 */
+                if ( preg_match('{Authorization failed}is', $ex->getMessage()) && $Type == '*' ) {
+                    return $this->getChildrenOf($ouid, array('CourseTemplate', 'CourseOffering', 'Group', 'Section', 'Department', 'Semester'));
+                }
+                throw $ex;
             }
         }
-        
+
         $Children = array();        
         if ( count($ChildOrgUnits) > 0 )
         {
