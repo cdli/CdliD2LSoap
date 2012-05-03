@@ -117,10 +117,16 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
     public function testUpdateDepartment(D2LWS_OrgUnit_Department_Model $obj)
     {
         $obj->setCode('zfd2ltestdept_update');
-        $this->assertTrue($this->service->save($obj));
-        
+
+        $errMsg = 'None';
+        try {
+            $this->assertTrue($this->service->save($obj));
+        } catch ( D2LWS_Soap_Client_Exception $ex ) {
+            $errMsg = $ex->getMessage(); 
+        }
+
         $savedObj = $this->service->findByID($obj->getID());
-        $this->assertEquals($obj, $savedObj);
+        $this->assertEquals($obj, $savedObj, 'Exception: '.$errMsg);
         $this->assertEquals('zfd2ltestdept_update', $savedObj->getCode());
     }
     
