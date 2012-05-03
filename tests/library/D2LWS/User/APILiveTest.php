@@ -118,9 +118,30 @@ class D2LWS_User_APILiveTest extends LiveTestCase
      */
     public function testPerformSingleSignon(D2LWS_User_Model $u)
     {
+        // Generate a SSO token
         $token = $this->service->performSSO($u);
         $this->assertTrue($token !== false);
         $this->assertInternalType('string', $token);
+
+        // Perform a HTTP request to check the token
+
+        // ...make sure we have cURL
+        if ( !function_exists('curl_init') )
+            $this->markTestSkipped('cURL extension not found!');
+        
+        // ...run the request
+        $api = $this->_getInstanceManager();
+        $serverUrl = $api->getConfig('webservice.guid.ssoLogin');
+        $ch = curl_init("{$serverUrl}?guid={$token}&username={$u->getUserName()}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // ...check for success
+		$this->assertGreaterThan(0, preg_match('{Location: ([^\s]+)[\r\n]+}is', $response, $locationHeaders));
+        $this->assertNotContains('/d2l/tools/error/401error.asp', $locationHeaders, 'Single Sign-on Failed (Redirect to 401error.asp)');
+        $this->assertContains('/d2l/lp/ouHome/loginHome.d2l', $locationHeaders, 'Single Sign-on Failed (No redirect to loginHome.d2l)');
     }
     
     /**
