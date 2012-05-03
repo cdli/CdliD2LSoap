@@ -19,9 +19,9 @@
  */
 
 /**
- * @see Zend_Application
+ * @see Zend_Config_Ini
  */
-require_once 'Zend/Application.php';
+require_once 'Zend/Config/Ini.php';
 
 /**
  * PHPUnit generic test case
