@@ -18,12 +18,6 @@
  * @author     Thomas Hawkins <thawkins@mun.ca>
  */
 
-define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../'));
-
-// Define application environment
-define('APPLICATION_ENV', 'testing');
-define('APPLICATION_CFG', realpath(APPLICATION_PATH . '/configs/application.ini'));
-
 !defined("D2LWS_MANUAL_AUTOLOADER") && define("D2LWS_MANUAL_AUTOLOADER", true);
 require_once __DIR__ . "/../library/D2LWS/Instance.php";
 
