@@ -26,21 +26,9 @@
  * @group D2LWS_Core
  * @group D2LWS_Live
  */
-class D2LWS_InstanceLiveTest extends GenericTestCase
+class D2LWS_InstanceLiveTest extends LiveTestCase
 {
        
-    /**
-     * Pre-Test Setup
-     */
-    public function setUp()
-    {
-        parent::setUp();
-        if ( @$this->config->phpunit->live->run_live_tests != true )
-        {
-            $this->markTestSkipped('Live-Server Tests are Disabled');
-        }
-    }
-    
     /**
      * Test our ability to load up the instance manager
      */

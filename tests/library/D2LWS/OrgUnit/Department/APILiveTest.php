@@ -53,7 +53,7 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->config->phpunit->live->department->ouid;
+        $ouid = $this->config['phpunit']['live']['department']['ouid'];
         
         $objDepartment = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_Department_Model', $objDepartment);        
@@ -97,7 +97,7 @@ class D2LWS_OrgUnit_Department_APILiveTest extends LiveTestCase
         $obj = new D2LWS_OrgUnit_Department_Model();
         $obj->setName('zfD2L Test Department')
             ->setCode('zfd2ltestdept')
-            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestdept')
+            ->setPath($this->config['phpunit']['live']['storage']['basedir'] . '/zfd2ltestdept')
             ->setIsActive(true)
             ->setStartDate(date("Y-m-d\TH:i:s"))
             ->setEndDate(date("Y-m-d\TH:i:s", time()+600));

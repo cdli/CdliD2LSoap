@@ -18,10 +18,6 @@
  * @author     Thomas Hawkins <thawkins@mun.ca>
  */
 
-/**
- * @see Zend_Config_Ini
- */
-require_once 'Zend/Config/Ini.php';
 
 /**
  * PHPUnit generic test case
@@ -45,10 +41,7 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
     
     public function setUp()
     {
-        $this->config = new Zend_Config_Ini(
-            APPLICATION_CFG,
-            APPLICATION_ENV
-        );
+        $this->config = require __DIR__ . '/configs/testing.config.php';
         parent::setUp();
     }
     
@@ -113,7 +106,10 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
      */
     protected function _getInstanceManager()
     {
-        return new D2LWS_Instance(APPLICATION_PATH . "/configs/desire2learn.ini");
+        return new D2LWS_Instance(array(
+            __DIR__ . '/../configs',
+            __DIR__ . '/configs',
+        ));
     }
 
     /**

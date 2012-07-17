@@ -52,7 +52,7 @@ class D2LWS_User_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->config->phpunit->live->student->ouid;
+        $ouid = $this->config['phpunit']['live']['student']['ouid'];
         
         $objUser = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_User_Model', $objUser);        
@@ -149,7 +149,7 @@ class D2LWS_User_APILiveTest extends LiveTestCase
      */
     public function testGetActiveCourseOfferings(D2LWS_User_Model $u)
     {
-        $course = $this->config->phpunit->live->course_offering->ouid;
+        $course = $this->config['phpunit']['live']['course_offering']['ouid'];
         $offerings = $this->service->getActiveCourseOfferings($u->getUserID());
         $this->assertArrayHasKey($course, $offerings);
         $this->assertArrayHasKey('CourseOffering', $offerings[$course]);
@@ -163,7 +163,7 @@ class D2LWS_User_APILiveTest extends LiveTestCase
      */
     public function testUnenrollUserFromOrgUnit(D2LWS_User_Model $u)
     {
-        $OUID = $this->config->phpunit->live->course_offering->ouid;
+        $OUID = $this->config['phpunit']['live']['course_offering']['ouid'];
         $this->assertTrue($this->service->unenrollUserFromOU($u->getUserID(), $OUID));
         return $u;
     }
@@ -173,14 +173,14 @@ class D2LWS_User_APILiveTest extends LiveTestCase
      */
     public function testEnrollUserInOUASRole(D2LWS_User_Model $u)
     {
-        $OUID = $this->config->phpunit->live->course_offering->ouid;
-        $RoleID = $this->config->phpunit->live->roles->student->ouid;        
+        $OUID = $this->config['phpunit']['live']['course_offering']['ouid'];
+        $RoleID = $this->config['phpunit']['live']['roles']['student']['ouid'];        
         $this->assertTrue($this->service->enrollUserInOUASRole($u->getUserID(), $OUID, $RoleID));
     }
     
     public function testCreateUser()
     {
-        $RoleID = $this->config->phpunit->live->roles->student->ouid;
+        $RoleID = $this->config['phpunit']['live']['roles']['student']['ouid'];
         
         $obj = new D2LWS_User_Model();
         $obj->setUserName('zfd2luser')
@@ -221,7 +221,7 @@ class D2LWS_User_APILiveTest extends LiveTestCase
      */
     public function testUpdateUserWithNewRole(D2LWS_User_Model $obj)
     {
-        $RoleID = $this->config->phpunit->live->roles->observer->ouid;
+        $RoleID = $this->config['phpunit']['live']['roles']['observer']['ouid'];
         
         $obj->setRoleID($RoleID);
         $this->assertTrue($this->service->save($obj));

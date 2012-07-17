@@ -54,8 +54,8 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $grouptype_ouid = $this->config->phpunit->live->group_type->ouid;
-        $offering_ouid = $this->config->phpunit->live->course_offering->ouid;
+        $grouptype_ouid = $this->config['phpunit']['live']['group_type']['ouid'];
+        $offering_ouid = $this->config['phpunit']['live']['course_offering']['ouid'];
         
         $objGroupType = $this->service->findByID($grouptype_ouid, $offering_ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_Group_Type_Model', $objGroupType);        
@@ -73,7 +73,7 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
     {
         $objGroupType = $this->service->findByID(
             '999999999',
-            $this->config->phpunit->live->course_offering->ouid
+            $this->config['phpunit']['live']['course_offering']['ouid']
         );
     }
         
@@ -82,8 +82,8 @@ class D2LWS_OrgUnit_Group_Type_APILiveTest extends LiveTestCase
      */
     public function testGetTypesByOrgUnit()
     {
-        $grouptype_ouid = $this->config->phpunit->live->group_type->ouid;
-        $offering_ouid = $this->config->phpunit->live->course_offering->ouid;
+        $grouptype_ouid = $this->config['phpunit']['live']['group_type']['ouid'];
+        $offering_ouid = $this->config['phpunit']['live']['course_offering']['ouid'];
         
         $objGroupTypes = $this->service->getTypesByOrgUnitID($offering_ouid);
         $this->assertInternalType('array', $objGroupTypes);

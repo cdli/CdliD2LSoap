@@ -52,8 +52,8 @@ class D2LWS_OrgUnit_APILiveTest extends LiveTestCase
      */
     public function testGetChildrenOfOrgUnit()
     {
-        $ouid = $this->config->phpunit->live->semester->ouid;
-        $child_ouid = $this->config->phpunit->live->course_template->ouid;
+        $ouid = $this->config['phpunit']['live']['semester']['ouid'];
+        $child_ouid = $this->config['phpunit']['live']['course_template']['ouid'];
         
         $objChildren = $this->service->getChildrenOf($ouid);
         $this->assertInternalType('array', $objChildren);        

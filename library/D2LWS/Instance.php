@@ -36,10 +36,10 @@ if ( !defined("D2LWS_MANUAL_AUTOLOADER") ) {
 class D2LWS_Instance
 {
     /**
-     * Path to the D2LWS configuration file
-     * @type string
+     * Paths to load D2LWS configuration files from
+     * @type array
      */
-    protected $_configFile = "";
+    protected $_configDirs = array();
     
     /**
      * Configuration storage
@@ -61,19 +61,59 @@ class D2LWS_Instance
     
     /**
      * Create new Desire2Learn Web Service (D2LWS) instance
-     * @param $configFile string - Path to configuration file
+     * @param $configDirs string - Path to configuration file
      */
-    public function __construct($configFile, $configSection=NULL)
+    public function __construct($configDirs)
     {
-        if ( file_exists(realpath($configFile)) )
+        $this->_configDirs = (array)$configDirs;
+        $this->loadConfiguration();
+    }
+
+    /**
+     * Iterate over provided configuration folder locations and load the files,
+     * merging them into a single large configuration array
+     */
+    protected function loadConfiguration()
+    {
+        $mergedConfig = array();
+        $configFileNames = array();
+        
+        foreach ( $this->_configDirs as $dir ) 
         {
-            $this->_configFile = $configFile;
-            $this->_config = new Zend_Config_Ini($configFile, ( is_null($configSection) ? APPLICATION_ENV : $configSection ) );
+            if (!is_dir($dir)) {
+                throw new D2LWS_Exception_ConfigurationFileNotFound('Directory not found: ' . $dir);
+            }
+
+            $it = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator(
+                    $dir,
+                    RecursiveDirectoryIterator::SKIP_DOTS
+                ),
+                RecursiveIteratorIterator::CHILD_FIRST
+            );
+            
+            $configFiles = array();
+            foreach ( $it as $file ) 
+            {
+                if (preg_match("{\.config\.php$}", $file->getFilename()))
+                {
+                    $fileConfig = include $file->getRealPath();
+                    if ( is_array($fileConfig) )
+                    {
+                        array_push($configFileNames, $file->getFileName());
+                        $configFiles[$file->getFileName()] = $fileConfig;
+                    }
+                }
+            }
+
+            ksort($configFiles);
+            foreach ( $configFiles as $fileName=>$fileConfig ) 
+            {
+                $mergedConfig = array_replace_recursive($mergedConfig, $fileConfig);
+            }
         }
-        else
-        {
-            throw new D2LWS_Exception_ConfigurationFileNotFound($configFile);
-        }
+
+        $this->_config = $mergedConfig;
     }
     
     /**
@@ -89,9 +129,9 @@ class D2LWS_Instance
             $val = $this->_config;
             foreach ( $parts as $p )
             {
-                if ( isset($val->{$p}) )
+                if ( isset($val[$p]) )
                 {
-                    $val = $val->{$p};
+                    $val = $val[$p];
                 }
                 else
                 {

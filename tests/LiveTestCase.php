@@ -28,7 +28,7 @@ abstract class LiveTestCase extends GenericTestCase
     public function setUp()
     {
         parent::setUp();
-        if ( ! $this->config->phpunit->live->run_live_tests )
+        if ( ! $this->config['phpunit']['live']['run_live_tests'] )
         {
             $this->markTestSkipped('Live Tests are Disabled');
         }
@@ -41,7 +41,7 @@ abstract class LiveTestCase extends GenericTestCase
     protected function getTestCourseOffering()
     {
         $svc = new D2LWS_OrgUnit_CourseOffering_API($this->_getInstanceManager());
-        return $svc->findByID($this->config->phpunit->live->course_offering->ouid);
+        return $svc->findByID($this->config['phpunit']['live']['course_offering']['ouid']);
     }
  
     /**
@@ -51,7 +51,7 @@ abstract class LiveTestCase extends GenericTestCase
     protected function getTestEmptyCourseOffering()
     {
         $svc = new D2LWS_OrgUnit_CourseOffering_API($this->_getInstanceManager());
-        return $svc->findByID($this->config->phpunit->live->empty_course_offering->ouid);        
+        return $svc->findByID($this->config['phpunit']['live']['empty_course_offering']['ouid']);
     }
     
     /**
@@ -61,7 +61,7 @@ abstract class LiveTestCase extends GenericTestCase
     protected function getTestStudentAccount()
     {
         $svc = new D2LWS_User_API($this->_getInstanceManager());
-        return $svc->findByID($this->config->phpunit->live->student->ouid);        
+        return $svc->findByID($this->config['phpunit']['live']['student']['ouid']);
     }
     
     /**
@@ -72,8 +72,8 @@ abstract class LiveTestCase extends GenericTestCase
     {
         $svc = new D2LWS_OrgUnit_Group_Type_API($this->_getInstanceManager());
         return $svc->findByID(
-            $this->config->phpunit->live->group_type->ouid,
-            $this->config->phpunit->live->course_offering->ouid
+            $this->config['phpunit']['live']['group_type']['ouid'],
+            $this->config['phpunit']['live']['course_offering']['ouid']
         );
     }
     

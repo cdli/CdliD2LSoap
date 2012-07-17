@@ -53,7 +53,7 @@ class D2LWS_OrgUnit_CourseOffering_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->config->phpunit->live->course_offering->ouid;
+        $ouid = $this->config['phpunit']['live']['course_offering']['ouid'];
         
         $objCourseOffering = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_CourseOffering_Model', $objCourseOffering);        
@@ -101,8 +101,8 @@ class D2LWS_OrgUnit_CourseOffering_APILiveTest extends LiveTestCase
         $obj = new D2LWS_OrgUnit_CourseOffering_Model();
         $obj->setName('zfD2L Test Course Offering')
             ->setCode('zfd2ltestco')
-            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestco')
-            ->setTemplateID($this->config->phpunit->live->course_template->ouid)
+            ->setPath($this->config['phpunit']['live']['storage']['basedir'] . '/zfd2ltestco')
+            ->setTemplateID($this->config['phpunit']['live']['course_template']['ouid'])
             ->setIsActive(true)
             ->setStartDate(date("Y-m-d\TH:i:s"))
             ->setEndDate(date("Y-m-d\TH:i:s", time()+600))

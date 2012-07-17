@@ -40,14 +40,14 @@ class D2LWS_InstanceTest extends GenericTestCase
     }
 
     /**
-     * Test that exception will be raised if no configuration file is provided
+     * Test that exception will be raised if an invalid configuration directory is provided
      * @expectedException D2LWS_Exception_ConfigurationFileNotFound
      */
-    public function testInstanceManagerWillThrowExceptionWhenConfigurationFileNotFound()
+    public function testInstanceManagerWillThrowExceptionWhenConfigurationDirectoryNotFound()
     {
         //TODO: Disable @ when error with 'undefined constant SOAP_1_2' has been sorted
-        $i = new D2LWS_Instance("/path/to/non-existent/desire2learn.ini");
-        $this->fail('D2LWS_Instance accepted a non-existent configuration file');
+        $i = new D2LWS_Instance("/path/to/nonexistent/directory");
+        $this->fail('D2LWS_Instance accepted a non-existent configuration directory');
     }
 
     /**

@@ -53,7 +53,7 @@ class D2LWS_OrgUnit_Semester_APILiveTest extends LiveTestCase
      */
     public function testFindByIdentifierWhichExists()
     {
-        $ouid = $this->config->phpunit->live->semester->ouid;
+        $ouid = $this->config['phpunit']['live']['semester']['ouid'];
         
         $objSemester = $this->service->findByID($ouid);
         $this->assertInstanceOf('D2LWS_OrgUnit_Semester_Model', $objSemester);        
@@ -99,7 +99,7 @@ class D2LWS_OrgUnit_Semester_APILiveTest extends LiveTestCase
         $obj = new D2LWS_OrgUnit_Semester_Model();
         $obj->setName('zfD2L Test Semester')
             ->setCode('zfd2ltestsem')
-            ->setPath($this->config->phpunit->live->storage->basedir . '/zfd2ltestsem')
+            ->setPath($this->config['phpunit']['live']['storage']['basedir'] . '/zfd2ltestsem')
             ->setIsActive(true)
             ->setStartDate(date("Y-m-d\TH:i:s"))
             ->setEndDate(date("Y-m-d\TH:i:s", time()+600));
