@@ -21,7 +21,7 @@
 /**
  * SOAP Client
  */
-class D2LWS_Soap_Client_Live_Client extends Zend_Soap_Client implements D2LWS_Soap_Client
+class D2LWS_Soap_Client_Adapter_ZendSoap extends Zend_Soap_Client implements D2LWS_Soap_Client
 {
     /**
      * D2LWS Instance

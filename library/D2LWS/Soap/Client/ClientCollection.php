@@ -21,7 +21,7 @@
 /**
  * SOAP Client
  */
-class D2LWS_Soap_Client_Live implements D2LWS_Soap_Client
+class D2LWS_Soap_Client_ClientCollection implements D2LWS_Soap_Client
 {
     /**
      * D2LWS Instance
@@ -36,6 +36,8 @@ class D2LWS_Soap_Client_Live implements D2LWS_Soap_Client
     protected $_location;
     
     protected $_clients = array();
+
+    protected $_clientClass = 'D2LWS_Soap_Client_Adapter_ZendSoap';
     
     /**
      * Default constructor for SOAP client
@@ -48,6 +50,11 @@ class D2LWS_Soap_Client_Live implements D2LWS_Soap_Client
             'wsdl' => $wsdl,
             'options' => $options
         );
+
+        if (isset($options['clientClassName'])) {
+            $this->setClientClassName($options['clientClassName']);
+            unset($options['clientClassName']);
+        }
     }    
 
     /**
@@ -58,9 +65,10 @@ class D2LWS_Soap_Client_Live implements D2LWS_Soap_Client
      */
     public function __call($method, $args)
     {
+        $clientClass = $this->getClientClassName();
         $clientKey = md5($this->getWsdl() . "@" . $this->getLocation());
         if ( !isset($this->_clients[$clientKey]) ) {
-            $this->_clients[$clientKey] = new D2LWS_Soap_Client_Live_Client(
+            $this->_clients[$clientKey] = new $clientClass(
                 $this->_constructorArgs['wsdl'],
                 $this->_constructorArgs['options']
             );
@@ -116,4 +124,16 @@ class D2LWS_Soap_Client_Live implements D2LWS_Soap_Client
      */
     public function getInstance() { return $this->_instance; }
 
+    public function setClientClassName($name)
+    {
+        if (!class_exists($name)) {
+            throw new Exception('Could not load class: ' . $name);
+        }
+        $this->_clientClass = $name;
+    }
+
+    public function getClientClassName()
+    {
+        return $this->_clientClass;
+    }
 }

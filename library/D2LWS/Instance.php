@@ -169,7 +169,10 @@ class D2LWS_Instance
     {
         if ( is_null($this->_soapObj) )
         {
-            $this->_soapObj = new D2LWS_Soap_Client_Live(NULL, array('trace'=>1, 'exceptions'=>1));
+            $this->_soapObj = new D2LWS_Soap_Client_ClientCollection(NULL, array(
+                'trace'=>1, 
+                'exceptions'=>1,
+            ));
             $this->_soapObj->setInstance($this);
         }
         return $this->_soapObj;
