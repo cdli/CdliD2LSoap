@@ -1,2 +1,2 @@
-application.ini
-desire2learn.ini
+*
+!*.dist

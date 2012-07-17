@@ -1,0 +1,48 @@
+<?php
+
+return array(
+    'phpunit' => array(
+        'live' => array(
+            'run_live_tests' => false,
+            'department' => array(
+                'ouid' => 0,
+            ),
+            'semester' => array(
+                'ouid' => 0,
+            ),
+            'course_template' => array(
+                'ouid' => 0,
+            ),
+            'course_offering' => array(
+                'ouid' => 0,
+            ),
+            'empty_course_offering' => array(
+                'ouid' => 0,
+            ),
+            'group' => array(
+                'ouid' => 0,
+            ),
+            'group_type' => array(
+                'ouid' => 0,
+            ),
+            'section' => array(
+                'ouid' => 0,
+            ),
+            'student' => array(
+                // NOTE: Student must be enrolled in course_offering chosen above
+                'ouid' => 0,
+            ),
+            'roles' => array(
+                'student' => array(
+                    'ouid' => 0,
+                ),
+                'observer' => array(
+                    'ouid' => 0,
+                ),
+            ),
+            'storage' => array(
+                'basedir' => '/content/apitest',
+            ),
+        ),
+    ),
+);

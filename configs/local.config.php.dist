@@ -1,0 +1,35 @@
+<?php
+return array(
+
+    // Debug mode flag
+    'debug' => false,
+
+    // Server-specific configuration
+    'server' => array(
+
+        // Credentials of user to run webservice calls via
+        'username' => '',
+        'password' => '', 
+
+        // OU of your organization
+        'orgUnit' => 6606,
+
+        // Fully-qualified server hostname
+        'hostname' => '',
+
+        // Install code for your D2L instance
+        'installCode' => '',
+
+        // SOAP API developer key
+        'developerkey' => '',
+
+        // Local Private Key for SSO
+        // DOME:  d2l.Tools.Login.LocalPrivateKey
+        'ssoToken' => '',
+
+        // SSO Token Time-To-Live
+        'ssoTTL' => 30,
+
+    ),
+
+);
