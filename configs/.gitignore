@@ -1,2 +1,3 @@
 *
 !*.dist
+!defaults.config.php
