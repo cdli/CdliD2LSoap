@@ -189,10 +189,22 @@ class D2LWS_Instance
     {
         if ( is_null($this->_soapObj) )
         {
-            $this->_soapObj = new D2LWS_Soap_Client_ClientCollection(NULL, array(
-                'trace'=>1, 
+            $options = array(
+                'trace'=>1,
                 'exceptions'=>1,
-            ));
+            );
+
+            $clientClass = $this->getConfig('adapter');
+            if (!empty($clientClass))
+            {
+                if (!preg_match('/^D2LWS_/', $clientClass))
+                {
+                    $clientClass = 'D2LWS_Soap_Client_Adapter_'.$clientClass;
+                }
+                $options['clientClassName'] = $clientClass;
+            }
+
+            $this->_soapObj = new D2LWS_Soap_Client_ClientCollection(NULL, $options);
             $this->_soapObj->setInstance($this);
         }
         return $this->_soapObj;
