@@ -1,7 +1,7 @@
-Desire2Learn API for Zend Framework ![Project status](http://stillmaintained.com/adamlundrigan/zfD2L.png)
-===================================
+PHP Wrapper for Desire2Learn SOAP API
+=====================================
 
-This project aims to provide a robust, complete Zend Framework component for 
+This project aims to provide a robust object-oriented PHP5 wrapper for 
 interacting with the SOAP web service exposed by the [Desire2Learn](http://www.desire2learn.com) 
 Learning Management System (LMS).  
 
@@ -12,7 +12,6 @@ SYSTEM REQUIREMENTS
     * dom
     * SimpleXML
     * soap
-* Zend Framework v1.8+
 * Desire2Learn Learning Environment (LE) v9.0+
     * NOTE: Support for earlier versions is untested.
 
@@ -28,10 +27,10 @@ CONTRIBUTING
 This project is still a work in progress, and there is much ground to cover before it can be considered stable.  There are a number of ways you can help with reaching our goal of providing a robust, easy-to-use and well-documented finished product:
 
 * Run the unit test suite against your Desire2Learn development environment and report the results back to a member of the core maintainers list
-* Report any issues you encounter while using our code to the [Issue Tracker](https://github.com/adamlundrigan/zfD2L/issues)
+* Report any issues you encounter while using our code to the [Issue Tracker](https://github.com/cdli/CdliD2LSoap/issues)
 * Add/update documentation and/or code examples on the project wiki
 * Fill in gaps in the unit test suite
-* Tackle an outstanding issue from the [Issue Tracker](https://github.com/adamlundrigan/zfD2L/issues)
+* Tackle an outstanding issue from the [Issue Tracker](https://github.com/cdli/CdliD2LSoap/issues)
 * Implement SOAP API methods which are currently missing/incomplete
 
 ###Getting Started###
@@ -47,7 +46,7 @@ Once you have completed both of those steps, fork our project into your own GitH
 ###List of Contributors###
 ####Core Maintainers####
 
-* __Adam Lundrigan__<br />Centre for Distance Learning and Innovation
+* __[Adam Lundrigan](http://github.com/adamlundrigan)__<br />Centre for Distance Learning and Innovation
 
 ####Contributors####
 * __Thomas Hawkins__<br />Memorial University of Newfoundland
