@@ -107,8 +107,10 @@ abstract class GenericTestCase extends PHPUnit_Framework_TestCase
     protected function _getInstanceManager()
     {
         $i = new D2LWS_Instance(array(
-            __DIR__ . '/../configs',
-            __DIR__ . '/configs',
+            'dirs' => array(
+                __DIR__ . '/../configs',
+                __DIR__ . '/configs',
+            ),
         ));
 
         if (getenv('SOAP_CLIENT')) {

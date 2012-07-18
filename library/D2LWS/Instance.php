@@ -36,10 +36,10 @@ if ( !defined("D2LWS_MANUAL_AUTOLOADER") ) {
 class D2LWS_Instance
 {
     /**
-     * Paths to load D2LWS configuration files from
+     * Configuration Source Data (Paths and Arrays)
      * @type array
      */
-    protected $_configDirs = array();
+    protected $_configSources = array();
     
     /**
      * Configuration storage
@@ -61,11 +61,11 @@ class D2LWS_Instance
     
     /**
      * Create new Desire2Learn Web Service (D2LWS) instance
-     * @param $configDirs string - Path to configuration file
+     * @param $configuration Configuration sources
      */
-    public function __construct($configDirs)
+    public function __construct($configuration)
     {
-        $this->_configDirs = (array)$configDirs;
+        $this->_configSources = (array)$configuration;
         $this->loadConfiguration();
     }
 
@@ -77,40 +77,52 @@ class D2LWS_Instance
     {
         $mergedConfig = array();
         $configFileNames = array();
-        
-        foreach ( $this->_configDirs as $dir ) 
-        {
-            if (!is_dir($dir)) {
-                throw new D2LWS_Exception_ConfigurationFileNotFound('Directory not found: ' . $dir);
-            }
 
-            $it = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator(
-                    $dir,
-                    RecursiveDirectoryIterator::SKIP_DOTS
-                ),
-                RecursiveIteratorIterator::CHILD_FIRST
-            );
-            
-            $configFiles = array();
-            foreach ( $it as $file ) 
+        if (!isset($this->_configSources['dirs']) && !isset($this->_configSources['config'])) {
+            throw new D2LWS_Exception_MalformedConfiguration('Must specify at least one config source');
+        }
+
+        if (isset($this->_configSources['dirs']))
+        {
+            foreach ( (array)$this->_configSources['dirs'] as $dir ) 
             {
-                if (preg_match("{\.config\.php$}", $file->getFilename()))
+                if (!is_dir($dir)) {
+                    throw new D2LWS_Exception_ConfigurationFileNotFound('Directory not found: ' . $dir);
+                }
+
+                $it = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator(
+                        $dir,
+                        RecursiveDirectoryIterator::SKIP_DOTS
+                    ),
+                    RecursiveIteratorIterator::CHILD_FIRST
+                );
+            
+                $configFiles = array();
+                foreach ( $it as $file ) 
                 {
-                    $fileConfig = include $file->getRealPath();
-                    if ( is_array($fileConfig) )
+                    if (preg_match("{\.config\.php$}", $file->getFilename()))
                     {
-                        array_push($configFileNames, $file->getFileName());
-                        $configFiles[$file->getFileName()] = $fileConfig;
+                        $fileConfig = include $file->getRealPath();
+                        if ( is_array($fileConfig) )
+                        {
+                            array_push($configFileNames, $file->getFileName());
+                            $configFiles[$file->getFileName()] = $fileConfig;
+                        }
                     }
                 }
-            }
 
-            ksort($configFiles);
-            foreach ( $configFiles as $fileName=>$fileConfig ) 
-            {
-                $mergedConfig = array_replace_recursive($mergedConfig, $fileConfig);
+                ksort($configFiles);
+                foreach ( $configFiles as $fileName=>$fileConfig ) 
+                {
+                    $mergedConfig = array_replace_recursive($mergedConfig, $fileConfig);
+                }
             }
+        }
+
+        if (isset($this->_configSources['config']) && is_array($this->_configSources['config']))
+        {
+            $mergedConfig = array_replace_recursive($mergedConfig, $this->_configSources['config']);
         }
 
         $this->_config = $mergedConfig;

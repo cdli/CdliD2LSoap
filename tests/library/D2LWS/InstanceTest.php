@@ -46,7 +46,7 @@ class D2LWS_InstanceTest extends GenericTestCase
     public function testInstanceManagerWillThrowExceptionWhenConfigurationDirectoryNotFound()
     {
         //TODO: Disable @ when error with 'undefined constant SOAP_1_2' has been sorted
-        $i = new D2LWS_Instance("/path/to/nonexistent/directory");
+        $i = new D2LWS_Instance(array('dirs'=>"/path/to/nonexistent/directory"));
         $this->fail('D2LWS_Instance accepted a non-existent configuration directory');
     }
 
