@@ -1,6 +1,6 @@
 <?php
 /**
- * Desire2Learn Web Serivces for Zend Framework
+ * CdliD2LSoap - PHP5 Wrapper for Desire2Learn Web Services
  *
  * LICENSE
  *
