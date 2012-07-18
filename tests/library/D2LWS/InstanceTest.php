@@ -40,15 +40,58 @@ class D2LWS_InstanceTest extends GenericTestCase
     }
 
     /**
+     * Test that exception will be raised if an invalid configuration array is provided
+     * @expectedException D2LWS_Exception_MalformedConfiguration
+     */
+    public function testInstanceManagerWillThrowExceptionWhenConfigurationArgumentIsMalformed()
+    {
+        $i = new D2LWS_Instance("/path/to/Testing12345.php");
+        $this->fail('D2LWS_Instance accepted a malformed configuration argument');
+    }
+
+    /**
      * Test that exception will be raised if an invalid configuration directory is provided
      * @expectedException D2LWS_Exception_ConfigurationFileNotFound
      */
     public function testInstanceManagerWillThrowExceptionWhenConfigurationDirectoryNotFound()
     {
-        //TODO: Disable @ when error with 'undefined constant SOAP_1_2' has been sorted
         $i = new D2LWS_Instance(array('dirs'=>"/path/to/nonexistent/directory"));
         $this->fail('D2LWS_Instance accepted a non-existent configuration directory');
     }
+
+    /**
+     * Test that Instance Manager will accept configuration files instead of directories
+     */
+    public function testInstanceManagerWillAcceptConfigurationFileInPlaceOfDirectory()
+    {
+        $i = new D2LWS_Instance(array('dirs'=>array(
+            __DIR__ . '/_files/config.php'
+        )));
+        $this->assertEquals('FOOBARBAZBAT', $i->getConfig('server.developerkey'));
+    }
+
+
+    /**
+     * Test that Instance Manager will accept an array of configuration values
+     */
+    public function testInstanceManagerWillAcceptAnArrayOfConfigurationValues()
+    {
+        $i = new D2LWS_Instance(array('config'=>array(
+            'debug' => true,
+            'server' => array(
+                'username' => 'foo',
+                'password' => 'bar', 
+                'orgUnit' => 6606,
+                'hostname' => 'http://baz.desire2learn.com',
+                'installCode' => 'BAZ_Test',
+                'developerkey' => 'FOOBARBAZBAT',
+                'ssoToken' => 'OMGTHISISNOTREALLYTHETOKEN',
+                'ssoTTL' => 30,
+            )
+        )));
+        $this->assertEquals('FOOBARBAZBAT', $i->getConfig('server.developerkey'));
+    }
+
 
     /**
      * Test that Instance Manager will create a stock SOAP client if

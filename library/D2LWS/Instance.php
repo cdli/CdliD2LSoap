@@ -86,30 +86,38 @@ class D2LWS_Instance
         {
             foreach ( (array)$this->_configSources['dirs'] as $dir ) 
             {
-                if (!is_dir($dir)) {
-                    throw new D2LWS_Exception_ConfigurationFileNotFound('Directory not found: ' . $dir);
-                }
-
-                $it = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator(
-                        $dir,
-                        RecursiveDirectoryIterator::SKIP_DOTS
-                    ),
-                    RecursiveIteratorIterator::CHILD_FIRST
-                );
-            
-                $configFiles = array();
-                foreach ( $it as $file ) 
+                if (is_dir($dir))
                 {
-                    if (preg_match("{\.config\.php$}", $file->getFilename()))
+                    $it = new RecursiveIteratorIterator(
+                        new RecursiveDirectoryIterator(
+                            $dir,
+                            RecursiveDirectoryIterator::SKIP_DOTS
+                        ),
+                        RecursiveIteratorIterator::CHILD_FIRST
+                    );
+            
+                    $configFiles = array();
+                    foreach ( $it as $file ) 
                     {
-                        $fileConfig = include $file->getRealPath();
-                        if ( is_array($fileConfig) )
+                        if (preg_match("{\.config\.php$}", $file->getFilename()))
                         {
-                            array_push($configFileNames, $file->getFileName());
-                            $configFiles[$file->getFileName()] = $fileConfig;
+                            $fileConfig = include $file->getRealPath();
+                            if ( is_array($fileConfig) )
+                            {
+                                array_push($configFileNames, $file->getFileName());
+                                $configFiles[$file->getFileName()] = $fileConfig;
+                            }
                         }
                     }
+                }
+                elseif (is_file($dir))
+                {
+                    $dir = realpath($dir);
+                    $configFiles[$dir] = include $dir;
+                }
+                else
+                {
+                    throw new D2LWS_Exception_ConfigurationFileNotFound('Directory not found: ' . $dir);
                 }
 
                 ksort($configFiles);
