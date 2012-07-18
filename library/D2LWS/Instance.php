@@ -78,6 +78,13 @@ class D2LWS_Instance
         $mergedConfig = array();
         $configFileNames = array();
 
+        // Preload the base configuration file, if it exists
+        $baseConfigFile = __DIR__ . '/../../configs/defaults.config.php';
+        if (is_file($baseConfigFile))
+        {
+            $this->_config = include_once $baseConfigFile;
+        }
+
         if (!isset($this->_configSources['dirs']) && !isset($this->_configSources['config'])) {
             throw new D2LWS_Exception_MalformedConfiguration('Must specify at least one config source');
         }
@@ -101,7 +108,7 @@ class D2LWS_Instance
                     {
                         if (preg_match("{\.config\.php$}", $file->getFilename()))
                         {
-                            $fileConfig = include $file->getRealPath();
+                            $fileConfig = include_once $file->getRealPath();
                             if ( is_array($fileConfig) )
                             {
                                 array_push($configFileNames, $file->getFileName());
@@ -113,7 +120,7 @@ class D2LWS_Instance
                 elseif (is_file($dir))
                 {
                     $dir = realpath($dir);
-                    $configFiles[$dir] = include $dir;
+                    $configFiles[$dir] = include_once $dir;
                 }
                 else
                 {
@@ -133,7 +140,8 @@ class D2LWS_Instance
             $mergedConfig = array_replace_recursive($mergedConfig, $this->_configSources['config']);
         }
 
-        $this->_config = $mergedConfig;
+        // Merge loaded configuration into global default configuration
+        $this->_config = array_replace_recursive($this->_config, $mergedConfig);
     }
     
     /**
