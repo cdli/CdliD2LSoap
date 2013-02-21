@@ -45,7 +45,7 @@ class D2LWS_Instance
      * Configuration storage
      * @type Zend_Config
      */
-    protected $_config = NULL;
+    protected $_config = array();
     
     /**
      * Stores an instance of the SOAP client
@@ -108,7 +108,7 @@ class D2LWS_Instance
                     {
                         if (preg_match("{\.config\.php$}", $file->getFilename()))
                         {
-                            $fileConfig = include_once $file->getRealPath();
+                            $fileConfig = include $file->getRealPath();
                             if ( is_array($fileConfig) )
                             {
                                 array_push($configFileNames, $file->getFileName());
@@ -141,7 +141,7 @@ class D2LWS_Instance
         }
 
         // Merge loaded configuration into global default configuration
-        $this->_config = array_replace_recursive($this->_config, $mergedConfig);
+        $this->_config = array_replace_recursive((array)$this->_config, (array)$mergedConfig);
     }
     
     /**
