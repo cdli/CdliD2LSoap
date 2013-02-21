@@ -21,7 +21,7 @@
 /**
  * Mock SOAP Client
  */
-class MockSoapClient extends Zend_Soap_Client implements D2LWS_Soap_Client
+class MockSoapClient implements D2LWS_Soap_Client
 {
 
     /**
@@ -111,4 +111,11 @@ class MockSoapClient extends Zend_Soap_Client implements D2LWS_Soap_Client
      */
     public function getInstance() { return $this->_instance; }
 
+    protected $location;
+    public function setLocation($location) { $this->location = $location; return $this; }
+    public function getLocation() { return $this->location; }
+
+    protected $wsdl;
+    public function setWsdl($wsdl) { $this->wsdl = $wsdl; return $this; }
+    public function getWsdl() { return $this->wsdl; }
 }
