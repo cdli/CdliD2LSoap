@@ -188,6 +188,43 @@ class D2LWS_User_API extends D2LWS_Common
             throw new D2LWS_User_Exception_NotFound('No Course Offering Enrollments for UserID=' . $UserID);
         }
     }
+
+    /**
+     * Determine if user is enrolled in the given org unit
+     * @param int|D2LWS_User_Model $uid User
+     * @param int|D2LWS_OrgUnit_Model $ouid Org Unit
+     */
+    public function isUserEnrolledInOU($uid, $ouid) 
+    {
+        return $this->isUserEnrolledInOUAsRole($uid, $ouid, NULL);
+    }
+
+    /**
+     * Determine if user is enrolled in the given org unit
+     * @param int|D2LWS_User_Model $user User
+     * @param int|D2LWS_OrgUnit_Model $ou Org Unit
+     */
+    public function isUserEnrolledInOUAsRole($user, $ou, $role) 
+    {
+        $ouid = $ou instanceof D2LWS_OrgUnit_Model ? $ou->getID() : $ou;
+        $uid  = $user instanceof D2LWS_User_Model ? $user->getUserID() : $user;
+
+        $i = $this->getInstance(); 
+        $result = $i->getSoapClient()
+            ->setWsdl($i->getConfig('webservice.user.wsdl'))
+            ->setLocation($i->getConfig('webservice.user.endpoint'))
+            ->GetOrgUnitEnrollment(array(
+                'OrgUnitId'=>array(
+                    'Id'=>intval($ouid),
+                    'Source'=>'Desire2Learn'
+                ),
+                'UserId'=>array(
+                    'Id'=>intval($uid),
+                    'Source'=>'Desire2Learn'
+                )
+            ));
+        return ( is_null($role) && is_null($result) ) || ( !is_null($role) && $result instanceof stdClass && $result->RoleId->Id == $role );
+    }
         
     /**
      * Enroll user in an OU as the specified role
