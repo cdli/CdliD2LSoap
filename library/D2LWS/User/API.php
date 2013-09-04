@@ -223,7 +223,7 @@ class D2LWS_User_API extends D2LWS_Common
                     'Source'=>'Desire2Learn'
                 )
             ));
-        return ( is_null($role) && is_null($result) ) || ( !is_null($role) && $result instanceof stdClass && $result->RoleId->Id == $role );
+        return ( is_null($role) && is_null($result) ) || ( !is_null($role) && $result instanceof stdClass && $result->OrgUnitEnrollment->RoleId->Id == $role );
     }
         
     /**
