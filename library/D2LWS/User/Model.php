@@ -61,9 +61,9 @@ class D2LWS_User_Model extends D2LWS_Abstract_Model
 
         $this->_data->Demographics = new stdClass();
         $this->_data->Demographics->Gender = new stdClass();
-        $this->_data->Demographics->Gender->_ = '';
+        $this->_data->Demographics->Gender->_ = 'Unknown';
         $this->_data->Demographics->BirthDate = new stdClass();
-        $this->_data->Demographics->BirthDate->_ = '';    
+        $this->_data->Demographics->BirthDate->_ = '0001-01-01T00:00:00-00:00';
     }
     
     /**
