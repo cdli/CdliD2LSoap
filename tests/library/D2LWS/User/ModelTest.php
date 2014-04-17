@@ -289,6 +289,27 @@ class D2LWS_User_ModelTest extends GenericTestCase
         // Assert that no other return values were affected
         $this->_assertModelsSameExcept($testObj, $baseObj, 'BirthDate');
     }
+
+    /**
+     * @group GH-11
+     */
+    public function testSetAndGetBirthDateWorksForOldPeople()
+    {
+        $testObj = $this->_createMockModel();
+        $baseObj = $this->_createMockModel();
+
+        // Set the Birth Date
+        $testObj->setBirthDate(-115939800);
+
+        // Assert that a change occurred in the test object
+        $this->assertNotEquals($testObj, $baseObj);
+
+        // Assert that Birth Date field was updated
+        $this->assertEquals(date("Y-m-d\TH:i:sP", -115939800), $testObj->getBirthDate());
+
+        // Assert that no other return values were affected
+        $this->_assertModelsSameExcept($testObj, $baseObj, 'BirthDate');
+    }
     
     /**
      * Create mock model object

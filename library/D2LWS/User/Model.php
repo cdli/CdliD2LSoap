@@ -224,7 +224,7 @@ class D2LWS_User_Model extends D2LWS_Abstract_Model
     public function setBirthDate($BirthDate) 
     {
         // If given a numerical timestamp, convert it
-        if (preg_match("/^[0-9]+$/i", trim($BirthDate))) {
+        if (preg_match("/^-?[0-9]+$/i", trim($BirthDate))) {
             $BirthDate = date("Y-m-d\TH:i:sP", $BirthDate);
         }
         @$this->_data->Demographics->BirthDate->_ = $BirthDate; return $this; 
